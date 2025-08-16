@@ -1,4 +1,4 @@
-# CAB302--Group-Project
+# CAB302 Group Project
 
 This is a collaborative github repo for our CAB302 Software Development unit at QUT. Our idea is to make an application that fits the theme of 'learning & education' through developing a career pathway application, for students to use when determining the job and life they want to create.
 
