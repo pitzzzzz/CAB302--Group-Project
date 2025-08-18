@@ -3,7 +3,10 @@ public class Main {
 
         System.out.println("Josh Commit!");
         System.out.println("Kathan Commit!");
-        System.out.println("Noah Test");
-        System.out.println("tested");
+        System.out.println("Noah Commit!");
+        System.out.println("Ali Commit!");
+        System.out.println("Quant commit");
+	System.out.println("Bilal commit");
+
         }
     }
