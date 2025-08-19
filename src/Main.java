@@ -9,5 +9,6 @@ public class Main {
 	    System.out.println("Bilal commit");
 
         // Write all of your tutor prac print statments under here
+        System.out.println("Kathan new commit");
         }
     }
