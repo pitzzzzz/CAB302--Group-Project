@@ -6,6 +6,6 @@ public class Main {
         System.out.println("Noah Commit!");
         System.out.println("tested");
         System.out.println("Commit again!");
-        System.out.println("Quant commit");
+        System.out.println("Quant");
         }
     }
