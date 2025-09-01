@@ -8,4 +8,6 @@ module com.javaninjas.careerpathway {
 
     exports com.javaninjas.careerpathway.controllers;
     opens com.javaninjas.careerpathway.controllers to javafx.fxml;
+
+    opens com.javaninjas.careerpathway.pages to javafx.fxml;
 }

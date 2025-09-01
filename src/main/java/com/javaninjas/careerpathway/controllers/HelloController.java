@@ -2,9 +2,16 @@ package com.javaninjas.careerpathway.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
+import java.util.Objects;
 
 public class HelloController {
     @FXML
@@ -34,6 +41,20 @@ public class HelloController {
             messageLabel.setText("Login successful!");
         } else {
             messageLabel.setText("Invalid email or password.");
+        }
+    }
+
+    @FXML
+    private void handleRegisterLink(ActionEvent event) {
+        try {
+            Parent registrationRoot = FXMLLoader.load(
+                    Objects.requireNonNull(getClass().getResource("/com/javaninjas/careerpathway/views/registrationPage.fxml"))
+            );
+            Stage stage = (Stage) ((Hyperlink) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(registrationRoot));
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

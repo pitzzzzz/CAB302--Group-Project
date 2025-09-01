@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Pos?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.javaninjas.careerpathway.pages.registrationPage"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <VBox spacing="10" alignment="CENTER" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20"
+          AnchorPane.rightAnchor="20">
+        <padding>
+            <Insets top="20" right="20" bottom="20" left="20"/>
+        </padding>
+
+        <HBox spacing="10">
+            <TextField fx:id="firstNameField" promptText="First name"/>
+            <TextField fx:id="lastNameField" promptText="Last name"/>
+        </HBox>
+
+        <TextField fx:id="emailField" promptText="Email address"/>
+
+        <TextField fx:id="cityField" promptText="City"/>
+
+        <Label text="Some more questions to personalise your experience" style="-fx-font-weight: bold;"/>
+
+        <HBox spacing="10">
+            <ComboBox fx:id="ageSelect" promptText="How old are you?"/>
+            <ComboBox fx:id="profileRole" promptText="What stage are you on?"/>
+        </HBox>
+
+        <HBox alignment="CENTER_LEFT" spacing="5">
+            <CheckBox fx:id="anonymousCheck"/>
+            <Label text="keep my account ‘anonymous’"/>
+        </HBox>
+
+        <Button text="Register" fx:id="registerButton"
+                onAction="#handleRegister"
+                style="-fx-background-color: #3B82F6; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 8 16; -fx-background-radius: 6;"/>
+
+    </VBox>
+</AnchorPane>
