@@ -1,44 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!-- Import necessary JavaFX classes -->
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.javaninjas.careerpathway.pages.registrationPage"
-            prefHeight="400.0" prefWidth="600.0">
+        <!-- Root container with fixed dimensions and controller binding -->
+<AnchorPane prefHeight="480.0" prefWidth="640.0"
+            xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.javaninjas.careerpathway.pages.registrationPage">
 
-    <VBox spacing="10" alignment="CENTER" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20"
-          AnchorPane.rightAnchor="20">
-        <padding>
-            <Insets top="20" right="20" bottom="20" left="20"/>
-        </padding>
+    <!-- Vertical layout for form content -->
+    <VBox alignment="CENTER" spacing="10"
+          AnchorPane.leftAnchor="20"
+          AnchorPane.rightAnchor="20"
+          AnchorPane.topAnchor="20">
 
-        <HBox spacing="10">
-            <TextField fx:id="firstNameField" promptText="First name"/>
-            <TextField fx:id="lastNameField" promptText="Last name"/>
-        </HBox>
+        <!-- Form title -->
+        <Label text="Registration Form">
+            <font>
+                <Font name="Arial" size="24" />
+            </font>
+        </Label>
 
-        <TextField fx:id="emailField" promptText="Email address"/>
+        <!-- Grid layout for input fields -->
+        <GridPane alignment="CENTER" hgap="10" vgap="10">
+            <!-- Padding around the grid -->
+            <padding>
+                <Insets bottom="10" left="20" right="20" top="10" />
+            </padding>
 
-        <TextField fx:id="cityField" promptText="City"/>
+            <!-- First name input -->
+            <Label text="First name:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <TextField fx:id="firstNameField" promptText="First name" GridPane.columnIndex="0" GridPane.rowIndex="1" />
 
-        <Label text="Some more questions to personalise your experience" style="-fx-font-weight: bold;"/>
+            <!-- Last name input -->
+            <Label text="Last name:" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+            <TextField fx:id="lastNameField" promptText="Last name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-        <HBox spacing="10">
-            <ComboBox fx:id="ageSelect" promptText="How old are you?"/>
-            <ComboBox fx:id="profileRole" promptText="What stage are you on?"/>
-        </HBox>
+            <!-- Email input -->
+            <Label text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+            <TextField fx:id="emailField" promptText="Email address" GridPane.columnIndex="0" GridPane.rowIndex="4" />
 
-        <HBox alignment="CENTER_LEFT" spacing="5">
-            <CheckBox fx:id="anonymousCheck"/>
-            <Label text="keep my account ‘anonymous’"/>
-        </HBox>
+            <!-- City input -->
+            <Label text="City:" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="cityField" promptText="City" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
-        <Button text="Register" fx:id="registerButton"
+            <!-- Section header for additional questions -->
+            <Label style="-fx-font-weight: bold;"
+                   text="Some more questions to personalise your experience"
+                   GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="5" />
+
+            <!-- Age selection dropdown -->
+            <ComboBox fx:id="ageSelect" promptText="How old are you?"
+                      GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="6" />
+
+            <!-- Profile stage selection dropdown -->
+            <ComboBox fx:id="profileRole" promptText="What stage are you on?"
+                      GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="7" />
+
+            <!-- Anonymous account checkbox -->
+            <HBox alignment="CENTER_LEFT" spacing="5"
+                  GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="8">
+                <CheckBox fx:id="anonymousCheck" />
+                <Label text="keep my account ‘anonymous’" />
+            </HBox>
+        </GridPane>
+
+        <!-- Register button with styling and event handler -->
+        <Button fx:id="registerButton"
                 onAction="#handleRegister"
-                style="-fx-background-color: #3B82F6; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 8 16; -fx-background-radius: 6;"/>
-
+                style="-fx-background-color: #3B82F6; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 8 16; -fx-background-radius: 6;"
+                text="Register" />
     </VBox>
 </AnchorPane>
