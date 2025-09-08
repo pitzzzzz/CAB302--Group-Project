@@ -1,4 +1,4 @@
-package com.javaninjas.careerpathway.layouts;
+package com.javaninjas.careerpathway.core.layouts;
 
 
 import javafx.scene.Parent;

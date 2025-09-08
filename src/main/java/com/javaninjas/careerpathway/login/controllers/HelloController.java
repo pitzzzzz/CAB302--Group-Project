@@ -1,4 +1,4 @@
-package com.javaninjas.careerpathway.controllers;
+package com.javaninjas.careerpathway.login.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
