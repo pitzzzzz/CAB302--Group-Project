@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" spacing="16.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+    <padding>
+        <Insets top="16" right="16" bottom="16" left="16" />
+    </padding>
+
+    <Label text="Quiz" style="-fx-font-size:18px; -fx-font-weight:bold;" />
+
+    <BorderPane prefWidth="600" prefHeight="400">
+        <center>
+            <VBox spacing="12" alignment="TOP_LEFT">
+                <Label fx:id="questionLabel" text="Question will appear here" wrapText="true" />
+
+                <!-- Place RadioButtons, CheckBoxes or other choice nodes inside this VBox at runtime -->
+                <VBox fx:id="choicesBox" spacing="8" />
+
+                <Label fx:id="messageLabel" text="" style="-fx-text-fill: red;" />
+            </VBox>
+        </center>
+
+        <bottom>
+            <HBox spacing="10" alignment="CENTER_RIGHT">
+                <padding>
+                    <Insets top="10" right="0" bottom="0" left="0" />
+                </padding>
+                <Button fx:id="prevButton" text="Previous" />
+                <Button fx:id="nextButton" text="Next" />
+                <Button fx:id="submitButton" text="Submit" />
+            </HBox>
+        </bottom>
+    </BorderPane>
+
+</VBox>

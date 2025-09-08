@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+
+<!-- Question screen styled to match onboarding design (3:4) -->
+<VBox xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+      alignment="TOP_CENTER"
+      spacing="16"
+      prefWidth="480"
+      prefHeight="640"
+      style="-fx-background-color: white;">
+
+    <!-- Header area with gray background, indicators and concave curve -->
+    <StackPane prefHeight="210" minHeight="140" maxHeight="260">
+        <Rectangle width="480" height="210" fill="#e6e6e6" />
+
+        <HBox spacing="10" alignment="TOP_CENTER" translateY="18">
+            <Circle radius="6" fill="#374151" />
+            <Circle radius="6" fill="#374151" />
+            <Circle radius="6" fill="#374151" />
+            <Circle radius="6" fill="#374151" />
+            <Circle radius="5" fill="#9ca3af" />
+            <Circle radius="5" fill="#d1d5db" />
+        </HBox>
+
+        <Ellipse radiusX="300" radiusY="80" fill="white" strokeWidth="0" StackPane.alignment="BOTTOM_CENTER" translateY="44" />
+    </StackPane>
+
+    <!-- Content area -->
+    <VBox alignment="TOP_CENTER" spacing="12" prefWidth="420" padding="16">
+        <Label fx:id="questionNumberLabel" text="" style="-fx-font-size:18px; -fx-font-weight:bold;" />
+
+        <Label fx:id="titleLabel" text="Your Interests" style="-fx-font-size:22px; -fx-font-weight:bold;" />
+
+        <Label fx:id="questionLabel" wrapText="true" text="Do you enjoy working with people?" style="-fx-text-fill: #6b7280;" />
+
+        <!-- Likert-style choices -->
+        <HBox fx:id="choicesRow" spacing="18" alignment="CENTER" padding="8">
+            <Label text="highly likely" style="-fx-font-size:10px; -fx-text-fill:#9ca3af;" />
+
+            <ToggleGroup fx:id="choicesGroup" />
+
+            <RadioButton toggleGroup="${choicesGroup}" style="-fx-background-radius:22; -fx-min-width:28; -fx-min-height:28; -fx-pref-width:28; -fx-pref-height:28; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
+            <RadioButton toggleGroup="${choicesGroup}" style="-fx-background-radius:22; -fx-min-width:28; -fx-min-height:28; -fx-pref-width:28; -fx-pref-height:28; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
+            <RadioButton toggleGroup="${choicesGroup}" style="-fx-background-radius:22; -fx-min-width:28; -fx-min-height:28; -fx-pref-width:28; -fx-pref-height:28; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
+            <RadioButton toggleGroup="${choicesGroup}" style="-fx-background-radius:22; -fx-min-width:28; -fx-min-height:28; -fx-pref-width:28; -fx-pref-height:28; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
+            <RadioButton toggleGroup="${choicesGroup}" style="-fx-background-radius:22; -fx-min-width:28; -fx-min-height:28; -fx-pref-width:28; -fx-pref-height:28; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
+
+            <Label text="highly likely" style="-fx-font-size:10px; -fx-text-fill:#9ca3af;" />
+        </HBox>
+
+        <Label fx:id="feedbackLabel" text="" style="-fx-text-fill:#b00020; -fx-font-size:12px;" />
+    </VBox>
+
+    <Region VBox.vgrow="ALWAYS" />
+
+    <!-- Bottom controls -->
+    <VBox alignment="CENTER" spacing="6" prefWidth="420" padding="12">
+        <Button fx:id="continueButton" text="Continue" prefWidth="300" prefHeight="44" style="-fx-background-color:#3b82f6; -fx-text-fill:white; -fx-font-weight:bold; -fx-background-radius:22;" />
+        <Label text="go to previous question" style="-fx-font-size:11px; -fx-text-fill:#374151;" />
+    </VBox>
+
+</VBox>
