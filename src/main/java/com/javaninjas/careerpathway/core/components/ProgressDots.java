@@ -1,0 +1,18 @@
+package com.javaninjas.careerpathway.core.components;
+
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.HBox;
+
+public class ProgressDots extends HBox {
+    public ProgressDots() {
+        try {
+            FXMLLoader f = new FXMLLoader(getClass().getResource("/com/javaninjas/careerpathway/shared/components/ProgressDots.fxml"));
+            f.setRoot(this);
+            f.setController(new ProgressDotsController(this));
+            f.load();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+}
