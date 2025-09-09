@@ -1,78 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- Import necessary JavaFX classes -->
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-        <!-- Root container with fixed dimensions and controller binding -->
-<AnchorPane prefHeight="480.0" prefWidth="640.0"
-            xmlns="http://javafx.com/javafx/17.0.12"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.javaninjas.careerpathway.pages.registrationPage">
+<StackPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.javaninjas.careerpathway.registration.controllers.RegistrationPageController"
+           prefWidth="360" prefHeight="640" style="-fx-background-color: transparent;">
 
-    <!-- Vertical layout for form content -->
-    <VBox alignment="CENTER" spacing="10"
-          AnchorPane.leftAnchor="20"
-          AnchorPane.rightAnchor="20"
-          AnchorPane.topAnchor="20">
+    <!-- Top grey card -->
+    <VBox alignment="TOP_CENTER" spacing="12" prefWidth="320" style="-fx-background-color: #e9e9e9; -fx-background-radius: 12 12 0 0; -fx-padding: 28 18 18 18; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 8,0,0,4);">
+        <Label text="Explore Your\nPathways" alignment="CENTER" style="-fx-font-size: 28px; -fx-font-weight: 700; -fx-text-fill: #111;" />
 
-        <!-- Form title -->
-        <Label text="Registration Form">
-            <font>
-                <Font name="Arial" size="24" />
-            </font>
-        </Label>
+        <!-- benefit circles -->
+        <HBox alignment="CENTER" spacing="28">
+            <Circle radius="20" fill="WHITE" stroke="#cfcfcf" />
+            <Circle radius="20" fill="WHITE" stroke="#cfcfcf" />
+            <Circle radius="20" fill="WHITE" stroke="#cfcfcf" />
+        </HBox>
+        <HBox alignment="CENTER" spacing="40">
+            <Label text="#benefit 1" style="-fx-font-size: 11px; -fx-text-fill: #333;" />
+            <Label text="#benefit 2" style="-fx-font-size: 11px; -fx-text-fill: #333;" />
+            <Label text="#benefit 3" style="-fx-font-size: 11px; -fx-text-fill: #333;" />
+        </HBox>
 
-        <!-- Grid layout for input fields -->
-        <GridPane alignment="CENTER" hgap="10" vgap="10">
-            <!-- Padding around the grid -->
-            <padding>
-                <Insets bottom="10" left="20" right="20" top="10" />
-            </padding>
-
-            <!-- First name input -->
-            <Label text="First name:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-            <TextField fx:id="firstNameField" promptText="First name" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-
-            <!-- Last name input -->
-            <Label text="Last name:" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-            <TextField fx:id="lastNameField" promptText="Last name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-
-            <!-- Email input -->
-            <Label text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-            <TextField fx:id="emailField" promptText="Email address" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-
-            <!-- City input -->
-            <Label text="City:" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="cityField" promptText="City" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-
-            <!-- Section header for additional questions -->
-            <Label style="-fx-font-weight: bold;"
-                   text="Some more questions to personalise your experience"
-                   GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="5" />
-
-            <!-- Age selection dropdown -->
-            <ComboBox fx:id="ageSelect" promptText="How old are you?"
-                      GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="6" />
-
-            <!-- Profile stage selection dropdown -->
-            <ComboBox fx:id="profileRole" promptText="What stage are you on?"
-                      GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="7" />
-
-            <!-- Anonymous account checkbox -->
-            <HBox alignment="CENTER_LEFT" spacing="5"
-                  GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="8">
-                <CheckBox fx:id="anonymousCheck" />
-                <Label text="keep my account ‘anonymous’" />
-            </HBox>
-        </GridPane>
-
-        <!-- Register button with styling and event handler -->
-        <Button fx:id="registerButton"
-                onAction="#handleRegister"
-                style="-fx-background-color: #3B82F6; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 8 16; -fx-background-radius: 6;"
-                text="Register" />
+        <!-- curved divider using Circle clip trick -->
+        <StackPane maxHeight="40" prefHeight="40" style="-fx-padding: 0; -fx-background-color: transparent;">
+            <Region prefWidth="320" prefHeight="40" style="-fx-background-color: #e9e9e9; -fx-shape: 'M0,40 Q160,0 320,40 V40 H0 Z';" />
+        </StackPane>
     </VBox>
-</AnchorPane>
+
+    <!-- White lower panel overlapping the top card -->
+    <VBox alignment="TOP_CENTER" spacing="14" prefWidth="320" style="-fx-background-color: white; -fx-background-radius: 0 0 12 12; -fx-padding: 28 20; -fx-translate-y: 140;">
+        <Label text="some copy about the benefits of the application and some social proof" wrapText="true" style="-fx-text-fill: #333; -fx-font-size: 12px; -fx-alignment: center;" />
+
+    <Button fx:id="createAccountButton" onAction="#handleCreateAccount" text="Create Account" prefWidth="220" prefHeight="40" style="-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-background-radius: 20; -fx-font-size: 14px; -fx-font-weight: 600;" />
+    </VBox>
+
+</StackPane>

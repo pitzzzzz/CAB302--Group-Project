@@ -7,11 +7,11 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class main extends Application {
+public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
                 FXMLLoader fxmlLoader = new FXMLLoader(
-                main.class.getResource("/com/javaninjas/careerpathway/login/views/loginPage.fxml"));
+                Main.class.getResource("/com/javaninjas/careerpathway/login/views/loginPage.fxml"));
 
         // Constants for window size (3:2 aspect ratio)
         double defaultWidth = 1200;

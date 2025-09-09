@@ -3,42 +3,68 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 
-<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javaninjas.careerpathway.login.controllers.HelloController">
+<StackPane fx:id="rootPane" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javaninjas.careerpathway.login.controllers.LoginPageController"
+                     alignment="CENTER" style="-fx-background-color: linear-gradient(to bottom right, #f4f6f8, #eef7ff);">
     <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+        <Insets top="24" right="24" bottom="24" left="24" />
     </padding>
 
-    <Label fx:id="welcomeText" />
-    <Button onAction="#onHelloButtonClick" text="Hello!" />
+        <!-- animated background rectangle (behind content) -->
+        <Rectangle fx:id="bgRect" fill="#f4f6f8" />
 
+        <!-- Outer card (container) -->
+        <VBox alignment="CENTER" spacing="0" maxWidth="760" prefWidth="760">
+                <VBox fx:id="card" alignment="CENTER" spacing="0" maxWidth="720.0" prefWidth="720.0"
+                            style="-fx-background-color: transparent; -fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: transparent; -fx-border-width: 0; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 12,0,0,6);">
+            <padding>
+                <Insets bottom="0" left="0" right="0" top="0" />
+            </padding>
 
+            <!-- Inner white panel (foreground) -->
+                        <VBox alignment="CENTER" spacing="12" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 28; -fx-max-width: 480;">
 
-    <GridPane alignment="CENTER" hgap="10" vgap="10">
+                <!-- Logo / header -->
+                <Label fx:id="welcomeText" text="[ INSERT LOGO ]" alignment="CENTER"
+                       style="-fx-font-size: 14px; -fx-font-weight: 700; -fx-text-fill: #444444; -fx-padding: 6 0 10 0;" />
 
-        <padding>
-            <Insets bottom="20" left="20" right="20" top="20" />
-        </padding>
+                <VBox alignment="CENTER" spacing="10" maxWidth="320">
+                    <!-- Username / Email field -->
+                    <TextField fx:id="emailField" promptText="Username"
+                               prefHeight="36" prefWidth="300"
+                               style="-fx-background-color: white; -fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #d6d6d6; -fx-padding: 0 10 0 10; -fx-font-size: 13px;" />
 
-        <Label text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-        <TextField fx:id="emailField" promptText="Enter your email" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                    <!-- Password field -->
+                    <PasswordField fx:id="passwordField" promptText="Password"
+                                   prefHeight="36" prefWidth="300"
+                                   style="-fx-background-color: white; -fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #d6d6d6; -fx-padding: 0 10 0 10; -fx-font-size: 13px;" />
 
-        <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-        <PasswordField fx:id="passwordField" promptText="Enter your password" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                    <!-- Message label (small, neutral) -->
+                    <Label fx:id="messageLabel"
+                           style="-fx-text-fill: #b00000; -fx-font-size: 12px;" />
 
-        <Button fx:id="submitButton" defaultButton="true" onAction="#handleLogin" prefHeight="20" prefWidth="100" text="Login" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.rowSpan="1">
-            <GridPane.margin>
-                <Insets bottom="20" left="0" right="0" top="20" />
-            </GridPane.margin>
-        </Button>
+                    <!-- Login button (blue, rounded, prominent) -->
+            <Button fx:id="submitButton" defaultButton="true" onAction="#handleLogin" text="Login"
+                prefWidth="260" prefHeight="40"
+                style="-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: 600; -fx-background-radius: 20; -fx-border-radius: 20; -fx-cursor: hand;">
+                        <VBox.margin>
+                            <Insets top="12" bottom="6" />
+                        </VBox.margin>
+                    </Button>
 
-        <HBox alignment="CENTER_LEFT" spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="4">
-            <Label text="Don't have an account?" />
-            <Hyperlink onAction="#handleRegisterLink" text="Click here" />
-        </HBox>
+                    <!-- Signup text stacked beneath the prompt -->
+                    <VBox alignment="CENTER" spacing="4">
+                        <Label text="don't have an account?" style="-fx-font-size: 11px; -fx-text-fill: #6b6b6b; -fx-font-style: italic;" />
+                        <Hyperlink onAction="#handleRegisterLink" text="sign up here" style="-fx-font-size: 11px; -fx-text-fill: #3b82f6; -fx-font-style: italic; -fx-underline: true;" />
+                    </VBox>
 
-        <Label fx:id="messageLabel" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                </VBox>
 
-    </GridPane>
+            </VBox>
 
-</VBox>
+        </VBox>
+
+    </VBox>
+
+</StackPane>

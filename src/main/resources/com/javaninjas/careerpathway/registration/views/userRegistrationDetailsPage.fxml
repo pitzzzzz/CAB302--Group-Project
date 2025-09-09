@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<StackPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+		   fx:controller="com.javaninjas.careerpathway.registration.controllers.UserRegistrationController"
+		   alignment="TOP_CENTER" prefWidth="320" prefHeight="600" style="-fx-padding: 18;">
+
+	<VBox alignment="TOP_CENTER" spacing="12" style="-fx-background-color: #efefef; -fx-background-radius: 12; -fx-padding: 18; -fx-border-radius: 12; -fx-border-color: #bfbfbf;">
+
+		<!-- profile image placeholder -->
+		<StackPane prefHeight="90" prefWidth="90">
+			<Rectangle width="90" height="90" arcWidth="18" arcHeight="18" fill="WHITE" stroke="#cfcfcf" />
+			<Label text="upload profile" style="-fx-font-size: 11px; -fx-text-fill: #444;" StackPane.alignment="BOTTOM_CENTER" />
+		</StackPane>
+
+		<!-- name fields side-by-side -->
+		<HBox spacing="10" alignment="CENTER">
+			<TextField fx:id="firstNameField" promptText="First name..." prefWidth="140" />
+			<TextField fx:id="lastNameField" promptText="Last name..." prefWidth="140" />
+		</HBox>
+
+		<!-- email and city -->
+		<TextField fx:id="emailField" promptText="Your email address..." prefWidth="300" />
+		<TextField fx:id="cityField" promptText="Your city..." prefWidth="300" />
+
+		<!-- section header -->
+		<Label text="Some more questions to personalise your experience" wrapText="true" style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #222;" />
+
+		<!-- two combo boxes side-by-side -->
+		<HBox spacing="12" alignment="CENTER">
+			<ComboBox fx:id="ageSelect" promptText="How old are you?" prefWidth="140" />
+			<ComboBox fx:id="profileStage" promptText="What stage are you?" prefWidth="140" />
+		</HBox>
+
+		<!-- anonymous checkbox -->
+		<HBox alignment="CENTER_LEFT" spacing="6">
+			<Label text="keep my account 'anonymous'" />
+			<CheckBox fx:id="anonymousCheck" />
+		</HBox>
+
+		<!-- register button centered -->
+		<Button fx:id="registerButton" text="Register" prefWidth="220" prefHeight="40" style="-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: 700; -fx-background-radius: 20;" />
+
+	</VBox>
+
+</StackPane>
+
