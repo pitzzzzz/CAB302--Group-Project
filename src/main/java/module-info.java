@@ -9,5 +9,6 @@ module com.javaninjas.careerpathway {
     exports com.javaninjas.careerpathway.login.controllers;
     opens com.javaninjas.careerpathway.login.controllers to javafx.fxml;
 
+    opens com.javaninjas.careerpathway.registration.controllers to javafx.fxml;
     opens com.javaninjas.careerpathway.pages to javafx.fxml;
 }
