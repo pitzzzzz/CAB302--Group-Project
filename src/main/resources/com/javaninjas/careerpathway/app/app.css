@@ -1,0 +1,8 @@
+
+.root { -fx-font-family: "Segoe UI"; }
+.header { -fx-font-size: 22px; -fx-font-weight: bold; }
+.subtitle { -fx-text-fill: #666; }
+.dot { -fx-fill: #cfd8dc; }
+.dot-active { -fx-fill: #1976d2; }
+.likert-toggle { -fx-padding: 10 14; }
+.primary-btn { -fx-background-color: #1976d2; -fx-text-fill: white; }
