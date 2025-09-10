@@ -22,7 +22,9 @@ public class RegistrationPageController {
     @FXML
     private void handleCreateAccount(ActionEvent event) {
         try {
-            Parent details = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/javaninjas/careerpathway/registration/views/userRegistrationDetailsPage.fxml")));
+            Parent details = FXMLLoader.load(
+                    Objects.requireNonNull(getClass().getResource("/com/javaninjas/careerpathway/registration/views/userRegistrationDetailsPage.fxml"))
+            );
             Stage stage = (Stage) createAccountButton.getScene().getWindow();
             stage.setScene(new Scene(details));
             stage.show();
