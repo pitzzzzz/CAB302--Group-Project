@@ -17,7 +17,23 @@ public final class NavigationService {
     public static <T> void go(String fxmlClasspath, Consumer<T> controllerConfiguration) {
         try {
             FXMLLoader loader = new FXMLLoader(NavigationService.class.getResource(fxmlClasspath));
-            Scene scene = new Scene(loader.load(), primary.getScene().getWidth(), primary.getScene().getHeight());
+            if (primary == null) {
+                throw new IllegalStateException("NavigationService not initialized. Call NavigationService.init(stage) before navigating.");
+            }
+
+            // If the stage already has a scene use its size; otherwise fall back to stage dimensions or sensible defaults
+            double width;
+            double height;
+            if (primary.getScene() != null) {
+                width = primary.getScene().getWidth();
+                height = primary.getScene().getHeight();
+            } else {
+                // primary.getWidth()/getHeight() may be 0 before showing; use defaults if they are not set
+                width = primary.getWidth() > 0 ? primary.getWidth() : 800;
+                height = primary.getHeight() > 0 ? primary.getHeight() : 600;
+            }
+
+            Scene scene = new Scene(loader.load(), width, height);
             scene.getStylesheets().add(
                     NavigationService.class.getResource("/com/javaninjas/careerpathway/app/app.css").toExternalForm()
             );

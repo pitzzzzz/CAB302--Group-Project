@@ -13,7 +13,7 @@ public class Main extends Application {
     public void start(Stage stage) throws IOException {
         NavigationService.init(stage);
         stage.setTitle("Career Pathway");
-        NavigationService.go("/com/javaninjas/careerpathway/registration/views/userRegistrationDetailsPage.fxml");
+        NavigationService.go("/com/javaninjas/careerpathway/login/views/loginPage.fxml");
         stage.show();
     }
 
