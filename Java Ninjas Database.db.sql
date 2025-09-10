@@ -23,4 +23,24 @@ CREATE TABLE IF NOT EXISTS "User" (
     "CreatedAt"        DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE IF NOT EXISTS "Entry_Requirements" (
+    "req_id"	INTEGER,
+    "program_id"	INTEGER NOT NULL,
+    "req_type"	TEXT NOT NULL,
+    "req_value"	TEXT,
+    PRIMARY KEY("req_id"),
+    FOREIGN KEY("program_id") REFERENCES "Program"("program_id")
+);
+
+CREATE TABLE IF NOT EXISTS "Program" (
+    "program_id"	INTEGER,
+    "name"	TEXT NOT NULL,
+    "level"	TEXT NOT NULL,
+    "field"	TEXT NOT NULL,
+    "campus"	TEXT,
+    "delivery_mode"	TEXT NOT NULL,
+    "duration_months"	INTEGER,
+    PRIMARY KEY("program_id")
+);
+
 COMMIT;
