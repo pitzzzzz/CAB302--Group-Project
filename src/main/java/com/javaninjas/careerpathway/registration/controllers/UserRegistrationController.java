@@ -1,12 +1,18 @@
 package com.javaninjas.careerpathway.registration.controllers;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
+import com.javaninjas.careerpathway.app.NavigationService;
+import com.javaninjas.careerpathway.registration.controllers.SuccessfulRegistrationController;
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
@@ -53,9 +59,19 @@ public class UserRegistrationController implements Initializable {
     }
 
     private void onRegister() {
-        // Minimal behaviour: could validate and forward to navigation/service logic later.
-        System.out.println("Register clicked: " +
-            (firstNameField != null ? firstNameField.getText() : "<no-first>") + " " +
-            (lastNameField != null ? lastNameField.getText() : "<no-last>"));
+        // Minimal behaviour: navigate to the successful registration page and pass the first name.
+        String firstName = firstNameField != null ? firstNameField.getText() : "";
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/javaninjas/careerpathway/registration/views/successfulRegistrationPage.fxml"));
+            Parent root = loader.load();
+            SuccessfulRegistrationController ctrl = loader.getController();
+            if (ctrl != null) ctrl.setWelcomeName(firstName);
+
+            // Set scene using NavigationService to keep styling and sizing consistent
+            NavigationService.go("/com/javaninjas/careerpathway/registration/views/successfulRegistrationPage.fxml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
