@@ -14,6 +14,8 @@
       prefHeight="640"
       style="-fx-background-color: white;">
 
+    <fx:include source="../../core/views/topNavBack.fxml" />
+
     <!-- Large gray header with rounded corners -->
     <StackPane prefHeight="360" minHeight="280">
         <Rectangle width="480" height="360" arcWidth="16" arcHeight="16" fill="#e6e6e6" stroke="#c7cbd0" />

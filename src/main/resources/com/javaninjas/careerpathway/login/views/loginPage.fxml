@@ -11,6 +11,9 @@
         <Insets top="24" right="24" bottom="24" left="24" />
     </padding>
 
+        <!-- top-left back button include -->
+    <fx:include source="../../core/views/topNavBack.fxml" />
+
         <!-- animated background rectangle (behind content) -->
         <Rectangle fx:id="bgRect" fill="#f4f6f8" />
 

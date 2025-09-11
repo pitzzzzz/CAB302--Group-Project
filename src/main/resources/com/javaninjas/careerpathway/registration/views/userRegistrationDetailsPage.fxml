@@ -11,6 +11,8 @@
 		   fx:controller="com.javaninjas.careerpathway.registration.controllers.UserRegistrationController"
 		   alignment="TOP_CENTER" prefWidth="320" prefHeight="600" style="-fx-padding: 18;">
 
+	<fx:include source="../../core/views/topNavBack.fxml" />
+
 	<VBox alignment="TOP_CENTER" spacing="12" style="-fx-background-color: #efefef; -fx-background-radius: 12; -fx-padding: 18; -fx-border-radius: 12; -fx-border-color: #bfbfbf;">
 
 		<!-- profile image placeholder -->

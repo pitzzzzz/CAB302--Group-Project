@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javaninjas.careerpathway.core.controllers.BackController"
+      alignment="CENTER_LEFT" spacing="8" style="-fx-padding:8; -fx-background-color: transparent;">
+    <Button text="←" onAction="#handleBack" style="-fx-font-size:16px; -fx-background-radius:20; -fx-padding:4 8; -fx-cursor:hand;" />
+</HBox>

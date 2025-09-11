@@ -1,5 +1,6 @@
 package com.javaninjas.careerpathway.registration.controllers;
 
+import com.javaninjas.careerpathway.app.NavigationService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
@@ -15,5 +16,10 @@ public class SuccessfulRegistrationController {
                 welcomeLabel.setText("Welcome " + name);
             }
         }
+    }
+
+    @FXML
+    private void handleQuizButtonAction() {
+        NavigationService.go("/com/javaninjas/careerpathway/quiz/view/quizIntro.fxml");
     }
 }

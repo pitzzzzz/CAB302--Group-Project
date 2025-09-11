@@ -61,6 +61,7 @@ public class LoginPageController {
             messageLabel.setText("Please enter both email and password.");
         } else if (email.equals("test@example.com") && password.equals("1234")) {
             messageLabel.setText("Login successful!");
+            NavigationService.go("/com/javaninjas/careerpathway/dashboard/views/dashboard.fxml");
         } else {
             messageLabel.setText("Invalid email or password.");
         }

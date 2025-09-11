@@ -8,6 +8,7 @@ module com.javaninjas.careerpathway {
 
     exports com.javaninjas.careerpathway.core.components;
     opens com.javaninjas.careerpathway.core.components to javafx.fxml;
+    opens com.javaninjas.careerpathway.core.controllers to javafx.fxml;
 
     exports com.javaninjas.careerpathway.core.layouts;
     opens com.javaninjas.careerpathway.core.layouts to javafx.fxml;
@@ -20,6 +21,9 @@ module com.javaninjas.careerpathway {
 
     exports com.javaninjas.careerpathway.quiz.model;
     opens com.javaninjas.careerpathway.quiz.model to javafx.fxml;
+
+    exports com.javaninjas.careerpathway.quiz.controller;
+    opens com.javaninjas.careerpathway.quiz.controller to javafx.fxml;
 
     exports com.javaninjas.careerpathway.registration.controllers;
     opens com.javaninjas.careerpathway.registration.controllers to javafx.fxml;
