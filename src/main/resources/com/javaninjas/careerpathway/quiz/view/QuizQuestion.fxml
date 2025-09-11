@@ -15,13 +15,7 @@
             prefHeight="640"
             style="-fx-background-color: white;">
 
-        <fx:define>
-                <ToggleGroup fx:id="group1" />
-                <ToggleGroup fx:id="group2" />
-                <ToggleGroup fx:id="group3" />
-                <ToggleGroup fx:id="group4" />
-                <ToggleGroup fx:id="group5" />
-        </fx:define>
+    <!-- ToggleGroups are created in the controller so each question's five buttons are single-select -->
 
     <!-- Header -->
     <StackPane prefHeight="210" minHeight="140" maxHeight="260">
@@ -49,11 +43,11 @@
             <HBox spacing="8" alignment="CENTER" prefWidth="400">
                 <Label text="In a team" style="-fx-font-size:10px; -fx-text-fill:#9ca3af;" />
                 <HBox spacing="12" alignment="CENTER">
-                    <ToggleButton toggleGroup="${group1}" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
-                    <ToggleButton toggleGroup="${group1}" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
-                    <ToggleButton toggleGroup="${group1}" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
-                    <ToggleButton toggleGroup="${group1}" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
-                    <ToggleButton toggleGroup="${group1}" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
+                    <ToggleButton fx:id="q1b1" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
+                    <ToggleButton fx:id="q1b2" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
+                    <ToggleButton fx:id="q1b3" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
+                    <ToggleButton fx:id="q1b4" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
+                    <ToggleButton fx:id="q1b5" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
                 </HBox>
                 <Label text="Independently" style="-fx-font-size:10px; -fx-text-fill:#9ca3af;" />
             </HBox>
@@ -65,11 +59,11 @@
             <HBox spacing="8" alignment="CENTER" prefWidth="400">
                 <Label text="People" style="-fx-font-size:10px; -fx-text-fill:#9ca3af;" />
                 <HBox spacing="12" alignment="CENTER">
-                    <ToggleButton toggleGroup="${group2}" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
-                    <ToggleButton toggleGroup="${group2}" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
-                    <ToggleButton toggleGroup="${group2}" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
-                    <ToggleButton toggleGroup="${group2}" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
-                    <ToggleButton toggleGroup="${group2}" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
+                    <ToggleButton fx:id="q2b1" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
+                    <ToggleButton fx:id="q2b2" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
+                    <ToggleButton fx:id="q2b3" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
+                    <ToggleButton fx:id="q2b4" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
+                    <ToggleButton fx:id="q2b5" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
                 </HBox>
                 <Label text="Data/information" style="-fx-font-size:10px; -fx-text-fill:#9ca3af;" />
             </HBox>
@@ -81,11 +75,11 @@
             <HBox spacing="8" alignment="CENTER" prefWidth="400">
                 <Label text="Creating new ideas" style="-fx-font-size:10px; -fx-text-fill:#9ca3af;" />
                 <HBox spacing="12" alignment="CENTER">
-                    <ToggleButton toggleGroup="${group3}" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
-                    <ToggleButton toggleGroup="${group3}" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
-                    <ToggleButton toggleGroup="${group3}" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
-                    <ToggleButton toggleGroup="${group3}" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
-                    <ToggleButton toggleGroup="${group3}" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
+                    <ToggleButton fx:id="q3b1" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
+                    <ToggleButton fx:id="q3b2" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
+                    <ToggleButton fx:id="q3b3" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
+                    <ToggleButton fx:id="q3b4" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
+                    <ToggleButton fx:id="q3b5" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
                 </HBox>
                 <Label text="Following structured processes" style="-fx-font-size:10px; -fx-text-fill:#9ca3af;" />
             </HBox>
@@ -97,11 +91,11 @@
             <HBox spacing="8" alignment="CENTER" prefWidth="400">
                 <Label text="Office/desk" style="-fx-font-size:10px; -fx-text-fill:#9ca3af;" />
                 <HBox spacing="12" alignment="CENTER">
-                    <ToggleButton toggleGroup="${group4}" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
-                    <ToggleButton toggleGroup="${group4}" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
-                    <ToggleButton toggleGroup="${group4}" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
-                    <ToggleButton toggleGroup="${group4}" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
-                    <ToggleButton toggleGroup="${group4}" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
+                    <ToggleButton fx:id="q4b1" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
+                    <ToggleButton fx:id="q4b2" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
+                    <ToggleButton fx:id="q4b3" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
+                    <ToggleButton fx:id="q4b4" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
+                    <ToggleButton fx:id="q4b5" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
                 </HBox>
                 <Label text="Hands-on/field" style="-fx-font-size:10px; -fx-text-fill:#9ca3af;" />
             </HBox>
@@ -113,11 +107,11 @@
             <HBox spacing="8" alignment="CENTER" prefWidth="400">
                 <Label text="Consistent routine" style="-fx-font-size:10px; -fx-text-fill:#9ca3af;" />
                 <HBox spacing="12" alignment="CENTER">
-                    <ToggleButton toggleGroup="${group5}" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
-                    <ToggleButton toggleGroup="${group5}" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
-                    <ToggleButton toggleGroup="${group5}" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
-                    <ToggleButton toggleGroup="${group5}" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
-                    <ToggleButton toggleGroup="${group5}" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
+                    <ToggleButton fx:id="q5b1" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
+                    <ToggleButton fx:id="q5b2" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
+                    <ToggleButton fx:id="q5b3" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
+                    <ToggleButton fx:id="q5b4" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
+                    <ToggleButton fx:id="q5b5" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
                 </HBox>
                 <Label text="Variety" style="-fx-font-size:10px; -fx-text-fill:#9ca3af;" />
             </HBox>
