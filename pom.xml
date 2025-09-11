@@ -61,7 +61,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.javaninjas.careerpathway/com.javaninjas.careerpathway.app.Main
+                                com.javaninjas.careerpathway/com.javaninjas.careerpathway.app.main
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
