@@ -10,6 +10,9 @@ module com.javaninjas.careerpathway {
     opens com.javaninjas.careerpathway.core.components to javafx.fxml;
     opens com.javaninjas.careerpathway.core.controllers to javafx.fxml;
 
+    exports com.javaninjas.careerpathway.dashboard.controllers;
+    opens com.javaninjas.careerpathway.dashboard.controllers to javafx.fxml;
+
     exports com.javaninjas.careerpathway.core.layouts;
     opens com.javaninjas.careerpathway.core.layouts to javafx.fxml;
 

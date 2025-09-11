@@ -6,3 +6,15 @@
 .dot-active { -fx-fill: #1976d2; }
 .likert-toggle { -fx-padding: 10 14; }
 .primary-btn { -fx-background-color: #1976d2; -fx-text-fill: white; }
+
+/* bottom navigation styles */
+.bottom-nav-button {
+	-fx-font-size: 16px;
+	-fx-padding: 8 24;
+	-fx-background-color: transparent;
+}
+.bottom-nav-button.active {
+	-fx-background-color: #c6d8e8;
+	-fx-background-radius: 16;
+	-fx-font-weight: bold;
+}

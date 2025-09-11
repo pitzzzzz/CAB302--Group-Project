@@ -54,17 +54,9 @@ public class LoginPageController {
 
     @FXML
     private void handleLogin() {
-        String email = emailField.getText();
-        String password = passwordField.getText();
-
-        if (email.isEmpty() || password.isEmpty()) {
-            messageLabel.setText("Please enter both email and password.");
-        } else if (email.equals("test@example.com") && password.equals("1234")) {
-            messageLabel.setText("Login successful!");
-            NavigationService.go("/com/javaninjas/careerpathway/dashboard/views/dashboard.fxml");
-        } else {
-            messageLabel.setText("Invalid email or password.");
-        }
+    // Directly navigate to user pathway without credential checks.
+    // Navigate to the Explore Pathways view instead of the user pathway.
+    NavigationService.go("/com/javaninjas/careerpathway/dashboard/views/explorePathways.fxml");
     }
 
     @FXML

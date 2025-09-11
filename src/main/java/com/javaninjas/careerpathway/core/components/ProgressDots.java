@@ -1,5 +1,7 @@
 package com.javaninjas.careerpathway.core.components;
 
+import com.javaninjas.careerpathway.core.controllers.ProgressDotsController;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.HBox;
 
