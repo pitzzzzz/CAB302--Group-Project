@@ -10,7 +10,7 @@ public class main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         NavigationService.init(stage);
-        stage.setTitle("Career Pathway");
+        stage.setTitle("CAB302: Career Pathway Application");
         NavigationService.go("/com/javaninjas/careerpathway/login/views/loginPage.fxml");
         stage.show();
     }

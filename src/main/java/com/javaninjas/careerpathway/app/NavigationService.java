@@ -9,6 +9,7 @@ import java.util.function.Consumer;
 
 public final class NavigationService {
     private static Stage primary;
+    private static final java.util.Deque<String> history = new java.util.ArrayDeque<>();
 
     private NavigationService() {}
 
@@ -43,6 +44,17 @@ public final class NavigationService {
                 controllerConfiguration.accept(controller);
             }
 
+            // push current scene path to history if there is an existing scene
+            if (primary.getScene() != null && primary.getScene().getUserData() instanceof String) {
+                String current = (String) primary.getScene().getUserData();
+                if (current != null && !current.isEmpty()) {
+                    history.push(current);
+                }
+            }
+
+            // store the fxml path in scene user data for history tracking
+            scene.setUserData(fxmlClasspath);
+
             primary.setScene(scene);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -51,5 +63,27 @@ public final class NavigationService {
 
     public static void go(String fxmlClasspath) {
         go(fxmlClasspath, null);
+    }
+
+    /**
+     * Navigate back to the previous FXML in history, if available.
+     */
+    public static void goBack() {
+        if (history.isEmpty()) return;
+        String previous = history.pop();
+        // when navigating back, we should not push the current page again
+        try {
+            FXMLLoader loader = new FXMLLoader(NavigationService.class.getResource(previous));
+            double width = primary.getScene() != null ? primary.getScene().getWidth() : (primary.getWidth() > 0 ? primary.getWidth() : 800);
+            double height = primary.getScene() != null ? primary.getScene().getHeight() : (primary.getHeight() > 0 ? primary.getHeight() : 600);
+            Scene scene = new Scene(loader.load(), width, height);
+            scene.getStylesheets().add(
+                    NavigationService.class.getResource("/com/javaninjas/careerpathway/app/app.css").toExternalForm()
+            );
+            scene.setUserData(previous);
+            primary.setScene(scene);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

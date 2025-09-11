@@ -8,12 +8,14 @@
 
 <!-- Onboarding-style intro matching 3:4 theme -->
 <VBox xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
-    fx:controller="com.javaninjas.careerpathway.quiz.QuizIntroController"
+      fx:controller="com.javaninjas.careerpathway.quiz.QuizIntroController"
       alignment="TOP_CENTER"
       spacing="24"
       prefWidth="480"
       prefHeight="640"
       style="-fx-background-color: white;">
+
+    <fx:include source="../../core/views/topNavBack.fxml" />
 
     <!-- Top header area with gray background and concave curve -->
     <StackPane prefHeight="220" minHeight="160" maxHeight="260" VBox.vgrow="NEVER">
@@ -37,7 +39,7 @@
     <!-- Main content area (3:4 central area) -->
     <VBox alignment="CENTER" spacing="32" prefWidth="420">
         <padding>
-            <Insets top="20" right="20" bottom="20" left="20"/>
+            <Insets top="20" right="20" bottom="20" left="20" />
         </padding>
 
         <Label text="Let's get started..." wrapText="true"
@@ -45,9 +47,8 @@
 
         <Region prefHeight="120" />
 
-        <!-- Continue button styled like the design -->
-        <Button fx:id="startButton" text="Continue" prefWidth="220" prefHeight="44"
-                style="-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 22;" />
+    <!-- Continue button styled like the design -->
+    <Button fx:id="startButton" text="Continue" prefWidth="220" prefHeight="44" style="-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 22;" />
     </VBox>
 
     <!-- bottom spacer to keep 3:4 feel and center content vertically -->

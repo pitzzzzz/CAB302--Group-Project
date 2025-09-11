@@ -10,6 +10,7 @@
 <VBox xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.javaninjas.careerpathway.registration.controllers.RegistrationPageController"
       spacing="0" fillWidth="true" style="-fx-background-color: transparent;">
+    <fx:include source="../../core/views/topNavBack.fxml" />
 
     <!-- Top banner: larger height to occupy more of the page -->
     <VBox alignment="TOP_CENTER" spacing="10" style="-fx-background-color: #e9e9e9; -fx-padding: 22 28 20 28;" minHeight="200" maxHeight="320" maxWidth="Infinity">
