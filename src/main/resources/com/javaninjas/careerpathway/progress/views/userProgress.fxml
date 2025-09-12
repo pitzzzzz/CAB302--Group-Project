@@ -26,7 +26,7 @@
 		<children>
 			<Pane style="-fx-background-color:#e6e6e6; -fx-background-radius:18; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 6,0,0,2);" prefWidth="340" prefHeight="620" />
 
-			<VBox spacing="18" padding="20" alignment="TOP_CENTER">
+			<VBox spacing="18" style="-fx-padding:20;" alignment="TOP_CENTER">
 				<!-- Logo placeholder -->
 				<StackPane prefHeight="180.0" style="-fx-background-color: transparent;" maxWidth="280">
 					<children>
@@ -45,7 +45,7 @@
 							<!-- inner layout placeholder -->
 						</Pane>
 
-						<VBox spacing="8" alignment="CENTER_LEFT" padding="12" maxWidth="270">
+						<VBox spacing="8" alignment="CENTER_LEFT" style="-fx-padding:12;" maxWidth="270">
 							<Label text="Your Pathway" style="-fx-font-size:18; -fx-font-weight: bold; -fx-text-fill: #126eb1;" />
 							<Label text="Pathway Step 1:" style="-fx-font-size:14; -fx-text-fill: #333;" />
 

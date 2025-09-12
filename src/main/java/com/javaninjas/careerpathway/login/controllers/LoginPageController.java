@@ -56,7 +56,7 @@ public class LoginPageController {
     private void handleLogin() {
     // Directly navigate to user pathway without credential checks.
     // Navigate to the Explore Pathways view instead of the user pathway.
-    NavigationService.go("/com/javaninjas/careerpathway/dashboard/views/explorePathways.fxml");
+    NavigationService.go("/com/javaninjas/careerpathway/dashboard/views/userPathway.fxml");
     }
 
     @FXML

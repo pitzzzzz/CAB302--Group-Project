@@ -19,7 +19,7 @@
 
 	<!-- Center content with two columns: weeks and ask sidebar -->
 	<center>
-		<HBox spacing="16" padding="16">
+			<HBox spacing="16" style="-fx-padding:16;">
 			<!-- Left: weeks list -->
 			<VBox spacing="12" HBox.hgrow="ALWAYS">
 				<!-- Week card template -->
