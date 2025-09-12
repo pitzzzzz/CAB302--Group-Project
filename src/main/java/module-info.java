@@ -1,6 +1,8 @@
 module com.javaninjas.careerpathway {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.net.http;
+    requires com.fasterxml.jackson.databind;
 
     // add in the other project modules in here when trying to run the application
     exports com.javaninjas.careerpathway.app;
