@@ -32,7 +32,10 @@
 
     <!-- Content list that visually sits over the lower part of the gray header and the white area -->
     <ScrollPane fitToWidth="true" prefWidth="440" prefHeight="180" style="-fx-background-color:transparent; -fx-background:transparent;">
-        <VBox fx:id="detailsBox" spacing="18" padding="8" alignment="TOP_LEFT">
+        <VBox fx:id="detailsBox" spacing="18" alignment="TOP_LEFT">
+            <padding>
+                <Insets top="8" right="8" bottom="8" left="8" />
+            </padding>
             <!-- Example item rows; these should be populated by controller in real use -->
             <HBox spacing="12" alignment="CENTER_LEFT">
                 <Circle radius="18" fill="white" stroke="#9ca3af" />

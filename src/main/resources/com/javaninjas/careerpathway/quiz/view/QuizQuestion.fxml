@@ -42,12 +42,9 @@
             <Label fx:id="q1Label" text="Question 1" style="-fx-font-size:14px; -fx-font-weight:600; -fx-text-fill:#111827;" wrapText="true" maxWidth="380" alignment="CENTER" />
             <HBox spacing="8" alignment="CENTER" prefWidth="400">
                 <Label text="In a team" style="-fx-font-size:10px; -fx-text-fill:#9ca3af;" />
-                <HBox spacing="12" alignment="CENTER">
-                    <ToggleButton fx:id="q1b1" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
-                    <ToggleButton fx:id="q1b2" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
-                    <ToggleButton fx:id="q1b3" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
-                    <ToggleButton fx:id="q1b4" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
-                    <ToggleButton fx:id="q1b5" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
+                <HBox spacing="24" alignment="CENTER">
+                    <ToggleButton fx:id="q1bLeft" prefWidth="48" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
+                    <ToggleButton fx:id="q1bRight" prefWidth="48" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
                 </HBox>
                 <Label text="Independently" style="-fx-font-size:10px; -fx-text-fill:#9ca3af;" />
             </HBox>
@@ -58,12 +55,9 @@
             <Label fx:id="q2Label" text="Question 2" style="-fx-font-size:14px; -fx-font-weight:600; -fx-text-fill:#111827;" wrapText="true" maxWidth="380" alignment="CENTER"/>
             <HBox spacing="8" alignment="CENTER" prefWidth="400">
                 <Label text="People" style="-fx-font-size:10px; -fx-text-fill:#9ca3af;" />
-                <HBox spacing="12" alignment="CENTER">
-                    <ToggleButton fx:id="q2b1" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
-                    <ToggleButton fx:id="q2b2" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
-                    <ToggleButton fx:id="q2b3" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
-                    <ToggleButton fx:id="q2b4" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
-                    <ToggleButton fx:id="q2b5" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
+                <HBox spacing="24" alignment="CENTER">
+                    <ToggleButton fx:id="q2bLeft" prefWidth="48" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
+                    <ToggleButton fx:id="q2bRight" prefWidth="48" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
                 </HBox>
                 <Label text="Data/information" style="-fx-font-size:10px; -fx-text-fill:#9ca3af;" />
             </HBox>
@@ -74,12 +68,9 @@
             <Label fx:id="q3Label" text="Question 3" style="-fx-font-size:14px; -fx-font-weight:600; -fx-text-fill:#111827;" wrapText="true" maxWidth="380" alignment="CENTER"/>
             <HBox spacing="8" alignment="CENTER" prefWidth="400">
                 <Label text="Creating new ideas" style="-fx-font-size:10px; -fx-text-fill:#9ca3af;" />
-                <HBox spacing="12" alignment="CENTER">
-                    <ToggleButton fx:id="q3b1" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
-                    <ToggleButton fx:id="q3b2" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
-                    <ToggleButton fx:id="q3b3" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
-                    <ToggleButton fx:id="q3b4" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
-                    <ToggleButton fx:id="q3b5" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
+                <HBox spacing="24" alignment="CENTER">
+                    <ToggleButton fx:id="q3bLeft" prefWidth="48" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
+                    <ToggleButton fx:id="q3bRight" prefWidth="48" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
                 </HBox>
                 <Label text="Following structured processes" style="-fx-font-size:10px; -fx-text-fill:#9ca3af;" />
             </HBox>
@@ -90,12 +81,9 @@
             <Label fx:id="q4Label" text="Question 4" style="-fx-font-size:14px; -fx-font-weight:600; -fx-text-fill:#111827;" wrapText="true" maxWidth="380" alignment="CENTER"/>
             <HBox spacing="8" alignment="CENTER" prefWidth="400">
                 <Label text="Office/desk" style="-fx-font-size:10px; -fx-text-fill:#9ca3af;" />
-                <HBox spacing="12" alignment="CENTER">
-                    <ToggleButton fx:id="q4b1" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
-                    <ToggleButton fx:id="q4b2" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
-                    <ToggleButton fx:id="q4b3" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
-                    <ToggleButton fx:id="q4b4" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
-                    <ToggleButton fx:id="q4b5" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
+                <HBox spacing="24" alignment="CENTER">
+                    <ToggleButton fx:id="q4bLeft" prefWidth="48" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
+                    <ToggleButton fx:id="q4bRight" prefWidth="48" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
                 </HBox>
                 <Label text="Hands-on/field" style="-fx-font-size:10px; -fx-text-fill:#9ca3af;" />
             </HBox>
@@ -106,12 +94,9 @@
             <Label fx:id="q5Label" text="Question 5" style="-fx-font-size:14px; -fx-font-weight:600; -fx-text-fill:#111827;" wrapText="true" maxWidth="380" alignment="CENTER"/>
             <HBox spacing="8" alignment="CENTER" prefWidth="400">
                 <Label text="Consistent routine" style="-fx-font-size:10px; -fx-text-fill:#9ca3af;" />
-                <HBox spacing="12" alignment="CENTER">
-                    <ToggleButton fx:id="q5b1" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
-                    <ToggleButton fx:id="q5b2" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
-                    <ToggleButton fx:id="q5b3" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
-                    <ToggleButton fx:id="q5b4" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
-                    <ToggleButton fx:id="q5b5" prefWidth="28" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
+                <HBox spacing="24" alignment="CENTER">
+                    <ToggleButton fx:id="q5bLeft" prefWidth="48" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
+                    <ToggleButton fx:id="q5bRight" prefWidth="48" prefHeight="28" style="-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;" />
                 </HBox>
                 <Label text="Variety" style="-fx-font-size:10px; -fx-text-fill:#9ca3af;" />
             </HBox>
