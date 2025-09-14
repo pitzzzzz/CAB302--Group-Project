@@ -13,7 +13,7 @@
 
 	<fx:include source="../../core/views/topNavBack.fxml" />
 
-	<VBox alignment="TOP_CENTER" spacing="12" style="-fx-background-color: #efefef; -fx-background-radius: 12; -fx-padding: 18; -fx-border-radius: 12; -fx-border-color: #bfbfbf;">
+	<VBox alignment="TOP_CENTER" spacing="12" styleClass="card" style="-fx-padding: 18;">
 
 		<!-- profile image placeholder -->
 		<StackPane prefHeight="90" prefWidth="90">
@@ -23,21 +23,22 @@
 
 		<!-- name fields side-by-side -->
 		<HBox spacing="10" alignment="CENTER">
-			<TextField fx:id="firstNameField" promptText="First name..." prefWidth="140" />
-			<TextField fx:id="lastNameField" promptText="Last name..." prefWidth="140" />
+			<TextField fx:id="firstNameField" promptText="First name..." prefWidth="140" styleClass="text-field" />
+			<TextField fx:id="lastNameField" promptText="Last name..." prefWidth="140" styleClass="text-field" />
 		</HBox>
 
 		<!-- email and city -->
-		<TextField fx:id="emailField" promptText="Your email address..." prefWidth="300" />
-		<TextField fx:id="cityField" promptText="Your city..." prefWidth="300" />
+	<TextField fx:id="emailField" promptText="Your email address..." prefWidth="300" styleClass="text-field" />
+	<PasswordField fx:id="passwordField" promptText="Choose a password..." prefWidth="300" styleClass="password-field" />
+	<TextField fx:id="cityField" promptText="Your city..." prefWidth="300" styleClass="text-field" />
 
 		<!-- section header -->
 		<Label text="Some more questions to personalise your experience" wrapText="true" style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #222;" />
 
 		<!-- two combo boxes side-by-side -->
 		<HBox spacing="12" alignment="CENTER">
-			<ComboBox fx:id="ageSelect" promptText="How old are you?" prefWidth="140" />
-			<ComboBox fx:id="profileStage" promptText="What stage are you?" prefWidth="140" />
+			<ComboBox fx:id="ageSelect" promptText="How old are you?" prefWidth="140" styleClass="text-field" />
+				<ComboBox fx:id="profileStage" promptText="What stage are you?" prefWidth="140" styleClass="text-field" />
 		</HBox>
 
 		<!-- anonymous checkbox -->
@@ -47,9 +48,8 @@
 		</HBox>
 
 		<!-- register button centered -->
-		<Button fx:id="registerButton" text="Register" onAction="#onRegister" prefWidth="220" prefHeight="40" style="-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: 700; -fx-background-radius: 20;" />
+	<Button fx:id="registerButton" text="Register" onAction="#onRegister" prefWidth="220" prefHeight="40" styleClass="primary-btn" />
 
 	</VBox>
 
 </StackPane>
-

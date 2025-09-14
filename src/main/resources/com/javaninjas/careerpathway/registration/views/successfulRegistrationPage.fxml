@@ -11,15 +11,16 @@
 
 	<fx:include source="../../core/views/topNavBack.fxml" />
 
-	<VBox alignment="CENTER" spacing="18" style="-fx-background-radius: 12; -fx-padding: 40 20; -fx-border-radius: 12; -fx-border-color: #bfbfbf; -fx-border-width: 1; -fx-pref-width: 320;">
+	<VBox alignment="CENTER" spacing="18" styleClass="card" style="-fx-padding: 40 20; -fx-pref-width: 320;">
 		<Label fx:id="welcomeLabel" text="Welcome [Name]" style="-fx-font-size: 28px; -fx-font-weight: 700; -fx-text-fill: #111;" wrapText="true" textAlignment="CENTER" />
 
 		<Label text="Your account was successfully made" style="-fx-text-fill: #444; -fx-font-size: 12px;" />
 
-		<Button fx:id="quizButton" text="Take the quiz" onAction="#handleQuizButtonAction" prefWidth="220" prefHeight="40" style="-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-background-radius: 20; -fx-font-size: 14px; -fx-font-weight: 600;" />
+	<Button fx:id="quizButton" text="Take the quiz" onAction="#handleQuizButtonAction" prefWidth="220" prefHeight="40" styleClass="primary-btn" />
 
 		<Label text="approx 5mins" style="-fx-text-fill: #666; -fx-font-size: 11px;" />
+
+		<Hyperlink fx:id="loginLink" text="Already have an account? Login" onAction="#handleLoginLinkAction" style="-fx-font-size:12px; -fx-text-fill:#3b82f6;" />
 	</VBox>
 
 </StackPane>
-

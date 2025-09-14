@@ -2,7 +2,9 @@ module com.javaninjas.careerpathway {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.net.http;
+    requires transitive java.sql;
     requires com.fasterxml.jackson.databind;
+    requires bcrypt;
 
     // add in the other project modules in here when trying to run the application
     exports com.javaninjas.careerpathway.app;

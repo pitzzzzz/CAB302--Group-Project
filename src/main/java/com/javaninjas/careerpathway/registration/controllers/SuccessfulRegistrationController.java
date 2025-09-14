@@ -4,7 +4,7 @@ import com.javaninjas.careerpathway.app.NavigationService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
-import com.javaninjas.careerpathway.app.NavigationService;
+import javafx.scene.control.Hyperlink;
 
 public class SuccessfulRegistrationController {
     @FXML
@@ -12,6 +12,9 @@ public class SuccessfulRegistrationController {
 
     @FXML
     private Button quizButton;
+
+    @FXML
+    private Hyperlink loginLink;
 
     public void setWelcomeName(String name) {
         if (welcomeLabel != null) {
@@ -26,6 +29,12 @@ public class SuccessfulRegistrationController {
     @FXML
     private void handleQuizButtonAction() {
         NavigationService.go("/com/javaninjas/careerpathway/quiz/view/QuizIntro.fxml");
+    }
+
+    @FXML
+    private void handleLoginLinkAction() {
+        // Navigate to the login page
+        NavigationService.go("/com/javaninjas/careerpathway/login/views/loginPage.fxml");
     }
 
     @FXML

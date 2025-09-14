@@ -12,26 +12,26 @@
 
     <!-- Top heading and subtitle -->
     <VBox alignment="TOP_CENTER" spacing="8" style="-fx-padding: 18 28 8 28;" minHeight="140" maxWidth="Infinity">
-        <Label text="Choose a career with confidence" alignment="CENTER" style="-fx-font-size: 38px; -fx-font-weight: 800; -fx-text-fill: #111;" />
-        <Label text="Find clarity, discover your best-fit jobs, and avoid wasting years on the wrong path — all in just a few minutes." wrapText="true" alignment="CENTER" style="-fx-font-size: 15px; -fx-text-fill: #222; -fx-padding: 0 120 0 120;" />
+        <Label text="Choose a career with confidence" alignment="CENTER" style="-fx-font-size: 32px; -fx-font-weight: 800; -fx-text-fill: #111;" />
+        <Label text="Find clarity, discover your best-fit jobs, and avoid wasting years on the wrong path — all in just a few minutes." wrapText="true" alignment="CENTER" style="-fx-font-size: 14px; -fx-text-fill: #222; -fx-padding: 0 100 0 100;" />
     </VBox>
 
     <!-- Feature cards -->
     <HBox alignment="CENTER" spacing="36" style="-fx-padding: 12 28 8 28;" >
         <!-- Card 1 -->
-        <VBox spacing="10" alignment="TOP_LEFT" style="-fx-background-color: white; -fx-border-color: #00000033; -fx-border-radius: 12; -fx-background-radius: 12; -fx-padding: 18;" prefWidth="260" prefHeight="220">
+    <VBox spacing="10" alignment="TOP_LEFT" styleClass="card" prefWidth="260" prefHeight="220">
             <Label text="Get full clarity\non your career direction" wrapText="true" style="-fx-font-size: 14px; -fx-font-weight: 700; -fx-font-style: italic;" />
             <Label text="No more guessing or second-guessing your future. Our guided quiz helps you uncover the careers that truly match your personality and strengths, giving you the confidence to move forward with purpose." wrapText="true" style="-fx-font-size: 12px; -fx-text-fill: #333;" />
         </VBox>
 
         <!-- Card 2 -->
-        <VBox spacing="10" alignment="TOP_LEFT" style="-fx-background-color: white; -fx-border-color: #00000033; -fx-border-radius: 12; -fx-background-radius: 12; -fx-padding: 18;" prefWidth="260" prefHeight="220">
+    <VBox spacing="10" alignment="TOP_LEFT" styleClass="card" prefWidth="260" prefHeight="220">
             <Label text="Discover jobs that are tailored to your goals" wrapText="true" style="-fx-font-size: 14px; -fx-font-weight: 700; -fx-font-style: italic;" />
             <Label text="Generic career advice doesn’t cut it. Your answers shape a personalized pathway, showing you options that align with your ambitions, lifestyle, and values — so you can pursue opportunities that feel right for you." wrapText="true" style="-fx-font-size: 12px; -fx-text-fill: #333;" />
         </VBox>
 
         <!-- Card 3 -->
-        <VBox spacing="10" alignment="TOP_LEFT" style="-fx-background-color: white; -fx-border-color: #00000033; -fx-border-radius: 12; -fx-background-radius: 12; -fx-padding: 18;" prefWidth="260" prefHeight="220">
+    <VBox spacing="10" alignment="TOP_LEFT" styleClass="card" prefWidth="260" prefHeight="220">
             <Label text="Reduce years of wasted study, debt and time" wrapText="true" style="-fx-font-size: 14px; -fx-font-weight: 700; -fx-font-style: italic;" />
             <Label text="Avoid the costly mistakes of chasing the wrong degree or job. In just minutes, you’ll see which paths are worth your focus, saving you years of trial and error and helping you get ahead faster." wrapText="true" style="-fx-font-size: 12px; -fx-text-fill: #333;" />
         </VBox>
@@ -39,7 +39,7 @@
 
     <!-- Centered Create Account button -->
     <VBox alignment="CENTER" spacing="12" style="-fx-padding: 18 28 26 28;">
-        <Button fx:id="createAccountButton" onAction="#handleCreateAccount" text="Create Account" prefWidth="360" prefHeight="54" style="-fx-background-color: #4b82d6; -fx-text-fill: white; -fx-background-radius: 28; -fx-font-size: 20px; -fx-font-weight: 800;" />
+    <Button fx:id="createAccountButton" onAction="#handleCreateAccount" text="Create Account" prefWidth="360" prefHeight="54" styleClass="primary-btn" />
     </VBox>
 
 </VBox>

@@ -19,14 +19,13 @@
 
         <!-- Outer card (container) -->
         <VBox alignment="CENTER" spacing="0" maxWidth="760" prefWidth="760">
-                <VBox fx:id="card" alignment="CENTER" spacing="0" maxWidth="720.0" prefWidth="720.0"
-                            style="-fx-background-color: transparent; -fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: transparent; -fx-border-width: 0; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 12,0,0,6);">
+            <VBox fx:id="card" alignment="CENTER" spacing="0" maxWidth="720.0" prefWidth="720.0" styleClass="card">
             <padding>
                 <Insets bottom="0" left="0" right="0" top="0" />
             </padding>
 
             <!-- Inner white panel (foreground) -->
-                        <VBox alignment="CENTER" spacing="12" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 28; -fx-max-width: 480;">
+                        <VBox alignment="CENTER" spacing="12" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 28; -fx-max-width: 480;" styleClass="card">
 
                 <!-- Logo / header -->
                 <Label fx:id="welcomeText" text="[ INSERT LOGO ]" alignment="CENTER"
@@ -49,8 +48,7 @@
 
                     <!-- Login button (blue, rounded, prominent) -->
             <Button fx:id="submitButton" defaultButton="true" onAction="#handleLogin" text="Login"
-                prefWidth="260" prefHeight="40"
-                style="-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: 600; -fx-background-radius: 20; -fx-border-radius: 20; -fx-cursor: hand;">
+                prefWidth="260" prefHeight="40" styleClass="primary-btn">
                         <VBox.margin>
                             <Insets top="12" bottom="6" />
                         </VBox.margin>

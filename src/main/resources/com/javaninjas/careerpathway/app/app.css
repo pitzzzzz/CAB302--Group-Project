@@ -1,20 +1,24 @@
 
-.root { -fx-font-family: "Segoe UI"; }
+.root { -fx-font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial; -fx-base: #ffffff; -fx-background-color: linear-gradient(to bottom right, #f7fbff 0%, #eef6ff 100%); }
 .header { -fx-font-size: 22px; -fx-font-weight: bold; }
 .subtitle { -fx-text-fill: #666; }
 .dot { -fx-fill: #cfd8dc; }
 .dot-active { -fx-fill: #1976d2; }
 .likert-toggle { -fx-padding: 10 14; }
-.primary-btn { -fx-background-color: #1976d2; -fx-text-fill: white; }
+.primary-btn { -fx-background-color: linear-gradient(#3b82f6, #2563eb); -fx-text-fill: white; -fx-font-weight: 700; -fx-background-radius: 20px; -fx-padding: 10 18 10 18; }
+
+/* Card container */
+.card { -fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(40,40,40,0.08), 20, 0, 0, 4); -fx-padding: 28px; }
+
+/* Inputs */
+.text-field, .password-field { -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-color: #e5e7eb; -fx-padding: 8 10 8 10; }
+
+/* Hyperlink style */
+.hyperlink { -fx-text-fill: #2563eb; -fx-underline: true; }
+
+/* small text */
+.small-muted { -fx-text-fill: #6b7280; -fx-font-size: 11px; }
 
 /* bottom navigation styles */
-.bottom-nav-button {
-	-fx-font-size: 16px;
-	-fx-padding: 8 24;
-	-fx-background-color: transparent;
-}
-.bottom-nav-button.active {
-	-fx-background-color: #c6d8e8;
-	-fx-background-radius: 16;
-	-fx-font-weight: bold;
-}
+.bottom-nav-button { -fx-font-size: 16px; -fx-padding: 8 24; -fx-background-color: transparent; }
+.bottom-nav-button.active { -fx-background-color: #c6d8e8; -fx-background-radius: 16; -fx-font-weight: bold; }

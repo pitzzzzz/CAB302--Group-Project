@@ -17,8 +17,8 @@ public class QuizResultController {
 
     @FXML
     private void initialize() {
-        // Set dashboard action
-        if (dashboardButton != null) dashboardButton.setOnAction(e -> com.javaninjas.careerpathway.app.NavigationService.go("/com/javaninjas/careerpathway/pages/dashboardPage.fxml"));
+    // Set dashboard action to go to the login page (as requested)
+    if (dashboardButton != null) dashboardButton.setOnAction(e -> com.javaninjas.careerpathway.app.NavigationService.go("/com/javaninjas/careerpathway/login/views/loginPage.fxml"));
 
         // Load last suggestion
         var repo = com.javaninjas.careerpathway.quiz.InMemoryQuizSuggestionRepository.getInstance();
