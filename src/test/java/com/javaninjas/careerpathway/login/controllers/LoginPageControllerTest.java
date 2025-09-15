@@ -30,7 +30,7 @@ public class LoginPageControllerTest {
     // These tests would require refactoring the controller to separate business logic
     // from UI logic. For example, you could create these methods in LoginPageController:
 
-    /*
+
     @Test
     public void testValidateEmailFormat() {
         assertTrue(loginController.isValidEmail("user@example.com"));
@@ -53,5 +53,5 @@ public class LoginPageControllerTest {
         assertTrue(loginController.verifyPassword(password, hash));
         assertFalse(loginController.verifyPassword("wrongPassword", hash));
     }
-    */
+
 }
