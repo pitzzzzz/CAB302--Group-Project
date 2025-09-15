@@ -95,6 +95,28 @@ public class LoginPageController {
         showAlert(Alert.AlertType.ERROR, "Login Error", "Invalid email or password.");
     }
 
+
+    // Methods for LoginPageController for testing
+    public boolean isValidEmail(String email) {
+        if (email == null || email.trim().isEmpty()) {
+            return false;
+        }
+        return email.contains("@") && email.contains(".");
+    }
+
+    public boolean isValidPassword(String password) {
+        return password != null && !password.trim().isEmpty();
+    }
+
+    public String hashPassword(String password) {
+        return BCrypt.withDefaults().hashToString(12, password.toCharArray());
+    }
+
+    public boolean verifyPassword(String password, String hash) {
+        BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), hash);
+        return result.verified;
+    }
+
     @FXML
     private void handleRegisterLink(ActionEvent event) {
     NavigationService.go("/com/javaninjas/careerpathway/registration/views/registrationPage.fxml");
