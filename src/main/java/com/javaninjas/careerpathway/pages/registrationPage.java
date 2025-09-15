@@ -46,6 +46,38 @@ public class registrationPage {
         );
     }
 
+    private boolean validateFields() {
+        if (firstNameField.getText().trim().isEmpty() ||
+            lastNameField.getText().trim().isEmpty() ||
+            emailField.getText().trim().isEmpty() ||
+            cityField.getText().trim().isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Validation Error", "All fields are required!");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validateEmail(String email) {
+        if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
+            showAlert(Alert.AlertType.ERROR, "Validation Error", "Please enter a valid email address!");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validateSelections(Integer age, String role) {
+        if (age == null) {
+            showAlert(Alert.AlertType.ERROR, "Validation Error", "Please select your age!");
+            return false;
+        }
+        if (role == null || role.isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Validation Error", "Please select a profile role!");
+            return false;
+        }
+        return true;
+    }
+
+
     @FXML
     private void handleRegister() {
         String firstName = firstNameField.getText().trim();
@@ -56,26 +88,7 @@ public class registrationPage {
         String role = profileRole.getValue();
         boolean anonymous = anonymousCheck.isSelected();
 
-        if (firstName.isEmpty() || lastName.isEmpty() ||
-                email.isEmpty() || city.isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, "Validation Error", "All fields are required!");
-            return;
-        }
-
-        if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
-            showAlert(Alert.AlertType.ERROR, "Validation Error", "Please enter a valid email address!");
-            return;
-        }
-
-        if (age == null) {
-            showAlert(Alert.AlertType.ERROR, "Validation Error", "Please select your age!");
-            return;
-        }
-
-        if (role == null || role.isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, "Validation Error", "Please select a profile role!");
-            return;
-        }
+        if (!validateFields() || !validateEmail(email) || !validateSelections(age, role)) return;
 
 
         System.out.println("=== Registration Info ===");
