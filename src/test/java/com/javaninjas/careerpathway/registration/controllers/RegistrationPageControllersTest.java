@@ -22,13 +22,6 @@ public class RegistrationPageControllersTest {
         assertNotNull(UserRegistration);
     }
 
-    // Note: Similar to LoginPageController, most methods are difficult to unit test because:
-    // 1. They depend on JavaFX UI components (@FXML fields)
-    // 2. They make database calls
-    // 3. They show alerts and navigate pages
-
-    // To make testing easier, you could add these helper methods to UserRegistrationController:
-
 
     @Test
     public void testValidateFirstName() {

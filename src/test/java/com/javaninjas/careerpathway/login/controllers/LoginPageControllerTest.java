@@ -13,12 +13,7 @@ public class LoginPageControllerTest {
         loginController = new LoginPageController();
     }
 
-    // Note: Most methods in LoginPageController are difficult to unit test because:
-    // 1. They depend on JavaFX UI components (@FXML fields)
-    // 2. They make database calls
-    // 3. They show alerts and navigate pages
-
-    // For now, we can create helper methods in the controller to test business logic
+    // For now, we can create helper methods in the controller to test logic
 
     @Test
     public void testControllerCreation() {
