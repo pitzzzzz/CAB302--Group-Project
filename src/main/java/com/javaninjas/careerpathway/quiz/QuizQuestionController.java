@@ -2,17 +2,23 @@ package com.javaninjas.careerpathway.quiz;
 
 import com.javaninjas.careerpathway.quiz.model.Question;
 import com.javaninjas.careerpathway.app.NavigationService;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 import javafx.geometry.Pos;
 import javafx.scene.layout.Priority;
-// ...existing code...
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class QuizQuestionController {
     private List<List<Question>> questionSets;
+
+    @FXML private HBox progressDots;
 
     @FXML private Label titleLabel;
     @FXML private Label q1Label;
@@ -21,89 +27,129 @@ public class QuizQuestionController {
     @FXML private Label q4Label;
     @FXML private Label q5Label;
 
-    // containers where option ToggleButtons will be created dynamically
     @FXML private VBox q1Options;
     @FXML private VBox q2Options;
     @FXML private VBox q3Options;
     @FXML private VBox q4Options;
     @FXML private VBox q5Options;
 
-    // internal ToggleGroups for each question
     private ToggleGroup group1;
     private ToggleGroup group2;
     private ToggleGroup group3;
     private ToggleGroup group4;
     private ToggleGroup group5;
 
-    // accumulate answers across sets (we expect 4 sets of 5 = 20 answers)
-    private final java.util.List<Integer> accumulatedAnswers = new java.util.ArrayList<>();
+    // answersPerSet stores 5 ints per set (-1 = unanswered)
+    private final List<int[]> answersPerSet = new ArrayList<>();
     private int currentSetIndex = 0;
 
     @FXML private Label feedbackLabel;
     @FXML private Button continueButton;
+    @FXML private Button previousButton;
 
     @FXML
     private void initialize() {
-    questionSets = com.javaninjas.careerpathway.quiz.QuizData.getQuizQuestionSets();
-        // load and render the first set
+        questionSets = QuizData.getQuizQuestionSets();
+
+        // prepare answersPerSet with -1 placeholders
+        answersPerSet.clear();
+        for (int i = 0; i < questionSets.size(); i++) {
+            answersPerSet.add(new int[]{ -1, -1, -1, -1, -1 });
+        }
+
+        // build progress dots UI
+        buildProgressDots();
+
+        // render first set
         renderCurrentSet();
-        if (continueButton != null) {
-            continueButton.setOnAction(e -> onContinue());
+
+        if (continueButton != null) continueButton.setOnAction(e -> onContinue());
+        if (previousButton != null) previousButton.setOnAction(e -> onPrevious());
+    }
+
+    private void buildProgressDots() {
+        if (progressDots == null) return;
+        progressDots.getChildren().clear();
+        for (int i = 0; i < questionSets.size(); i++) {
+            Circle c = new Circle(6);
+            c.getStyleClass().add("dot");
+            progressDots.getChildren().add(c);
+        }
+        updateProgressDots();
+    }
+
+    private void updateProgressDots() {
+        if (progressDots == null) return;
+        for (int i = 0; i < progressDots.getChildren().size(); i++) {
+            if (!(progressDots.getChildren().get(i) instanceof Circle)) continue;
+            Circle c = (Circle) progressDots.getChildren().get(i);
+            c.getStyleClass().removeAll("dot-active", "dot");
+            if (i == currentSetIndex) c.getStyleClass().add("dot-active");
+            else c.getStyleClass().add("dot");
         }
     }
 
     private void renderCurrentSet() {
         List<Question> set = questionSets.get(currentSetIndex);
-    int base = currentSetIndex * 5;
-    q1Label.setText((base + 1) + ". " + set.get(0).prompt());
-    q2Label.setText((base + 2) + ". " + set.get(1).prompt());
-    q3Label.setText((base + 3) + ". " + set.get(2).prompt());
-    q4Label.setText((base + 4) + ". " + set.get(3).prompt());
-    q5Label.setText((base + 5) + ". " + set.get(4).prompt());
+        int base = currentSetIndex * 5;
+        titleLabel.setText("Questions " + (base + 1) + "–" + (base + 5));
+        q1Label.setText((base + 1) + ". " + set.get(0).prompt());
+        q2Label.setText((base + 2) + ". " + set.get(1).prompt());
+        q3Label.setText((base + 3) + ". " + set.get(2).prompt());
+        q4Label.setText((base + 4) + ". " + set.get(3).prompt());
+        q5Label.setText((base + 5) + ". " + set.get(4).prompt());
 
-        // Clear previous option buttons
+        // clear previous option nodes
         q1Options.getChildren().clear();
         q2Options.getChildren().clear();
         q3Options.getChildren().clear();
         q4Options.getChildren().clear();
         q5Options.getChildren().clear();
 
-        // Create groups and populate options dynamically for each question
-        group1 = buildOptionsForQuestion(set.get(0), q1Options);
-        group2 = buildOptionsForQuestion(set.get(1), q2Options);
-        group3 = buildOptionsForQuestion(set.get(2), q3Options);
-        group4 = buildOptionsForQuestion(set.get(3), q4Options);
-        group5 = buildOptionsForQuestion(set.get(4), q5Options);
+        // build options and attach group listeners bound to question index
+        group1 = buildOptionsForQuestion(set.get(0), q1Options, 0);
+        group2 = buildOptionsForQuestion(set.get(1), q2Options, 1);
+        group3 = buildOptionsForQuestion(set.get(2), q3Options, 2);
+        group4 = buildOptionsForQuestion(set.get(3), q4Options, 3);
+        group5 = buildOptionsForQuestion(set.get(4), q5Options, 4);
 
-        addSelectionListener(group1);
-        addSelectionListener(group2);
-        addSelectionListener(group3);
-        addSelectionListener(group4);
-        addSelectionListener(group5);
+        // pre-select if answers present
+        int[] answers = answersPerSet.get(currentSetIndex);
+        restoreSelection(group1, answers[0]);
+        restoreSelection(group2, answers[1]);
+        restoreSelection(group3, answers[2]);
+        restoreSelection(group4, answers[3]);
+        restoreSelection(group5, answers[4]);
 
         // clear feedback
         if (feedbackLabel != null) feedbackLabel.setText("");
 
-        // bind label widths to their container so long questions wrap instead of truncating
-        try {
-            Region r1 = (Region) q1Options.getParent();
-            Region r2 = (Region) q2Options.getParent();
-            Region r3 = (Region) q3Options.getParent();
-            Region r4 = (Region) q4Options.getParent();
-            Region r5 = (Region) q5Options.getParent();
+        // update progress dots
+        updateProgressDots();
 
-            q1Label.setWrapText(true);
-            q1Label.maxWidthProperty().bind(r1.widthProperty().subtract(12));
-            q2Label.setWrapText(true);
-            q2Label.maxWidthProperty().bind(r2.widthProperty().subtract(12));
-            q3Label.setWrapText(true);
-            q3Label.maxWidthProperty().bind(r3.widthProperty().subtract(12));
-            q4Label.setWrapText(true);
-            q4Label.maxWidthProperty().bind(r4.widthProperty().subtract(12));
-            q5Label.setWrapText(true);
-            q5Label.maxWidthProperty().bind(r5.widthProperty().subtract(12));
-        } catch (ClassCastException ignored) {
-            // if parent isn't a Region for some reason, skip binding; labels already have a reasonable maxWidth
+        // ensure labels wrap to available width
+        bindLabelWidthToContainer(q1Label, q1Options);
+        bindLabelWidthToContainer(q2Label, q2Options);
+        bindLabelWidthToContainer(q3Label, q3Options);
+        bindLabelWidthToContainer(q4Label, q4Options);
+        bindLabelWidthToContainer(q5Label, q5Options);
+    }
+
+    private void bindLabelWidthToContainer(Label label, VBox optionsContainer) {
+        try {
+            Region parent = (Region) optionsContainer.getParent();
+            label.setWrapText(true);
+            label.maxWidthProperty().bind(parent.widthProperty().subtract(12));
+        } catch (ClassCastException ignored) {}
+    }
+
+    private void restoreSelection(ToggleGroup group, int selectedIndex) {
+        if (group == null || selectedIndex < 0) return;
+        if (selectedIndex >= 0 && selectedIndex < group.getToggles().size()) {
+            Toggle t = group.getToggles().get(selectedIndex);
+            if (t != null) {
+                Platform.runLater(() -> t.setSelected(true));
+            }
         }
     }
 
@@ -112,10 +158,14 @@ public class QuizQuestionController {
         return g.getToggles().indexOf(g.getSelectedToggle());
     }
 
-    private ToggleGroup buildOptionsForQuestion(Question q, VBox container) {
+    /**
+     * Build option ToggleButtons for a question and wire them to update answersPerSet[currentSetIndex][qIndex].
+     */
+    private ToggleGroup buildOptionsForQuestion(Question q, VBox container, int qIndex) {
         ToggleGroup group = new ToggleGroup();
-        // create a ToggleButton for each option text
-        for (String opt : q.options()) {
+        List<String> opts = q.options();
+        for (int i = 0; i < opts.size(); i++) {
+            String opt = opts.get(i);
             ToggleButton tb = new ToggleButton(opt);
             tb.setPrefHeight(36);
             tb.setWrapText(true);
@@ -123,69 +173,80 @@ public class QuizQuestionController {
             tb.setMaxWidth(Double.MAX_VALUE);
             tb.getStyleClass().add("quiz-option");
             tb.setToggleGroup(group);
-            // make the toggle expand to the width of the question container
+            // expand to container width
             tb.maxWidthProperty().bind(container.widthProperty());
             VBox.setVgrow(tb, Priority.NEVER);
             container.getChildren().add(tb);
         }
-        return group;
-    }
 
-    private void addSelectionListener(ToggleGroup g) {
-        final String unselected = "-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white;";
-        final String selected = "-fx-background-radius:14; -fx-border-color:#3b82f6; -fx-border-radius:14; -fx-background-color: #3b82f6; -fx-text-fill: white;";
+        // selection listener updates answersPerSet for this set and question index
+        group.selectedToggleProperty().addListener((obs, oldT, newT) -> {
+            // style management (visual feedback)
+            final String unselected = "-fx-background-radius:14; -fx-border-color:#9ca3af; -fx-border-radius:14; -fx-background-color: white; -fx-text-fill: #111827;";
+            final String selected = "-fx-background-radius:14; -fx-border-color:#3b82f6; -fx-border-radius:14; -fx-background-color: #3b82f6; -fx-text-fill: white;";
 
-        g.selectedToggleProperty().addListener((obs, oldT, newT) -> {
-            // set unselected style for all toggles in the group
-            for (Toggle t : g.getToggles()) {
+            for (Toggle t : group.getToggles()) {
                 if (t instanceof ToggleButton tb) {
                     tb.setStyle(unselected);
                 }
             }
-
             if (newT instanceof ToggleButton nb) {
                 nb.setStyle(selected);
             }
+
+            // store selection index in answersPerSet for the active set
+            int selIdx = selectedIndex(group);
+            answersPerSet.get(currentSetIndex)[qIndex] = selIdx;
         });
+
+        return group;
     }
 
     @FXML
     private void onContinue() {
-        int a1 = selectedIndex(group1);
-        int a2 = selectedIndex(group2);
-        int a3 = selectedIndex(group3);
-        int a4 = selectedIndex(group4);
-        int a5 = selectedIndex(group5);
-
-        if (a1 < 0 || a2 < 0 || a3 < 0 || a4 < 0 || a5 < 0) {
-            feedbackLabel.setText("Please answer all questions before continuing.");
-            return;
+        // verify all five answers selected for current set
+        int[] answers = answersPerSet.get(currentSetIndex);
+        for (int i = 0; i < 5; i++) {
+            if (answers[i] < 0) {
+                if (feedbackLabel != null) feedbackLabel.setText("Please answer all questions before continuing.");
+                return;
+            }
         }
 
-        // append these answers to accumulated list
-        accumulatedAnswers.add(a1);
-        accumulatedAnswers.add(a2);
-        accumulatedAnswers.add(a3);
-        accumulatedAnswers.add(a4);
-        accumulatedAnswers.add(a5);
-
-        // If there are more sets, advance and re-render; otherwise compute result
-        currentSetIndex++;
-        if (currentSetIndex < questionSets.size()) {
+        // if more sets remain, advance
+        if (currentSetIndex < questionSets.size() - 1) {
+            currentSetIndex++;
             renderCurrentSet();
             return;
         }
 
-        // All sets answered: compute result
+        // otherwise flatten answers and compute result
+        List<Integer> accumulatedAnswers = new ArrayList<>();
+        for (int[] setAnswers : answersPerSet) {
+            for (int v : setAnswers) accumulatedAnswers.add(v);
+        }
+
         QuizService svc = new QuizService(questionSets);
         var result = svc.calculateResult(accumulatedAnswers);
 
-        // Save suggestion (in-memory) and navigate to results
-    var repo = com.javaninjas.careerpathway.quiz.InMemoryQuizSuggestionRepository.getInstance();
+        // Save suggestion and navigate to result view
+        var repo = com.javaninjas.careerpathway.quiz.InMemoryQuizSuggestionRepository.getInstance();
         var suggestion = new com.javaninjas.careerpathway.quiz.model.QuizPathwaySuggestion(result.title(), result.description(), accumulatedAnswers, "anonymous");
         repo.saveSuggestion(suggestion);
 
-        // Pass control to result view
         NavigationService.go("/com/javaninjas/careerpathway/quiz/view/QuizResult.fxml");
+    }
+
+    @FXML
+    private void onPrevious() {
+        // If at the first set, do nothing (or optionally navigate back to intro)
+        if (currentSetIndex <= 0) {
+            // optionally navigate back to intro:
+            // NavigationService.go("/com/javaninjas/careerpathway/quiz/view/QuizIntro.fxml");
+            return;
+        }
+        // just move back and render — previous answers are retained in answersPerSet
+        currentSetIndex--;
+        renderCurrentSet();
     }
 }

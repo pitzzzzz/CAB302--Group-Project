@@ -1,24 +1,188 @@
+/* Root background */
+.root {
+    -fx-font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    -fx-base: #ffffff;
+    -fx-background-color: linear-gradient(to bottom right, #f7fbff 0%, #eef6ff 100%);
+}
 
-.root { -fx-font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial; -fx-base: #ffffff; -fx-background-color: linear-gradient(to bottom right, #f7fbff 0%, #eef6ff 100%); }
-.header { -fx-font-size: 22px; -fx-font-weight: bold; }
-.subtitle { -fx-text-fill: #666; }
-.dot { -fx-fill: #cfd8dc; }
-.dot-active { -fx-fill: #1976d2; }
-.likert-toggle { -fx-padding: 10 14; }
-.primary-btn { -fx-background-color: linear-gradient(#3b82f6, #2563eb); -fx-text-fill: white; -fx-font-weight: 700; -fx-background-radius: 20px; -fx-padding: 10 18 10 18; }
+/* Typography */
+.header {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #111827;
+}
+.hero-title {
+    -fx-font-size: 28px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #0f1724;
+    -fx-text-alignment: center;
+}
+.subtitle {
+    -fx-text-fill: #6b7280;
+    -fx-font-size: 13px;
+}
+.hero-subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: #475569;
+    -fx-text-alignment: center;
+}
+.section-header {
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #374151;
+}
+.label-muted {
+    -fx-text-fill: #6b7280;
+    -fx-font-size: 12px;
+}
+.feedback {
+    -fx-text-fill: #b00020;
+    -fx-font-size: 12px;
+}
 
-/* Card container */
-.card { -fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(40,40,40,0.08), 20, 0, 0, 4); -fx-padding: 28px; }
+/* Card container (used across pages) */
+.card {
+    -fx-background-color: white;
+    -fx-background-radius: 18;
+    -fx-effect: dropshadow(gaussian, rgba(40,40,40,0.08), 12, 0, 0, 4);
+    -fx-padding: 24;
+    -fx-spacing: 14;
+}
 
-/* Inputs */
-.text-field, .password-field { -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-color: #e5e7eb; -fx-padding: 8 10 8 10; }
+/* Feature card (registration feature tiles) */
+.feature-card {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-padding: 16 18 18 18;
+    -fx-effect: dropshadow(gaussian, rgba(16,24,40,0.06), 12, 0, 0, 6);
+    -fx-spacing: 10;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+    -fx-border-radius: 12;
+}
+.feature-card:hover {
+    -fx-translate-y: -6;
+    -fx-effect: dropshadow(gaussian, rgba(16,24,40,0.12), 18, 0, 0, 10);
+    -fx-border-color: rgba(59,130,246,0.06);
+}
+.feature-title {
+    -fx-font-size: 15px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #0f1724;
+}
+.feature-desc {
+    -fx-font-size: 12px;
+    -fx-text-fill: #475569;
+}
 
-/* Hyperlink style */
-.hyperlink { -fx-text-fill: #2563eb; -fx-underline: true; }
+/* Inputs (reusable) */
+.text-field,
+.password-field,
+.combo-box {
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-border-color: #e5e7eb;
+    -fx-background-color: #f9fafb;
+    -fx-padding: 10 12;
+    -fx-font-size: 13px;
+    -fx-text-fill: #111827;
+}
+.text-field:focused,
+.password-field:focused,
+.combo-box:focused {
+    -fx-border-color: #3b82f6;
+    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, rgba(59,130,246,0.20), 6, 0, 0, 2);
+}
 
-/* small text */
-.small-muted { -fx-text-fill: #6b7280; -fx-font-size: 11px; }
+/* Buttons */
+.primary-btn {
+    -fx-background-color: linear-gradient(#3b82f6, #2563eb);
+    -fx-text-fill: white;
+    -fx-font-weight: 700;
+    -fx-font-size: 14px;
+    -fx-background-radius: 22px;
+    -fx-padding: 10 18;
+    -fx-cursor: hand;
+}
+.primary-btn:hover {
+    -fx-background-color: linear-gradient(#60a5fa, #3b82f6);
+}
+.primary-btn:pressed {
+    -fx-background-color: linear-gradient(#2563eb, #1d4ed8);
+    -fx-translate-y: 1px;
+}
+.secondary-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #374151;
+    -fx-font-size: 12px;
+    -fx-underline: true;
+    -fx-cursor: hand;
+}
+.secondary-link {
+    -fx-text-fill: #2563eb;
+    -fx-font-size: 12px;
+    -fx-underline: true;
+}
 
-/* bottom navigation styles */
-.bottom-nav-button { -fx-font-size: 16px; -fx-padding: 8 24; -fx-background-color: transparent; }
-.bottom-nav-button.active { -fx-background-color: #c6d8e8; -fx-background-radius: 16; -fx-font-weight: bold; }
+/* Quiz question options (buttons inside cards) */
+.question-option {
+    -fx-background-color: #f3f4f6;
+    -fx-text-fill: #111827;
+    -fx-background-radius: 8;
+    -fx-padding: 10 14;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+}
+.question-option:hover { -fx-background-color: #e5e7eb; }
+.question-option:selected, .question-option:selected:hover {
+    -fx-background-color: #dbeafe;
+    -fx-border-color: transparent;
+}
+
+/* Progress dots */
+.dot {
+    -fx-fill: #cfd8dc;
+}
+.dot-active {
+    -fx-fill: #3b82f6;
+}
+
+/* Small utilities */
+.label-small { -fx-font-size: 11px; -fx-text-fill: #6b7280; }
+.link-label {
+    -fx-font-size: 11px;
+    -fx-text-fill: #2563eb;
+    -fx-underline: true;
+    -fx-cursor: hand;
+}
+
+/* ScrollPane viewport transparency (so cards feel to float on background) */
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+/* Avatar placeholder */
+.avatar {
+    -fx-alignment: center;
+}
+.avatar-circle {
+    -fx-fill: #f1f5f9;
+    -fx-stroke: #d1d5db;
+    -fx-stroke-width: 2;
+}
+.avatar-label {
+    -fx-font-size: 11px;
+    -fx-text-fill: #6b7280;
+}
+
+/* Feedback and validation */
+.feedback-label {
+    -fx-text-fill: #b00020;
+    -fx-font-size: 12px;
+}
+
+/* Header rounded bottom helper (for StackPane header rounding when needed) */
+.header-rounded {
+    -fx-background-radius: 0 0 40 40;
+}

@@ -18,8 +18,6 @@ public class QuizResultController {
     @FXML
     private void initialize() {
     // Set dashboard action to go to the login page (as requested)
-    if (dashboardButton != null) dashboardButton.setOnAction(e -> com.javaninjas.careerpathway.app.NavigationService.go("/com/javaninjas/careerpathway/login/views/loginPage.fxml"));
-
         // Load last suggestion
         var repo = com.javaninjas.careerpathway.quiz.InMemoryQuizSuggestionRepository.getInstance();
         List<com.javaninjas.careerpathway.quiz.model.QuizPathwaySuggestion> all = repo.getAllSuggestions();
@@ -121,4 +119,12 @@ public class QuizResultController {
         detailsBox.getChildren().add(new Label("4. Bachelor of Engineering — hands-on, technical"));
         detailsBox.getChildren().add(new Label("5. Bachelor of Health Sciences — service/people focused"));
     }
+
+
+    @FXML
+    private void goToDashboard() {
+        com.javaninjas.careerpathway.app.NavigationService.go(
+                "/com/javaninjas/careerpathway/dashboard/views/userPathway.fxml");
+    }
+
 }

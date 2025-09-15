@@ -3,55 +3,42 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
 <?import javafx.scene.shape.*?>
 
-<!-- Onboarding-style intro matching 3:4 theme -->
-<VBox xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+<VBox xmlns="http://javafx.com/javafx/17.0.12"
+      xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.javaninjas.careerpathway.quiz.QuizIntroController"
       alignment="TOP_CENTER"
-      spacing="24"
+      spacing="20"
       prefWidth="480"
       prefHeight="640"
-      style="-fx-background-color: white;">
+      styleClass="root">
 
-    <fx:include source="../../core/views/topNavBack.fxml" />
 
-    <!-- Top header area with gray background and concave curve -->
-    <StackPane prefHeight="220" minHeight="160" maxHeight="260" VBox.vgrow="NEVER">
-        <!-- gray header rectangle -->
-        <Rectangle fx:id="headerRect" width="480" height="220" fill="#e6e6e6" arcWidth="0" arcHeight="0" />
-
-        <!-- dots indicator near the top of the header -->
-        <HBox spacing="12" alignment="CENTER" StackPane.alignment="TOP_CENTER" translateY="18">
-            <Circle radius="6" fill="#4b5563" />
-            <Circle radius="5" fill="#9ca3af" />
-            <Circle radius="5" fill="#c7cbd0" />
-            <Circle radius="5" fill="#c7cbd0" />
-            <Circle radius="5" fill="#c7cbd0" />
-            <Circle radius="5" fill="#c7cbd0" />
+    <!-- Header with gradient background -->
+    <StackPane prefHeight="180" maxWidth="Infinity" VBox.vgrow="NEVER"
+               style="-fx-background-color: linear-gradient(to bottom right, #dbeafe, #bfdbfe);
+                      -fx-background-radius: 0 0 40 40;">
+        <!-- Progress dots -->
+        <HBox spacing="10" alignment="CENTER" StackPane.alignment="BOTTOM_CENTER" translateY="-15">
+            <Circle radius="6" styleClass="dot-active"/>
+            <Circle radius="5" styleClass="dot"/>
+            <Circle radius="5" styleClass="dot"/>
+            <Circle radius="5" styleClass="dot"/>
+            <Circle radius="5" styleClass="dot"/>
+            <Circle radius="5" styleClass="dot"/>
         </HBox>
-
-        <!-- white ellipse to create the concave curve at the bottom of the header -->
-        <Ellipse radiusX="300" radiusY="80" fill="white" strokeWidth="0" StackPane.alignment="BOTTOM_CENTER" translateY="40" />
     </StackPane>
 
-    <!-- Main content area (3:4 central area) -->
-    <VBox alignment="CENTER" spacing="32" prefWidth="420">
-        <padding>
-            <Insets top="20" right="20" bottom="20" left="20" />
-        </padding>
-
-        <Label text="Let's get started..." wrapText="true"
-               style="-fx-font-size:20px; -fx-font-weight:bold;" />
-
-        <Region prefHeight="120" />
-
-    <!-- Continue button styled like the design -->
-    <Button fx:id="startButton" text="Continue" prefWidth="220" prefHeight="44" style="-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 22;" />
+    <!-- Main content card -->
+    <VBox alignment="CENTER" spacing="14" prefWidth="360" styleClass="card">
+        <Label text="Let’s get started..." wrapText="true" styleClass="header"/>
+        <Label text="This short quiz will help us personalize your career pathway."
+               wrapText="true" styleClass="subtitle"/>
+        <Region prefHeight="30"/>
+        <Button fx:id="startButton" text="Continue" prefWidth="220" prefHeight="44" styleClass="primary-btn"/>
     </VBox>
 
-    <!-- bottom spacer to keep 3:4 feel and center content vertically -->
-    <Region VBox.vgrow="ALWAYS" />
-
+    <!-- Flexible spacer -->
+    <Region VBox.vgrow="ALWAYS"/>
 </VBox>
