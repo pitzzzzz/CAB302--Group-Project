@@ -32,8 +32,8 @@
                        style="-fx-font-size: 14px; -fx-font-weight: 700; -fx-text-fill: #444444; -fx-padding: 6 0 10 0;" />
 
                 <VBox alignment="CENTER" spacing="10" maxWidth="320">
-                    <!-- Username / Email field -->
-                    <TextField fx:id="emailField" promptText="Username"
+                    <!-- Email field -->
+                    <TextField fx:id="emailField" promptText="Email"
                                prefHeight="36" prefWidth="300"
                                style="-fx-background-color: white; -fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #d6d6d6; -fx-padding: 0 10 0 10; -fx-font-size: 13px;" />
 
