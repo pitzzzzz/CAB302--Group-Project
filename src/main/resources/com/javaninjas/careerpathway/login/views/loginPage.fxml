@@ -14,7 +14,7 @@
     <fx:include source="../../core/views/topNavBack.fxml" />
 
     <!-- Main login card -->
-    <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="480" spacing="12" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 28;" styleClass="card">
+    <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="500.0" spacing="12" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 28;" styleClass="card">
 
         <!-- Logo / header -->
         <Label fx:id="welcomeText" alignment="CENTER" style="-fx-font-size: 14px; -fx-font-weight: 700; -fx-text-fill: #444444; -fx-padding: 6 0 10 0;" text="[ INSERT LOGO ]" />
