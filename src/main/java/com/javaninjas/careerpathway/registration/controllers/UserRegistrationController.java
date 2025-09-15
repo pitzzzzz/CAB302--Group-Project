@@ -107,6 +107,71 @@ public class UserRegistrationController implements Initializable {
         });
     }
 
+    // ===== HELPER METHODS FOR TESTING =====
+
+    public boolean isValidFirstName(String firstName) {
+        return firstName != null && !firstName.trim().isEmpty();
+    }
+
+    public boolean isValidLastName(String lastName) {
+        return lastName != null && !lastName.trim().isEmpty();
+    }
+
+    public boolean isValidEmail(String email) {
+        if (email == null || email.trim().isEmpty()) {
+            return false;
+        }
+        return email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$");
+    }
+
+    public boolean isValidPassword(String password) {
+        return password != null && !password.isBlank() && password.length() >= 8;
+    }
+
+    public boolean isValidCity(String city) {
+        return city != null && !city.trim().isEmpty();
+    }
+
+    public String hashPassword(String password) {
+        return BCrypt.withDefaults().hashToString(12, password.toCharArray());
+    }
+
+    public boolean verifyPassword(String password, String hash) {
+        BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), hash);
+        return result.verified;
+    }
+
+    public String[] getAgeOptions() {
+        return new String[]{"Under 18", "18-24", "25-34", "35-44", "45+"};
+    }
+
+    public String[] getStageOptions() {
+        return new String[]{"Student", "Graduate", "Early career", "Experienced"};
+    }
+
+    // Helper class for testing complete form data
+    public static class RegistrationData {
+        public String firstName, lastName, email, password, city;
+
+        public RegistrationData() {}
+
+        public RegistrationData(String firstName, String lastName, String email, String password, String city) {
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.email = email;
+            this.password = password;
+            this.city = city;
+        }
+    }
+
+    public boolean validateRegistrationData(RegistrationData data) {
+        return isValidFirstName(data.firstName) &&
+                isValidLastName(data.lastName) &&
+                isValidEmail(data.email) &&
+                isValidPassword(data.password) &&
+                isValidCity(data.city);
+    }
+
     private void showAlert(Alert.AlertType type, String title, String message) {
         Alert a = new Alert(type);
         a.setTitle(title);
