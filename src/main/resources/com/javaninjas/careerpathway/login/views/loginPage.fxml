@@ -10,8 +10,6 @@
         <Insets bottom="24" left="24" right="24" top="24" />
     </padding>
 
-    <!-- Top-left back button include -->
-    <fx:include source="../../core/views/topNavBack.fxml" />
 
     <!-- Main login card -->
     <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="500.0" spacing="12" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 28;" styleClass="card">
