@@ -4,57 +4,44 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<StackPane fx:id="rootPane" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="com.javaninjas.careerpathway.login.controllers.LoginPageController"
-           alignment="CENTER" style="-fx-background-color: linear-gradient(to bottom right, #f4f6f8, #eef7ff);">
+<StackPane fx:id="rootPane" alignment="CENTER" style="-fx-background-color: linear-gradient(to bottom right, #f4f6f8, #eef7ff);" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javaninjas.careerpathway.login.controllers.LoginPageController">
 
     <padding>
-        <Insets top="24" right="24" bottom="24" left="24" />
+        <Insets bottom="24" left="24" right="24" top="24" />
     </padding>
 
     <!-- Top-left back button include -->
     <fx:include source="../../core/views/topNavBack.fxml" />
 
     <!-- Main login card -->
-    <VBox alignment="CENTER" spacing="12" maxWidth="480"
-          style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 28;"
-          styleClass="card">
+    <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="480" spacing="12" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 28;" styleClass="card">
 
         <!-- Logo / header -->
-        <Label fx:id="welcomeText" text="[ INSERT LOGO ]" alignment="CENTER"
-               style="-fx-font-size: 14px; -fx-font-weight: 700; -fx-text-fill: #444444; -fx-padding: 6 0 10 0;" />
+        <Label fx:id="welcomeText" alignment="CENTER" style="-fx-font-size: 14px; -fx-font-weight: 700; -fx-text-fill: #444444; -fx-padding: 6 0 10 0;" text="[ INSERT LOGO ]" />
 
         <!-- Login form -->
-        <VBox alignment="CENTER" spacing="10" maxWidth="320">
+        <VBox alignment="CENTER" maxWidth="320" spacing="10">
 
             <!-- Email field -->
-            <TextField fx:id="emailField" promptText="Email"
-                       prefHeight="36" prefWidth="300"
-                       style="-fx-background-color: white; -fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #d6d6d6; -fx-padding: 0 10 0 10; -fx-font-size: 13px;" />
+            <TextField fx:id="emailField" prefHeight="36" prefWidth="300" promptText="Email" style="-fx-background-color: white; -fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #d6d6d6; -fx-padding: 0 10 0 10; -fx-font-size: 13px;" />
 
             <!-- Password field -->
-            <PasswordField fx:id="passwordField" promptText="Password"
-                           prefHeight="36" prefWidth="300"
-                           style="-fx-background-color: white; -fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #d6d6d6; -fx-padding: 0 10 0 10; -fx-font-size: 13px;" />
+            <PasswordField fx:id="passwordField" prefHeight="36" prefWidth="300" promptText="Password" style="-fx-background-color: white; -fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #d6d6d6; -fx-padding: 0 10 0 10; -fx-font-size: 13px;" />
 
             <!-- Message label -->
-            <Label fx:id="messageLabel"
-                   style="-fx-text-fill: #b00000; -fx-font-size: 12px;" />
+            <Label fx:id="messageLabel" style="-fx-text-fill: #b00000; -fx-font-size: 12px;" />
 
             <!-- Login button -->
-            <Button fx:id="submitButton" defaultButton="true" onAction="#handleLogin" text="Login"
-                    prefWidth="260" prefHeight="40" styleClass="primary-btn">
+            <Button fx:id="submitButton" defaultButton="true" onAction="#handleLogin" prefHeight="40" prefWidth="260" styleClass="primary-btn" text="Login">
                 <VBox.margin>
-                    <Insets top="12" bottom="6" />
+                    <Insets bottom="6" top="12" />
                 </VBox.margin>
             </Button>
 
             <!-- Signup section -->
             <VBox alignment="CENTER" spacing="4">
-                <Label text="don't have an account?"
-                       style="-fx-font-size: 11px; -fx-text-fill: #6b6b6b; -fx-font-style: italic;" />
-                <Hyperlink onAction="#handleRegisterLink" text="sign up here"
-                           style="-fx-font-size: 11px; -fx-text-fill: #3b82f6; -fx-font-style: italic; -fx-underline: true;" />
+                <Label style="-fx-font-size: 11px; -fx-text-fill: #6b6b6b; -fx-font-style: italic;" text="don't have an account?" />
+                <Hyperlink onAction="#handleRegisterLink" style="-fx-font-size: 11px; -fx-text-fill: #3b82f6; -fx-font-style: italic; -fx-underline: true;" text="sign up here" />
             </VBox>
 
         </VBox>
