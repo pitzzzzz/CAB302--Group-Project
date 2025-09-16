@@ -49,4 +49,15 @@ public class LoginPageControllerTest {
         assertFalse(loginController.verifyPassword("wrongPassword", hash));
     }
 
+    @Test
+    public void testValidateEmail_NullInput() {
+        assertFalse(loginController.isValidEmail(null), "Null email should be invalid");
+    }
+
+    @Test
+    public void testValidatePassword_NullInput() {
+        assertFalse(loginController.isValidPassword(null), "Null password should be invalid");
+    }
+
+
 }
