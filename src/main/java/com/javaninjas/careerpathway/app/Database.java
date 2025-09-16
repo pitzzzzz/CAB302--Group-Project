@@ -15,7 +15,7 @@ import java.sql.Statement;
  * It extracts the resource `Java Ninjas Database.db` to a temporary file and opens it.
  */
 public final class Database {
-    private static final String RESOURCE_PATH = "/com/javaninjas/careerpathway/Java Ninjas Database.db";
+    private static final String RESOURCE_PATH = "/Java Ninjas Database.db";
     private static File dbFile;
 
     private Database() { }
