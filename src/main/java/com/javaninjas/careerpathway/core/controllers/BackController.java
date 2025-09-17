@@ -1,6 +1,7 @@
 package com.javaninjas.careerpathway.core.controllers;
 
-import com.javaninjas.careerpathway.app.NavigationService;
+import com.javaninjas.careerpathway.core.services.NavigationService;
+
 import javafx.fxml.FXML;
 
 public class BackController {

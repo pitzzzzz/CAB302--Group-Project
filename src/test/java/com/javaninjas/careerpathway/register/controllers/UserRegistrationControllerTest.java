@@ -3,8 +3,8 @@ package com.javaninjas.careerpathway.register.controllers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.javaninjas.careerpathway.login.controllers.LoginPageController;
-import com.javaninjas.careerpathway.registration.controllers.UserRegistrationController;
+import com.javaninjas.careerpathway.pages.login.controllers.LoginPageController;
+import com.javaninjas.careerpathway.pages.registration.controllers.UserRegistrationController;
 
 import static org.junit.jupiter.api.Assertions.*;
 

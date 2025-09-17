@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<StackPane fx:id="rootPane" alignment="CENTER" style="-fx-background-color: linear-gradient(to bottom right, #f4f6f8, #eef7ff);" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javaninjas.careerpathway.login.controllers.LoginPageController">
+<StackPane fx:id="rootPane" alignment="CENTER" style="-fx-background-color: linear-gradient(to bottom right, #f4f6f8, #eef7ff);" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javaninjas.careerpathway.pages.login.controllers.LoginPageController">
 
     <padding>
         <Insets bottom="24" left="24" right="24" top="24" />

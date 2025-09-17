@@ -1,6 +1,6 @@
 package com.javaninjas.careerpathway.registration.controllers;
 
-import com.javaninjas.careerpathway.registration.controllers.UserRegistrationController;
+import com.javaninjas.careerpathway.pages.registration.controllers.UserRegistrationController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javaninjas.careerpathway.dashboard.controllers.PathwayController">
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javaninjas.careerpathway.pages.dashboard.controllers.PathwayController">
 	<!-- Top header -->
 	<top>
 		<AnchorPane style="-fx-padding:16;">
@@ -13,7 +13,7 @@
 					<Font name="System Bold" size="24" />
 				</font>
 			</Label>
-			<Button text="Logout" AnchorPane.rightAnchor="12" AnchorPane.topAnchor="8" style="-fx-background-radius:16; -fx-padding:6 12;" />
+			<Button fx:id="logoutBtn" text="Logout" AnchorPane.rightAnchor="12" AnchorPane.topAnchor="8" style="-fx-background-radius:16; -fx-padding:6 12;" onAction="#handleLogout" />
 		</AnchorPane>
 	</top>
 

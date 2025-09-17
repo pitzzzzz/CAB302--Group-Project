@@ -1,6 +1,9 @@
 package com.javaninjas.careerpathway.user.controllers;
 
 import org.junit.jupiter.api.Test;
+
+import com.javaninjas.careerpathway.core.controllers.UpdateUserDetailsController;
+
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 

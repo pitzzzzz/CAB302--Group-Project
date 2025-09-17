@@ -2,6 +2,9 @@ package com.javaninjas.careerpathway.login.controllers;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import com.javaninjas.careerpathway.pages.login.controllers.LoginPageController;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LoginPageControllerTest {

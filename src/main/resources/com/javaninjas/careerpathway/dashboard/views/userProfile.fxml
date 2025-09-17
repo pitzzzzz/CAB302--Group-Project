@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javaninjas.careerpathway.dashboard.controllers.ProfileController">
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javaninjas.careerpathway.pages.dashboard.controllers.ProfileController">
 	<top>
 		<AnchorPane style="-fx-padding:12;">
 			<Button text="&#x2190; back" AnchorPane.leftAnchor="12" AnchorPane.topAnchor="8" style="-fx-background-color:transparent; -fx-font-size:14;" />

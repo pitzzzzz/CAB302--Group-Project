@@ -8,7 +8,7 @@
 
 <VBox xmlns="http://javafx.com/javafx/17.0.12"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.javaninjas.careerpathway.registration.controllers.RegistrationPageController"
+      fx:controller="com.javaninjas.careerpathway.pages.registration.controllers.RegistrationPageController"
       spacing="18"
       fillWidth="true"
       styleClass="root">

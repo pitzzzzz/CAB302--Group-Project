@@ -1,7 +1,9 @@
 package com.javaninjas.careerpathway.quiz;
 
-import com.javaninjas.careerpathway.quiz.model.Question;
-import com.javaninjas.careerpathway.quiz.model.QuizResult;
+import com.javaninjas.careerpathway.pages.quiz.services.QuizService;
+import com.javaninjas.careerpathway.pages.quiz.model.QuizData;
+import com.javaninjas.careerpathway.pages.quiz.model.Question;
+import com.javaninjas.careerpathway.pages.quiz.model.QuizResult;
 import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.List;

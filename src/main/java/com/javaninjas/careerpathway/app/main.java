@@ -5,7 +5,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class main extends Application {
+import com.javaninjas.careerpathway.core.services.NavigationService;
+
+public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {

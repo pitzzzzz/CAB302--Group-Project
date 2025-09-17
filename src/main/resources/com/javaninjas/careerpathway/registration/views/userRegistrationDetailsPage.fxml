@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<StackPane alignment="CENTER" styleClass="root" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javaninjas.careerpathway.registration.controllers.UserRegistrationController">
+<StackPane alignment="CENTER" styleClass="root" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javaninjas.careerpathway.pages.registration.controllers.UserRegistrationController">
 
 	<!-- Top nav -->
 	<AnchorPane>
