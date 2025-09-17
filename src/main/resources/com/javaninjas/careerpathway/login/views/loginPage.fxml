@@ -15,7 +15,7 @@
     <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="500.0" spacing="12" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 28;" styleClass="card">
 
         <!-- Logo / header -->
-        <Label fx:id="welcomeText" alignment="CENTER" style="-fx-font-size: 14px; -fx-font-weight: 700; -fx-text-fill: #444444; -fx-padding: 6 0 10 0;" text="Sign in" />
+        <Label fx:id="welcomeText" alignment="CENTER" style="-fx-font-size: 18px; -fx-font-weight: 700; -fx-text-fill: #444444; -fx-padding: 6 0 10 0;" text="Sign in" />
 
         <!-- Login form -->
         <VBox alignment="CENTER" maxWidth="320" spacing="10">

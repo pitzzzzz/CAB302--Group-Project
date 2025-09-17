@@ -3,7 +3,7 @@ package com.javaninjas.careerpathway.pages;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
-public class registrationPage {
+public class RegistrationPage {
 
     @FXML
     private TextField firstNameField;
