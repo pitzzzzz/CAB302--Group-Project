@@ -7,7 +7,7 @@ import java.io.IOException;
 
 import com.javaninjas.careerpathway.core.services.NavigationService;
 
-public class Main extends Application {
+public class main extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {

@@ -1,4 +1,4 @@
 package com.javaninjas.careerpathway.core.components;
 
-public class Button {
+public class button {
 }
