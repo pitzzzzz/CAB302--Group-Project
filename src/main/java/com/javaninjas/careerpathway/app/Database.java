@@ -10,15 +10,12 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-/**
- * Small helper to provide a Connection to the bundled SQLite DB.
- * It uses the file at:
- *   C:\QUT\CAB302\CAB302---Project\Java Ninjas Database.db
- */
 public final class Database {
-    private static final String RESOURCE_PATH = "/Java Ninjas Database.db";
+    private static final String DB_NAME = "Java Ninjas Database.db";
     private static final File dbFile =
-            new File("C:/QUT/CAB302/CAB302---Project/Java Ninjas Database.db");
+            new File(System.getProperty("user.dir"), DB_NAME); // project root
+
+    private static final String RESOURCE_PATH = "/" + DB_NAME;
 
     private Database() { }
 
@@ -34,19 +31,13 @@ public final class Database {
         return conn;
     }
 
-    /**
-     * Ensure the DB file exists. If not, try to copy from resources.
-     */
     private static void ensureDatabaseFile() throws IOException {
         if (dbFile.exists()) return;
 
-        // Debug: print where we’re placing/reading the DB from
         System.out.println("[Database] Using DB path: " + dbFile.getAbsolutePath());
 
-        // If DB doesn’t exist, try copying the bundled resource
         try (InputStream in = Database.class.getResourceAsStream(RESOURCE_PATH)) {
             if (in == null) {
-                // No resource bundled; create an empty DB file so SQLite can initialize it
                 Files.createFile(dbFile.toPath());
                 return;
             }
