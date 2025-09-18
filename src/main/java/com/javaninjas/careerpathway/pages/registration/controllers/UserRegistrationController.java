@@ -112,46 +112,55 @@ public class UserRegistrationController implements Initializable {
         return true;
     }
 
+    private boolean validateRegistration() {
+        if (!validateNotBlank(firstNameField, "first name")) return false;
+        if (!validateNotBlank(lastNameField, "last name")) return false;
+        if (!validateNotBlank(emailField, "email") || !validateEmailFormat(emailField) || isEmailDuplicate(emailField)) return false;
+        if (!validatePassword(passwordField)) return false;
+        return true;
+    }
 
+    public String hashPassword(String password) {
+        return BCrypt.withDefaults().hashToString(12, password.toCharArray());
+    }
 
-
-    @FXML
-    private void onRegister() {
-
-
-    // Basic validation
-    if (!validateNotBlank(firstNameField, "first name")) {return;}
-    if (!validateNotBlank(lastNameField, "last name")) {return;}
-        if (!validateNotBlank(emailField, "email") || !validateEmailFormat(emailField) || isEmailDuplicate(emailField)) {return;}
-    if (!validatePassword(passwordField)) {return;}
-
-            String hashed = BCrypt.withDefaults().hashToString(12, getPassword().toCharArray());
-
-
+    private boolean saveUserToDatabase(String hashedPassword) {
         String sql = "INSERT INTO users(first_name,last_name,email,password_hash,city,age_group,profile_stage,anonymous) VALUES(?,?,?,?,?,?,?,?)";
         try (Connection conn = Database.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, getFirstName());
             ps.setString(2, getLastName());
             ps.setString(3, getEmail());
-            ps.setString(4, hashed);
+            ps.setString(4, hashedPassword);
             ps.setString(5, getCity());
             ps.setString(6, ageSelect != null ? ageSelect.getValue() : null);
             ps.setString(7, profileStage != null ? profileStage.getValue() : null);
             ps.setInt(8, anonymousCheck != null && anonymousCheck.isSelected() ? 1 : 0);
             ps.executeUpdate();
+            return true;
         } catch (SQLException ex) {
             showAlert(Alert.AlertType.ERROR, "Registration Error", "Failed to register user: " + ex.getMessage());
-            return;
+            return false;
         }
+    }
 
-        // Show a confirmation to the user that registration was saved
+    private void showRegistrationSuccess() {
         showAlert(Alert.AlertType.INFORMATION, "Registration Successful", "Your account has been created successfully.");
+        NavigationService.go("/com/javaninjas/careerpathway/registration/views/successfulRegistrationPage.fxml",
+                (SuccessfulRegistrationController controller) -> controller.setWelcomeName(getFirstName()));
+    }
 
-        // Navigate to the existing success page and pass the first name
-        NavigationService.go("/com/javaninjas/careerpathway/registration/views/successfulRegistrationPage.fxml", (SuccessfulRegistrationController controller) -> {
-            controller.setWelcomeName(getFirstName());
-        });
+
+
+    @FXML
+    private void onRegister() {
+        if (!validateRegistration()) return;
+
+        String hashed = hashPassword(getPassword());
+
+        if (!saveUserToDatabase(hashed)) return;
+
+        showRegistrationSuccess();
     }
 
     // ===== HELPER METHODS FOR TESTING =====
@@ -177,12 +186,6 @@ public class UserRegistrationController implements Initializable {
     }
 
     // ===== Validation helpers extracted from pages.registrationPage =====
-
-
-
-    public String hashPassword(String password) {
-        return BCrypt.withDefaults().hashToString(12, password.toCharArray());
-    }
 
     public boolean verifyPassword(String password, String hash) {
         BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), hash);
