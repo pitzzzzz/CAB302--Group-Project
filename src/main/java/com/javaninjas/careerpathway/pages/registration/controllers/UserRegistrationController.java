@@ -60,42 +60,86 @@ public class UserRegistrationController implements Initializable {
     private String getCity() {return cityField != null ? cityField.getText().trim() : "";}
     private String getPassword() {return passwordField != null ? passwordField.getText() : "";}
 
+
+    private boolean validateNotBlank(TextField field, String fieldName) {
+        if (field.getText() == null || field.getText().isBlank()) {
+            showAlertAndFocus(Alert.AlertType.ERROR, "Validation Error",
+                    "Please enter your " + fieldName + ".", field);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validateEmailFormat(TextField field) {
+        String email = field.getText();
+        if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
+            showAlertAndFocus(Alert.AlertType.ERROR, "Validation Error",
+                    "Please enter a valid email address.", field);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isEmailDuplicate(TextField field) {
+        String email = field.getText();
+        try (Connection conn = Database.getConnection();
+             PreparedStatement check = conn.prepareStatement("SELECT COUNT(*) FROM users WHERE email = ?")) {
+            check.setString(1, email);
+            var rs = check.executeQuery();
+            if (rs.next() && rs.getInt(1) > 0) {
+                showAlertAndFocus(Alert.AlertType.ERROR, "Registration Error",
+                        "An account with this email already exists.", emailField);
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Database Error", "Unable to check email.");
+            return true; // treat as duplicate to stop registration
+        }
+        return false;
+    }
+
+
+    private boolean validatePassword(TextField field) {
+        if (!validateNotBlank(field, "password")) {
+            return false;
+        }
+        if (field.getText().isBlank() || field.getText().length() < 8) {
+            showAlertAndFocus(Alert.AlertType.ERROR, "Validation Error",
+                    "Please provide a password of at least 8 characters", field);
+            return false;
+        }
+        return true;
+    }
+
+
+
+
     @FXML
     private void onRegister() {
 
 
     // Basic validation
-    if (getFirstName().isBlank()) { showAlertAndFocus(Alert.AlertType.ERROR, "Validation Error", "Please enter your first name.", firstNameField); return; }
-    if (getLastName().isBlank()) { showAlertAndFocus(Alert.AlertType.ERROR, "Validation Error", "Please enter your last name.", lastNameField); return; }
-    if (getEmail().isBlank()) { showAlertAndFocus(Alert.AlertType.ERROR, "Validation Error", "Please enter your email.", emailField); return; }
-    if (!getEmail().matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) { showAlertAndFocus(Alert.AlertType.ERROR, "Validation Error", "Please enter a valid email address.", emailField); return; }
-    if (getPassword().isBlank() || getPassword().length() < 8) { showAlertAndFocus(Alert.AlertType.ERROR, "Validation Error", "Please provide a password of at least 8 characters.", passwordField); return; }
+    if (!validateNotBlank(firstNameField, "first name")) {return;}
+    if (!validateNotBlank(lastNameField, "last name")) {return;}
+        if (!validateNotBlank(emailField, "email") || !validateEmailFormat(emailField) || isEmailDuplicate(emailField)) {return;}
+    if (!validatePassword(passwordField)) {return;}
 
-        String hashed = BCrypt.withDefaults().hashToString(12, getPassword().toCharArray());
+            String hashed = BCrypt.withDefaults().hashToString(12, getPassword().toCharArray());
 
-        try (Connection conn = Database.getConnection()) {
-            // check for duplicate email
-            try (PreparedStatement check = conn.prepareStatement("SELECT COUNT(*) FROM users WHERE email = ?")) {
-                check.setString(1, getEmail());
-                var rs = check.executeQuery();
-                if (rs.next() && rs.getInt(1) > 0) {
-                    showAlertAndFocus(Alert.AlertType.ERROR, "Registration Error", "An account with this email already exists.", emailField);
-                    return;
-                }
-            }
 
-            String sql = "INSERT INTO users(first_name,last_name,email,password_hash,city,age_group,profile_stage,anonymous) VALUES(?,?,?,?,?,?,?,?)";
-            try (PreparedStatement ps = conn.prepareStatement(sql)) {
-                ps.setString(1, getFirstName());
-                ps.setString(2, getLastName());
-                ps.setString(3, getEmail());
-                ps.setString(4, hashed);
-                ps.setString(5, getCity());
-                ps.setString(6, ageSelect != null ? ageSelect.getValue() : null);
-                ps.setString(7, profileStage != null ? profileStage.getValue() : null);
-                ps.setInt(8, anonymousCheck != null && anonymousCheck.isSelected() ? 1 : 0);
-                ps.executeUpdate();
-            }
+        String sql = "INSERT INTO users(first_name,last_name,email,password_hash,city,age_group,profile_stage,anonymous) VALUES(?,?,?,?,?,?,?,?)";
+        try (Connection conn = Database.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, getFirstName());
+            ps.setString(2, getLastName());
+            ps.setString(3, getEmail());
+            ps.setString(4, hashed);
+            ps.setString(5, getCity());
+            ps.setString(6, ageSelect != null ? ageSelect.getValue() : null);
+            ps.setString(7, profileStage != null ? profileStage.getValue() : null);
+            ps.setInt(8, anonymousCheck != null && anonymousCheck.isSelected() ? 1 : 0);
+            ps.executeUpdate();
         } catch (SQLException ex) {
             showAlert(Alert.AlertType.ERROR, "Registration Error", "Failed to register user: " + ex.getMessage());
             return;

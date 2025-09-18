@@ -7,7 +7,7 @@ import java.io.IOException;
 
 import com.javaninjas.careerpathway.core.services.NavigationService;
 
-public class Main extends Application {
+public class main extends Application {
 
     private int windowWidth = 1200;
     private int windowHeight = 800;
