@@ -1,7 +1,7 @@
 package com.javaninjas.careerpathway.pages.quiz;
 
 import com.javaninjas.careerpathway.pages.quiz.models.Question;
-import com.javaninjas.careerpathway.pages.quiz.models.QuizResult;
+import com.javaninjas.careerpathway.pages.quiz.models.QuizPathwaySuggestion;
 import com.javaninjas.careerpathway.pages.quiz.services.QuizService;
 
 import javafx.fxml.FXML;
@@ -53,7 +53,7 @@ public class QuizController {
     }
 
     private void showResults() {
-        QuizResult result = quizService.calculateResult(answers);
+        QuizPathwaySuggestion result = quizService.calculateResult(answers);
         // TODO: Show results screen and save to database
     }
 }

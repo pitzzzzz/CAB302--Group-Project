@@ -116,7 +116,7 @@ public class QuizQuestionController {
         for (AnswerScale a : selectedAnswers) {
             answers.add(a == null ? 0 : a.value);
         }
-        // calculateResult currently returns a QuizResult; store or pass it to the next view as needed
+        // calculateResult returns a QuizPathwaySuggestion; store or pass it to the next view as needed
         quizService.calculateResult(answers);
         NavigationService.go("/com/javaninjas/careerpathway/pages/quiz/view/QuizResult.fxml");
     }

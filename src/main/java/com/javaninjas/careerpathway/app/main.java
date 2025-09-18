@@ -8,7 +8,7 @@ import java.io.IOException;
 import com.javaninjas.careerpathway.core.services.NavigationService;
 import com.javaninjas.careerpathway.db.connection.DatabaseInitializer;
 
-public class main extends Application {
+public class Main extends Application {
 
     private final int windowWidth = 1200;
     private final int windowHeight = 800;

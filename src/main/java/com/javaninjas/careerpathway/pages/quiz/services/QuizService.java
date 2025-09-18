@@ -1,11 +1,12 @@
 package com.javaninjas.careerpathway.pages.quiz.services;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
+import com.javaninjas.careerpathway.core.auth.UserSession;
 import com.javaninjas.careerpathway.pages.quiz.models.Question;
 import com.javaninjas.careerpathway.pages.quiz.models.QuizData;
-import com.javaninjas.careerpathway.pages.quiz.models.QuizResult;
+import com.javaninjas.careerpathway.pages.quiz.models.QuizPathwaySuggestion;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class QuizService {
     private final List<List<Question>> questionSets;
@@ -14,17 +15,10 @@ public class QuizService {
         this.questionSets = questionSets;
     }
 
-    /**
-     * Convenience constructor used by UI code which creates a QuizService with a QuizData instance.
-     * Delegates to the primary constructor using the static QuizData.getQuizQuestionSets().
-     */
     public QuizService(QuizData quizData) {
         this(QuizData.getQuizQuestionSets());
     }
 
-    /**
-     * Return a flattened list of all questions across all sets. Used by UI controllers.
-     */
     public List<Question> getQuestions() {
         return questionSets.stream().flatMap(List::stream).collect(Collectors.toList());
     }
@@ -33,9 +27,10 @@ public class QuizService {
         return questionSets.get(setIndex);
     }
 
-    public QuizResult calculateResult(List<Integer> answers) {
+    public QuizPathwaySuggestion calculateResult(List<Integer> answers) {
+        UserSession session = UserSession.getInstance();
+        String userId = session != null ? String.valueOf(session.getUserID()) : "0";
         // TODO: Implement logic to calculate result based on answers
-        // Return a QuizResult with a title and description based on input
-        return new QuizResult("Sample Pathway", "This is a sample result based on your answers.");
+        return new QuizPathwaySuggestion("Sample Pathway", "This is a sample result based on your answers.", answers, userId);
     }
 }
