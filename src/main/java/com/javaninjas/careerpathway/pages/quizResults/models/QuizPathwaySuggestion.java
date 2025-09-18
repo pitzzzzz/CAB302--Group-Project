@@ -1,4 +1,4 @@
-package com.javaninjas.careerpathway.pages.quiz.models;
+package com.javaninjas.careerpathway.pages.quizResults.models;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package com.javaninjas.careerpathway.db.dao;
 
 import com.javaninjas.careerpathway.core.models.User;
-import com.javaninjas.careerpathway.pages.quiz.models.QuizResult;
+import com.javaninjas.careerpathway.pages.quizResults.models.QuizResult;
 
 import java.sql.*;
 import java.util.ArrayList;

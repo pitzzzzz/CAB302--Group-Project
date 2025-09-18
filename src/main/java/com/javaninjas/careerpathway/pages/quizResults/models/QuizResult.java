@@ -1,4 +1,4 @@
-package com.javaninjas.careerpathway.pages.quiz.models;
+package com.javaninjas.careerpathway.pages.quizResults.models;
 
 public class QuizResult {
     private int id;

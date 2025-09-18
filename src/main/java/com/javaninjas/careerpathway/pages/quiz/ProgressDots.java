@@ -1,6 +1,6 @@
-package com.javaninjas.careerpathway.core.components;
+package com.javaninjas.careerpathway.pages.quiz;
 
-import com.javaninjas.careerpathway.core.controllers.ProgressDotsController;
+import com.javaninjas.careerpathway.pages.quiz.controllers.ProgressDotsController;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.HBox;

@@ -2,7 +2,7 @@ package com.javaninjas.careerpathway.quiz;
 
 import com.javaninjas.careerpathway.pages.quiz.models.Question;
 import com.javaninjas.careerpathway.pages.quiz.models.QuizData;
-import com.javaninjas.careerpathway.pages.quiz.models.QuizPathwaySuggestion;
+import com.javaninjas.careerpathway.pages.quizResults.models.QuizPathwaySuggestion;
 import com.javaninjas.careerpathway.pages.quiz.services.QuizService;
 
 import org.junit.jupiter.api.Test;

@@ -1,4 +1,4 @@
-package com.javaninjas.careerpathway.core.controllers;
+package com.javaninjas.careerpathway.pages.quiz.controllers;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -8,7 +8,7 @@ import javafx.scene.shape.Circle;
 
 import java.util.stream.IntStream;
 
-import com.javaninjas.careerpathway.core.components.ProgressDots;
+import com.javaninjas.careerpathway.pages.quiz.ProgressDots;
 
 public class ProgressDotsController {
     @FXML private HBox root;

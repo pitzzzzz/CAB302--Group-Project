@@ -1,8 +1,8 @@
-package com.javaninjas.careerpathway.pages.quiz.controllers;
+package com.javaninjas.careerpathway.pages.quizResults.controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.javaninjas.careerpathway.pages.quiz.ChatGptClient;
-import com.javaninjas.careerpathway.pages.quiz.InMemoryQuizSuggestionRepository;
+import com.javaninjas.careerpathway.pages.quizResults.InMemoryQuizSuggestionRepository;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -22,8 +22,8 @@ public class QuizResultController {
     private void initialize() {
     // Set dashboard action to go to the login page (as requested)
         // Load last suggestion
-        var repo = com.javaninjas.careerpathway.pages.quiz.InMemoryQuizSuggestionRepository.getInstance();
-        List<com.javaninjas.careerpathway.pages.quiz.models.QuizPathwaySuggestion> all = repo.getAllSuggestions();
+        var repo = com.javaninjas.careerpathway.pages.quizResults.InMemoryQuizSuggestionRepository.getInstance();
+        List<com.javaninjas.careerpathway.pages.quizResults.models.QuizPathwaySuggestion> all = repo.getAllSuggestions();
         if (all.isEmpty()) return;
         var suggestion = all.get(all.size() - 1);
 
@@ -87,7 +87,7 @@ public class QuizResultController {
         }
     }
 
-    private void showFallback(com.javaninjas.careerpathway.pages.quiz.models.QuizPathwaySuggestion suggestion) {
+    private void showFallback(com.javaninjas.careerpathway.pages.quizResults.models.QuizPathwaySuggestion suggestion) {
         detailsBox.getChildren().clear();
         detailsBox.getChildren().add(new Label("AI not configured or failed — showing simple suggestions."));
 

@@ -3,7 +3,7 @@ package com.javaninjas.careerpathway.pages.quiz.services;
 import com.javaninjas.careerpathway.core.auth.UserSession;
 import com.javaninjas.careerpathway.pages.quiz.models.Question;
 import com.javaninjas.careerpathway.pages.quiz.models.QuizData;
-import com.javaninjas.careerpathway.pages.quiz.models.QuizPathwaySuggestion;
+import com.javaninjas.careerpathway.pages.quizResults.models.QuizPathwaySuggestion;
 
 import java.util.List;
 import java.util.stream.Collectors;

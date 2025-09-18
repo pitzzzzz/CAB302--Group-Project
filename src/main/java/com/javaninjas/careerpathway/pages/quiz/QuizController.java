@@ -1,19 +1,13 @@
 package com.javaninjas.careerpathway.pages.quiz;
 
-import com.javaninjas.careerpathway.pages.quiz.models.Question;
-import com.javaninjas.careerpathway.pages.quiz.models.QuizPathwaySuggestion;
+import com.javaninjas.careerpathway.pages.quizResults.models.QuizPathwaySuggestion;
 import com.javaninjas.careerpathway.pages.quiz.services.QuizService;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
