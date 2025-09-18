@@ -96,10 +96,10 @@ public final class UserSession {
 		return instance;
 	}
 
-	/**
+		/**
 	 * Clears the current session (logout).
 	 */
-	public static void clear() {
+	public static void logout() {
 		synchronized (UserSession.class) {
 			instance = null;
 		}

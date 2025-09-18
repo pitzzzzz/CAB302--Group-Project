@@ -7,15 +7,18 @@ import java.io.IOException;
 
 import com.javaninjas.careerpathway.core.services.NavigationService;
 
-public class main extends Application {
+public class Main extends Application {
+
+    private int windowWidth = 1200;
+    private int windowHeight = 800;
 
     @Override
     public void start(Stage stage) throws IOException {
         NavigationService.init(stage);
         stage.setTitle("CAB302: Career Pathway Application");
         // Set window dimensions
-        stage.setWidth(1200);    // Set your desired width
-        stage.setHeight(800);    // Set your desired height
+        stage.setWidth(windowWidth); 
+        stage.setHeight(windowHeight);
         NavigationService.go("/com/javaninjas/careerpathway/login/views/loginPage.fxml");
         stage.show();
     }
