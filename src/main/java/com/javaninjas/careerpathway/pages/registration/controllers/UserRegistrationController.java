@@ -1,7 +1,7 @@
 package com.javaninjas.careerpathway.pages.registration.controllers;
 
 import com.javaninjas.careerpathway.core.services.NavigationService;
-import com.javaninjas.careerpathway.db.Database;
+import com.javaninjas.careerpathway.db.connection.Database;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 

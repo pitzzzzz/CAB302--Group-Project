@@ -1,9 +1,9 @@
 package com.javaninjas.careerpathway.pages.quiz;
 
 import com.javaninjas.careerpathway.core.services.NavigationService;
-import com.javaninjas.careerpathway.pages.quiz.model.AnswerScale;
-import com.javaninjas.careerpathway.pages.quiz.model.Question;
-import com.javaninjas.careerpathway.pages.quiz.model.QuizData;
+import com.javaninjas.careerpathway.pages.quiz.models.AnswerScale;
+import com.javaninjas.careerpathway.pages.quiz.models.Question;
+import com.javaninjas.careerpathway.pages.quiz.models.QuizData;
 import com.javaninjas.careerpathway.pages.quiz.services.QuizService;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;

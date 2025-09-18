@@ -26,8 +26,8 @@ module com.javaninjas.careerpathway {
     exports com.javaninjas.careerpathway.pages;
     opens com.javaninjas.careerpathway.pages to javafx.fxml;
 
-    exports com.javaninjas.careerpathway.pages.quiz.model;
-    opens com.javaninjas.careerpathway.pages.quiz.model to javafx.fxml;
+    exports com.javaninjas.careerpathway.pages.quiz.models;
+    opens com.javaninjas.careerpathway.pages.quiz.models to javafx.fxml;
 
     exports com.javaninjas.careerpathway.pages.registration.controllers;
     opens com.javaninjas.careerpathway.pages.registration.controllers to javafx.fxml;

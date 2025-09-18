@@ -3,7 +3,8 @@ package com.javaninjas.careerpathway.pages.login.controllers;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.javaninjas.careerpathway.core.auth.UserSession;
 import com.javaninjas.careerpathway.core.services.NavigationService;
-import com.javaninjas.careerpathway.db.Database;
+import com.javaninjas.careerpathway.db.connection.Database;
+
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

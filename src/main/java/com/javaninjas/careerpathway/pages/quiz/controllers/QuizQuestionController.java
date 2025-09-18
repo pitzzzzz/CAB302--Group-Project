@@ -1,9 +1,10 @@
 package com.javaninjas.careerpathway.pages.quiz.controllers;
 
 import com.javaninjas.careerpathway.core.services.NavigationService;
-import com.javaninjas.careerpathway.pages.quiz.model.AnswerScale;
-import com.javaninjas.careerpathway.pages.quiz.model.Question;
-import com.javaninjas.careerpathway.pages.quiz.model.Quiz;
+import com.javaninjas.careerpathway.pages.quiz.models.AnswerScale;
+import com.javaninjas.careerpathway.pages.quiz.models.Question;
+import com.javaninjas.careerpathway.pages.quiz.models.Quiz;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;

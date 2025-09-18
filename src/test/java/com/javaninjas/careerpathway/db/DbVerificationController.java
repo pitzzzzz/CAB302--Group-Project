@@ -10,7 +10,7 @@ public class DbVerificationController {
 
     @Test
     public void testDatabaseConnection() {
-        try (Connection conn = com.javaninjas.careerpathway.db.Database.getConnection()) {
+        try (Connection conn = com.javaninjas.careerpathway.db.connection.Database.getConnection()) {
             assertNotNull(conn, "Connection should not be null");
             assertFalse(conn.isClosed(), "Connection should be open");
         } catch (SQLException e) {

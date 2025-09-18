@@ -1,10 +1,11 @@
 package com.javaninjas.careerpathway.pages.quiz.services;
 
-import com.javaninjas.careerpathway.pages.quiz.model.Question;
-import com.javaninjas.careerpathway.pages.quiz.model.QuizData;
-import com.javaninjas.careerpathway.pages.quiz.model.QuizResult;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.javaninjas.careerpathway.pages.quiz.models.Question;
+import com.javaninjas.careerpathway.pages.quiz.models.QuizData;
+import com.javaninjas.careerpathway.pages.quiz.models.QuizResult;
 
 public class QuizService {
     private final List<List<Question>> questionSets;

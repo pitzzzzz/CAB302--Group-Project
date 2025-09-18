@@ -1,7 +1,7 @@
 package com.javaninjas.careerpathway.pages.quiz;
 
-import com.javaninjas.careerpathway.pages.quiz.model.Question;
-import com.javaninjas.careerpathway.pages.quiz.model.QuizResult;
+import com.javaninjas.careerpathway.pages.quiz.models.Question;
+import com.javaninjas.careerpathway.pages.quiz.models.QuizResult;
 import com.javaninjas.careerpathway.pages.quiz.services.QuizService;
 
 import javafx.fxml.FXML;

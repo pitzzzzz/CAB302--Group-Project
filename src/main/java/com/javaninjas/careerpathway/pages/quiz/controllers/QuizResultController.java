@@ -23,7 +23,7 @@ public class QuizResultController {
     // Set dashboard action to go to the login page (as requested)
         // Load last suggestion
         var repo = com.javaninjas.careerpathway.pages.quiz.InMemoryQuizSuggestionRepository.getInstance();
-        List<com.javaninjas.careerpathway.pages.quiz.model.QuizPathwaySuggestion> all = repo.getAllSuggestions();
+        List<com.javaninjas.careerpathway.pages.quiz.models.QuizPathwaySuggestion> all = repo.getAllSuggestions();
         if (all.isEmpty()) return;
         var suggestion = all.get(all.size() - 1);
 
@@ -87,7 +87,7 @@ public class QuizResultController {
         }
     }
 
-    private void showFallback(com.javaninjas.careerpathway.pages.quiz.model.QuizPathwaySuggestion suggestion) {
+    private void showFallback(com.javaninjas.careerpathway.pages.quiz.models.QuizPathwaySuggestion suggestion) {
         detailsBox.getChildren().clear();
         detailsBox.getChildren().add(new Label("AI not configured or failed — showing simple suggestions."));
 
