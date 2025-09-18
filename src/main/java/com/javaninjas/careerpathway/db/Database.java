@@ -13,7 +13,7 @@ import java.sql.Statement;
 public final class Database {
     private static final String DB_NAME = "Java Ninjas Database.db";
     private static final File dbFile =
-            new File("src/main/resources/Database/" + DB_NAME);
+            new File(System.getProperty("user.dir") + "/src/main/resources/Database/" + DB_NAME);
 
     private static final String RESOURCE_PATH = "\\src\\main\\resources\\Database/" + DB_NAME;
 

@@ -54,27 +54,29 @@ public class UserRegistrationController implements Initializable {
         }
     }
 
+    private String getFirstName() {return firstNameField != null ? firstNameField.getText().trim() : "";}
+    private String getLastName() {return lastNameField != null ? lastNameField.getText().trim() : "";}
+    private String getEmail() {return  emailField != null ? emailField.getText().trim() : "";}
+    private String getCity() {return cityField != null ? cityField.getText().trim() : "";}
+    private String getPassword() {return passwordField != null ? passwordField.getText() : "";}
+
     @FXML
     private void onRegister() {
-        String firstName = firstNameField != null ? firstNameField.getText().trim() : "";
-        String lastName = lastNameField != null ? lastNameField.getText().trim() : "";
-        String email = emailField != null ? emailField.getText().trim() : "";
-        String city = cityField != null ? cityField.getText().trim() : "";
-        String password = passwordField != null ? passwordField.getText() : "";
+
 
     // Basic validation
-    if (firstName.isBlank()) { showAlertAndFocus(Alert.AlertType.ERROR, "Validation Error", "Please enter your first name.", firstNameField); return; }
-    if (lastName.isBlank()) { showAlertAndFocus(Alert.AlertType.ERROR, "Validation Error", "Please enter your last name.", lastNameField); return; }
-    if (email.isBlank()) { showAlertAndFocus(Alert.AlertType.ERROR, "Validation Error", "Please enter your email.", emailField); return; }
-    if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) { showAlertAndFocus(Alert.AlertType.ERROR, "Validation Error", "Please enter a valid email address.", emailField); return; }
-    if (password.isBlank() || password.length() < 8) { showAlertAndFocus(Alert.AlertType.ERROR, "Validation Error", "Please provide a password of at least 8 characters.", passwordField); return; }
+    if (getFirstName().isBlank()) { showAlertAndFocus(Alert.AlertType.ERROR, "Validation Error", "Please enter your first name.", firstNameField); return; }
+    if (getLastName().isBlank()) { showAlertAndFocus(Alert.AlertType.ERROR, "Validation Error", "Please enter your last name.", lastNameField); return; }
+    if (getEmail().isBlank()) { showAlertAndFocus(Alert.AlertType.ERROR, "Validation Error", "Please enter your email.", emailField); return; }
+    if (!getEmail().matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) { showAlertAndFocus(Alert.AlertType.ERROR, "Validation Error", "Please enter a valid email address.", emailField); return; }
+    if (getPassword().isBlank() || getPassword().length() < 8) { showAlertAndFocus(Alert.AlertType.ERROR, "Validation Error", "Please provide a password of at least 8 characters.", passwordField); return; }
 
-        String hashed = BCrypt.withDefaults().hashToString(12, password.toCharArray());
+        String hashed = BCrypt.withDefaults().hashToString(12, getPassword().toCharArray());
 
         try (Connection conn = Database.getConnection()) {
             // check for duplicate email
             try (PreparedStatement check = conn.prepareStatement("SELECT COUNT(*) FROM users WHERE email = ?")) {
-                check.setString(1, email);
+                check.setString(1, getEmail());
                 var rs = check.executeQuery();
                 if (rs.next() && rs.getInt(1) > 0) {
                     showAlertAndFocus(Alert.AlertType.ERROR, "Registration Error", "An account with this email already exists.", emailField);
@@ -84,11 +86,11 @@ public class UserRegistrationController implements Initializable {
 
             String sql = "INSERT INTO users(first_name,last_name,email,password_hash,city,age_group,profile_stage,anonymous) VALUES(?,?,?,?,?,?,?,?)";
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
-                ps.setString(1, firstName);
-                ps.setString(2, lastName);
-                ps.setString(3, email);
+                ps.setString(1, getFirstName());
+                ps.setString(2, getLastName());
+                ps.setString(3, getEmail());
                 ps.setString(4, hashed);
-                ps.setString(5, city);
+                ps.setString(5, getCity());
                 ps.setString(6, ageSelect != null ? ageSelect.getValue() : null);
                 ps.setString(7, profileStage != null ? profileStage.getValue() : null);
                 ps.setInt(8, anonymousCheck != null && anonymousCheck.isSelected() ? 1 : 0);
@@ -104,12 +106,11 @@ public class UserRegistrationController implements Initializable {
 
         // Navigate to the existing success page and pass the first name
         NavigationService.go("/com/javaninjas/careerpathway/registration/views/successfulRegistrationPage.fxml", (SuccessfulRegistrationController controller) -> {
-            controller.setWelcomeName(firstName);
+            controller.setWelcomeName(getFirstName());
         });
     }
 
     // ===== HELPER METHODS FOR TESTING =====
-
     public boolean isValidFirstName(String firstName) {
         return firstName != null && !firstName.trim().isEmpty();
     }
@@ -125,45 +126,15 @@ public class UserRegistrationController implements Initializable {
         return email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$");
     }
 
-    public boolean isValidPassword(String password) {
-        return password != null && !password.isBlank() && password.length() >= 8;
-    }
+    public boolean isValidPassword(String password) {return password != null && !password.isBlank() && password.length() >= 8;}
 
     public boolean isValidCity(String city) {
         return city != null && !city.trim().isEmpty();
     }
 
     // ===== Validation helpers extracted from pages.registrationPage =====
-    private boolean validateFields() {
-        if (firstNameField == null || firstNameField.getText().trim().isEmpty() ||
-            lastNameField == null || lastNameField.getText().trim().isEmpty() ||
-            emailField == null || emailField.getText().trim().isEmpty() ||
-            cityField == null || cityField.getText().trim().isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, "Validation Error", "All fields are required!");
-            return false;
-        }
-        return true;
-    }
 
-    private boolean validateEmail(String email) {
-        if (email == null || !email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
-            showAlert(Alert.AlertType.ERROR, "Validation Error", "Please enter a valid email address!");
-            return false;
-        }
-        return true;
-    }
 
-    private boolean validateSelections(String age, String role) {
-        if (age == null || age.isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, "Validation Error", "Please select your age!");
-            return false;
-        }
-        if (role == null || role.isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, "Validation Error", "Please select a profile role!");
-            return false;
-        }
-        return true;
-    }
 
     public String hashPassword(String password) {
         return BCrypt.withDefaults().hashToString(12, password.toCharArray());
