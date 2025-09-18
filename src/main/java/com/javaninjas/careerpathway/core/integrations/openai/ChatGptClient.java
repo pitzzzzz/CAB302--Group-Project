@@ -49,4 +49,18 @@ public class ChatGptClient {
 
         return mapper.readTree(resp.body());
     }
+
+    /**
+     * Backwards-compatible helper that composes a career prompt and returns the
+     * parsed JSON.
+     * Delegates the domain logic to {@link ChatGptService} so callers that still
+     * use the
+     * old client API will continue to work.
+     */
+    public JsonNode requestCareerSuggestion(String userAnswersText) throws IOException, InterruptedException {
+        // Delegate to service to keep single-responsibility while providing
+        // compatibility
+        ChatGptService svc = new ChatGptService(this);
+        return svc.requestCareerSuggestion(userAnswersText);
+    }
 }
