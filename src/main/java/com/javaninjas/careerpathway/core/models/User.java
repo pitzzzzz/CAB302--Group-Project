@@ -1,6 +1,9 @@
 package com.javaninjas.careerpathway.core.models;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import com.javaninjas.careerpathway.pages.quiz.models.QuizResult;
+
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -27,48 +30,52 @@ public class User {
 	private String certifications;
 	private String desiredSalary;
 	private String preferredWorkHours;
+    private String phoneNumber;
+
+	private List<QuizResult> quizResults;
 
 	public User() {}
 
 	public User(int userID,
-				String firstName,
-				String lastName,
-				String email,
-				String passwordHash,
-				String city,
-				String ageGroup,
-				String profileStage,
-				boolean anonymous,
-				String dateOfBirth,
-				String educationLevel,
-				String workExperience,
-				String interests,
-				String certifications,
-				String desiredSalary,
-				String preferredWorkHours) {
-		this.userID = userID;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.passwordHash = passwordHash;
-		this.city = city;
-		this.ageGroup = ageGroup;
-		this.profileStage = profileStage;
-		this.anonymous = anonymous;
-		this.dateOfBirth = dateOfBirth;
-		this.educationLevel = educationLevel;
-		this.workExperience = workExperience;
-		this.interests = interests;
-		this.certifications = certifications;
-		this.desiredSalary = desiredSalary;
-		this.preferredWorkHours = preferredWorkHours;
-	}
-
-	// Convenience constructor without extra profile fields
-	public User(int userID, String firstName, String lastName, String email, String passwordHash, String city, String ageGroup, String profileStage, boolean anonymous) {
-		this(userID, firstName, lastName, email, passwordHash, city, ageGroup, profileStage, anonymous, null, null, null, null, null, null, null);
-	}
-
+	                String firstName,
+	                String lastName,
+	                String email,
+	                String passwordHash,
+	                String city,
+	                String ageGroup,
+	                String profileStage,
+	                boolean anonymous,
+	                String dateOfBirth,
+	                String educationLevel,
+	                String workExperience,
+	                String interests,
+	                String certifications,
+	                String desiredSalary,
+	                String preferredWorkHours,
+	                String phoneNumber) {
+	        this.userID = userID;
+	        this.firstName = firstName;
+	        this.lastName = lastName;
+	        this.email = email;
+	        this.passwordHash = passwordHash;
+	        this.city = city;
+	        this.ageGroup = ageGroup;
+	        this.profileStage = profileStage;
+	        this.anonymous = anonymous;
+	        this.dateOfBirth = dateOfBirth;
+	        this.educationLevel = educationLevel;
+	        this.workExperience = workExperience;
+	        this.interests = interests;
+	        this.certifications = certifications;
+	        this.desiredSalary = desiredSalary;
+	        this.preferredWorkHours = preferredWorkHours;
+	        this.phoneNumber = phoneNumber;
+	    }
+	
+	    // Convenience constructor without extra profile fields
+	    public User(int userID, String firstName, String lastName, String email, String passwordHash, String city, String ageGroup, String profileStage, boolean anonymous) {
+	        this(userID, firstName, lastName, email, passwordHash, city, ageGroup, profileStage, anonymous, null, null, null, null, null, null, null, null);
+	    }
 	// ===== Getters and setters =====
 	public int getUserID() { return userID; }
 	public void setUserID(int userID) { this.userID = userID; }
@@ -118,6 +125,17 @@ public class User {
 	public String getPreferredWorkHours() { return preferredWorkHours; }
 	public void setPreferredWorkHours(String preferredWorkHours) { this.preferredWorkHours = preferredWorkHours; }
 
+    public String getPhoneNumber() { return phoneNumber; }
+    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
+
+	public List<QuizResult> getQuizResults() {
+		return quizResults;
+	}
+
+	public void setQuizResults(List<QuizResult> quizResults) {
+		this.quizResults = quizResults;
+	}
+
 	// ===== Utility methods =====
 	/** Hash a plain-text password using BCrypt. */
 	public static String hashPassword(String password) {
@@ -136,29 +154,30 @@ public class User {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		User user = (User) o;
-		return userID == user.userID &&
-				anonymous == user.anonymous &&
-				Objects.equals(firstName, user.firstName) &&
-				Objects.equals(lastName, user.lastName) &&
-				Objects.equals(email, user.email) &&
-				Objects.equals(passwordHash, user.passwordHash) &&
-				Objects.equals(city, user.city) &&
-				Objects.equals(ageGroup, user.ageGroup) &&
-				Objects.equals(profileStage, user.profileStage) &&
-				Objects.equals(dateOfBirth, user.dateOfBirth) &&
-				Objects.equals(educationLevel, user.educationLevel) &&
-				Objects.equals(workExperience, user.workExperience) &&
-				Objects.equals(interests, user.interests) &&
-				Objects.equals(certifications, user.certifications) &&
-				Objects.equals(desiredSalary, user.desiredSalary) &&
-				Objects.equals(preferredWorkHours, user.preferredWorkHours);
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(userID, firstName, lastName, email, passwordHash, city, ageGroup, profileStage, anonymous, dateOfBirth, educationLevel, workExperience, interests, certifications, desiredSalary, preferredWorkHours);
-	}
-
+		        return userID == user.userID &&
+		                anonymous == user.anonymous &&
+		                Objects.equals(firstName, user.firstName) &&
+		                Objects.equals(lastName, user.lastName) &&
+		                Objects.equals(email, user.email) &&
+		                Objects.equals(passwordHash, user.passwordHash) &&
+		                Objects.equals(city, user.city) &&
+		                Objects.equals(ageGroup, user.ageGroup) &&
+		                Objects.equals(profileStage, user.profileStage) &&
+		                Objects.equals(dateOfBirth, user.dateOfBirth) &&
+		                Objects.equals(educationLevel, user.educationLevel) &&
+		                Objects.equals(workExperience, user.workExperience) &&
+		                Objects.equals(interests, user.interests) &&
+		                Objects.equals(certifications, user.certifications) &&
+		                Objects.equals(desiredSalary, user.desiredSalary) &&
+		                Objects.equals(preferredWorkHours, user.preferredWorkHours) &&
+		                Objects.equals(phoneNumber, user.phoneNumber) &&
+		                Objects.equals(quizResults, user.quizResults);
+	    }
+		
+		    @Override
+		    public int hashCode() {
+		        return Objects.hash(userID, firstName, lastName, email, passwordHash, city, ageGroup, profileStage, anonymous, dateOfBirth, educationLevel, workExperience, interests, certifications, desiredSalary, preferredWorkHours, phoneNumber, quizResults);
+		    }
 	@Override
 	public String toString() {
 		return "User{" +

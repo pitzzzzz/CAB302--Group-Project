@@ -1,6 +1,7 @@
 package com.javaninjas.careerpathway.core.auth;
 
 import java.util.Objects;
+import com.javaninjas.careerpathway.core.models.User;
 
 /**
  * Thread-safe singleton to hold the current logged-in user's session information.
@@ -24,85 +25,115 @@ public final class UserSession {
 	private final String certifications;
 	private final String desiredSalary;
 	private final String preferredWorkHours;
+    private final String phoneNumber;
 
 	private UserSession(int userID,
-						String email,
-						String userType,
-						String firstName,
-						String lastName,
-						String dateOfBirth,
-						String educationLevel,
-						String workExperience,
-						String interests,
-						String certifications,
-						String desiredSalary,
-						String preferredWorkHours) {
-		this.userID = userID;
-		this.email = email;
-		this.userType = userType;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.dateOfBirth = dateOfBirth;
-		this.educationLevel = educationLevel;
-		this.workExperience = workExperience;
-		this.interests = interests;
-		this.certifications = certifications;
-		this.desiredSalary = desiredSalary;
-		this.preferredWorkHours = preferredWorkHours;
-	}
+                        String email,
+                        String userType,
+                        String firstName,
+                        String lastName,
+                        String dateOfBirth,
+                        String educationLevel,
+                        String workExperience,
+                        String interests,
+                        String certifications,
+                        String desiredSalary,
+                        String preferredWorkHours,
+                        String phoneNumber) {
+        this.userID = userID;
+        this.email = email;
+        this.userType = userType;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+        this.educationLevel = educationLevel;
+        this.workExperience = workExperience;
+        this.interests = interests;
+        this.certifications = certifications;
+        this.desiredSalary = desiredSalary;
+        this.preferredWorkHours = preferredWorkHours;
+        this.phoneNumber = phoneNumber;
+    }
 
 	/**
 	 * Create or replace the singleton instance with provided user details in a thread-safe manner.
 	 * This matches the call seen in the login controller.
 	 */
 	public static UserSession getInstance(int userID,
-										  String email,
-										  String userType,
-										  String firstName,
-										  String lastName,
-										  String dateOfBirth,
-										  String educationLevel,
-										  String workExperience,
-										  String interests,
-										  String certifications,
-										  String desiredSalary,
-										  String preferredWorkHours) {
-		UserSession result = instance;
-		if (result == null) {
-			synchronized (UserSession.class) {
-				result = instance;
-				if (result == null) {
-					instance = result = new UserSession(userID, email, userType, firstName, lastName, dateOfBirth, educationLevel, workExperience, interests, certifications, desiredSalary, preferredWorkHours);
-				} else {
-					// replace existing
-					instance = result = new UserSession(userID, email, userType, firstName, lastName, dateOfBirth, educationLevel, workExperience, interests, certifications, desiredSalary, preferredWorkHours);
-				}
-			}
-		} else {
-			// replace existing without locking - create new instance atomically
-			UserSession newInst = new UserSession(userID, email, userType, firstName, lastName, dateOfBirth, educationLevel, workExperience, interests, certifications, desiredSalary, preferredWorkHours);
-			synchronized (UserSession.class) {
-				instance = newInst;
-				result = instance;
-			}
-		}
-		return result;
-	}
+                                          String email,
+                                          String userType,
+                                          String firstName,
+                                          String lastName,
+                                          String dateOfBirth,
+                                          String educationLevel,
+                                          String workExperience,
+                                          String interests,
+                                          String certifications,
+                                          String desiredSalary,
+                                          String preferredWorkHours,
+                                          String phoneNumber) {
+        UserSession result = instance;
+        if (result == null) {
+            synchronized (UserSession.class) {
+                result = instance;
+                if (result == null) {
+                    instance = result = new UserSession(userID, email, userType, firstName, lastName, dateOfBirth, educationLevel, workExperience, interests, certifications, desiredSalary, preferredWorkHours, phoneNumber);
+                } else {
+                    // replace existing
+                    instance = result = new UserSession(userID, email, userType, firstName, lastName, dateOfBirth, educationLevel, workExperience, interests, certifications, desiredSalary, preferredWorkHours, phoneNumber);
+                }
+            }
+        } else {
+            // replace existing without locking - create new instance atomically
+            UserSession newInst = new UserSession(userID, email, userType, firstName, lastName, dateOfBirth, educationLevel, workExperience, interests, certifications, desiredSalary, preferredWorkHours, phoneNumber);
+            synchronized (UserSession.class) {
+                instance = newInst;
+                result = instance;
+            }
+        }
+        System.out.println("User session started for user: " + email);
+        return result;
+    }
 
 	/**
 	 * Return the current instance, or null if not created yet.
 	 */
-	public static UserSession getInstance() {
-		return instance;
-	}
-
-		/**
+	    public static UserSession getInstance() {
+	        return instance;
+	    }
+	
+	    public User getLoggedInUser() {
+	        if (instance == null) {
+	            return null;
+	        }
+	                User user = new User(
+	                    this.userID,
+	                    this.firstName,
+	                    this.lastName,
+	                    this.email,
+	                    null, // passwordHash is not stored in session
+	                    null, // city is not stored in session
+	                    null, // ageGroup is not stored in session
+	                    null, // profileStage is not stored in session
+	                    false, // anonymous is not stored in session
+	                    this.dateOfBirth,
+	                    this.educationLevel,
+	                    this.workExperience,
+	                    this.interests,
+	                    this.certifications,
+	                    this.desiredSalary,
+	                    this.preferredWorkHours,
+	                    this.phoneNumber
+	                );
+	                return user;	    }
+			/**
 	 * Clears the current session (logout).
 	 */
 	public static void logout() {
 		synchronized (UserSession.class) {
 			instance = null;
 		}
+		System.out.println("User session ended.");
 	}
 
 	// Getters
@@ -117,8 +148,8 @@ public final class UserSession {
 	public String getInterests() { return interests; }
 	public String getCertifications() { return certifications; }
 	public String getDesiredSalary() { return desiredSalary; }
-	public String getPreferredWorkHours() { return preferredWorkHours; }
-
+	    public String getPreferredWorkHours() { return preferredWorkHours; }
+	    public String getPhoneNumber() { return phoneNumber; }
 	@Override
 	public String toString() {
 		return "UserSession{" +
@@ -142,22 +173,22 @@ public final class UserSession {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		UserSession that = (UserSession) o;
-		return userID == that.userID &&
-				Objects.equals(email, that.email) &&
-				Objects.equals(userType, that.userType) &&
-				Objects.equals(firstName, that.firstName) &&
-				Objects.equals(lastName, that.lastName) &&
-				Objects.equals(dateOfBirth, that.dateOfBirth) &&
-				Objects.equals(educationLevel, that.educationLevel) &&
-				Objects.equals(workExperience, that.workExperience) &&
-				Objects.equals(interests, that.interests) &&
-				Objects.equals(certifications, that.certifications) &&
-				Objects.equals(desiredSalary, that.desiredSalary) &&
-				Objects.equals(preferredWorkHours, that.preferredWorkHours);
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(userID, email, userType, firstName, lastName, dateOfBirth, educationLevel, workExperience, interests, certifications, desiredSalary, preferredWorkHours);
-	}
-}
+		        return userID == that.userID &&
+		                Objects.equals(email, that.email) &&
+		                Objects.equals(userType, that.userType) &&
+		                Objects.equals(firstName, that.firstName) &&
+		                Objects.equals(lastName, that.lastName) &&
+		                Objects.equals(dateOfBirth, that.dateOfBirth) &&
+		                Objects.equals(educationLevel, that.educationLevel) &&
+		                Objects.equals(workExperience, that.workExperience) &&
+		                Objects.equals(interests, that.interests) &&
+		                Objects.equals(certifications, that.certifications) &&
+		                Objects.equals(desiredSalary, that.desiredSalary) &&
+		                Objects.equals(preferredWorkHours, that.preferredWorkHours) &&
+		                Objects.equals(phoneNumber, that.phoneNumber);
+		    }
+		
+		    @Override
+		    public int hashCode() {
+		        return Objects.hash(userID, email, userType, firstName, lastName, dateOfBirth, educationLevel, workExperience, interests, certifications, desiredSalary, preferredWorkHours, phoneNumber);
+		    }}

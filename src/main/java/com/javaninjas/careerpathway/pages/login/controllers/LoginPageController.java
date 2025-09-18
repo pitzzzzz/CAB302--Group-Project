@@ -111,17 +111,10 @@ public class LoginPageController {
                         String userType = "user"; // rs.getString("UserType");
                         String firstName = rs.getString("first_name");
                         String lastName = rs.getString("last_name");
-                        String dateOfBirth = null; // rs.getString("DateOfBirth");
-                        String educationLevel = null; // rs.getString("EducationLevel");
-                        String workExperience = null; // rs.getString("WorkExperience");
-                        String interests = null; // rs.getString("Interests");
-                        String certifications = null; // rs.getString("Certifications");
-                        String desiredSalary = null; // rs.getString("DesiredSalary");
-                        String preferredWorkHours = null; // rs.getString("PreferredWorkHours");
 
                         // Update UI on the JavaFX Application Thread
                         Platform.runLater(() -> {
-                            UserSession.getInstance(userID, email, userType, firstName, lastName, dateOfBirth, educationLevel, workExperience, interests, certifications, desiredSalary, preferredWorkHours);
+                            UserSession.getInstance(userID, email, userType, firstName, lastName, null, null, null, null, null, null, null, null);
                             messageLabel.setText("Login successful!");
                             NavigationService.go("/com/javaninjas/careerpathway/dashboard/views/userPathway.fxml");
                         });

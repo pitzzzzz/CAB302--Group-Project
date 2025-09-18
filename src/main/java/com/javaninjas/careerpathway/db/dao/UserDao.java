@@ -1,6 +1,8 @@
 package com.javaninjas.careerpathway.db.dao;
 
 import com.javaninjas.careerpathway.core.models.User;
+import com.javaninjas.careerpathway.pages.quiz.models.QuizResult;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +36,7 @@ public class UserDao {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                return new User(
+                User user = new User(
                         rs.getInt("id"),
                         rs.getString("first_name"),
                         rs.getString("last_name"),
@@ -45,6 +47,8 @@ public class UserDao {
                         rs.getString("profile_stage"),
                         rs.getInt("anonymous") == 1
                 );
+                user.setQuizResults(getQuizResultsForUser(id));
+                return user;
             }
         }
         return null;
@@ -56,7 +60,7 @@ public class UserDao {
         try (Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                users.add(new User(
+                User user = new User(
                         rs.getInt("id"),
                         rs.getString("first_name"),
                         rs.getString("last_name"),
@@ -66,9 +70,29 @@ public class UserDao {
                         rs.getString("age_group"),
                         rs.getString("profile_stage"),
                         rs.getInt("anonymous") == 1
-                ));
+                );
+                user.setQuizResults(getQuizResultsForUser(user.getUserID()));
+                users.add(user);
             }
         }
         return users;
+    }
+
+    private List<QuizResult> getQuizResultsForUser(int userId) throws SQLException {
+        List<QuizResult> quizResults = new ArrayList<>();
+        String sql = "SELECT * FROM quiz_results WHERE user_id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                quizResults.add(new QuizResult(
+                        rs.getInt("id"),
+                        rs.getInt("user_id"),
+                        rs.getString("question"),
+                        rs.getString("answer")
+                ));
+            }
+        }
+        return quizResults;
     }
 }
