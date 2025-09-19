@@ -29,7 +29,7 @@ public class SuccessfulRegistrationController {
 
     @FXML
     private void handleQuizButtonAction() {
-        NavigationService.go("/com/javaninjas/careerpathway/quiz/view/QuizIntro.fxml");
+        NavigationService.go("/com/javaninjas/careerpathway/quiz/view/QuizQuestion.fxml");
     }
 
     @FXML
