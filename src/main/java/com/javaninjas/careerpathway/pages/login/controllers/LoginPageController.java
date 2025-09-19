@@ -116,7 +116,7 @@ public class LoginPageController {
                         Platform.runLater(() -> {
                             UserSession.getInstance(userID, email, userType, firstName, lastName, null, null, null, null, null, null, null, null);
                             messageLabel.setText("Login successful!");
-                            NavigationService.go("/com/javaninjas/careerpathway/dashboard/views/userPathway.fxml");
+                            NavigationService.go("/com/javaninjas/careerpathway/pages/dashboard/views/userPathway.fxml");
                         });
                     } else {
                         Platform.runLater(() -> messageLabel.setText("Invalid email or password."));
@@ -133,6 +133,6 @@ public class LoginPageController {
 
     @FXML
     private void handleRegisterLink() {
-        NavigationService.go("/com/javaninjas/careerpathway/registration/views/registrationPage.fxml");
+        NavigationService.go("/com/javaninjas/careerpathway/pages/registration/views/RegistrationPage.fxml");
     }
 }

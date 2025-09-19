@@ -7,16 +7,16 @@ public class BottomNavController {
 
     @FXML
     private void handleExplore() {
-        NavigationService.go("/com/javaninjas/careerpathway/dashboard/views/explorePathways.fxml");
+        NavigationService.go("/com/javaninjas/careerpathway/pages/dashboard/views/explorePathways.fxml");
     }
 
     @FXML
     private void handlePathway() {
-        NavigationService.go("/com/javaninjas/careerpathway/dashboard/views/userPathway.fxml");
+        NavigationService.go("/com/javaninjas/careerpathway/pages/dashboard/views/userPathway.fxml");
     }
 
     @FXML
     private void handleProfile() {
-        NavigationService.go("/com/javaninjas/careerpathway/dashboard/views/userProfile.fxml");
+        NavigationService.go("/com/javaninjas/careerpathway/pages/dashboard/views/userProfile.fxml");
     }
 }

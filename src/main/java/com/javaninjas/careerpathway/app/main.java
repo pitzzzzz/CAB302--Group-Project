@@ -5,17 +5,20 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.javaninjas.careerpathway.core.config.OpenAIConfig;
+import com.javaninjas.careerpathway.core.integrations.openai.ChatGptClient;
+import com.javaninjas.careerpathway.core.integrations.openai.ChatGptService;
 import com.javaninjas.careerpathway.core.services.NavigationService;
 import com.javaninjas.careerpathway.db.connection.DatabaseInitializer;
 
-public class main extends Application {
+public class Main extends Application {
 
     private final int windowWidth = 1200;
     private final int windowHeight = 800;
 
     @Override
     public void start(Stage stage) throws IOException {
-
         // Ensure application connection is successful before UI loads
         DatabaseInitializer.initialize();
 
@@ -28,7 +31,7 @@ public class main extends Application {
         stage.setHeight(windowHeight);
 
         // Load first page
-        NavigationService.go("/com/javaninjas/careerpathway/login/views/loginPage.fxml");
+        NavigationService.go("/com/javaninjas/careerpathway/pages/login/views/LoginPage.fxml");
 
         stage.show();
     }

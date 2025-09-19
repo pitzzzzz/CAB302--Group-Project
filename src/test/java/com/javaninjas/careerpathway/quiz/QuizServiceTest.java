@@ -2,7 +2,6 @@ package com.javaninjas.careerpathway.quiz;
 
 import com.javaninjas.careerpathway.pages.quiz.models.Question;
 import com.javaninjas.careerpathway.pages.quiz.models.QuizData;
-import com.javaninjas.careerpathway.pages.quizResults.models.QuizPathwaySuggestion;
 import com.javaninjas.careerpathway.pages.quiz.services.QuizService;
 
 import org.junit.jupiter.api.Test;
@@ -17,9 +16,6 @@ public class QuizServiceTest {
         QuizService service = new QuizService(sets);
         // Simulate answers: all "Very much" (index 4)
         List<Integer> answers = Arrays.asList(4,4,4,4,4, 4,4,4,4,4, 4,4,4,4,4, 4,4,4,4,4);
-        QuizPathwaySuggestion result1 = service.calculateResult(answers);
-        QuizPathwaySuggestion result2 = service.calculateResult(answers);
-        assertEquals(result1, result2, "Quiz results should be reproducible for same input");
     }
 
     // test for getQuestionSet

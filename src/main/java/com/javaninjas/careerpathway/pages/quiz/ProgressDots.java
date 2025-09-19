@@ -8,7 +8,7 @@ import javafx.scene.layout.HBox;
 public class ProgressDots extends HBox {
     public ProgressDots() {
         try {
-            FXMLLoader f = new FXMLLoader(getClass().getResource("/com/javaninjas/careerpathway/shared/components/ProgressDots.fxml"));
+            FXMLLoader f = new FXMLLoader(getClass().getResource("/com/javaninjas/careerpathway/core/ProgressDots.fxml"));
             f.setRoot(this);
             f.setController(new ProgressDotsController(this));
             f.load();

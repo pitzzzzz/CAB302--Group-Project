@@ -17,6 +17,6 @@ public class RegistrationPageController {
 
     @FXML
     private void handleCreateAccount(ActionEvent event) {
-    NavigationService.go("/com/javaninjas/careerpathway/registration/views/userRegistrationDetailsPage.fxml");
+    NavigationService.go("/com/javaninjas/careerpathway/pages/registration/views/UserRegistrationDetailsPage.fxml");
     }
 }

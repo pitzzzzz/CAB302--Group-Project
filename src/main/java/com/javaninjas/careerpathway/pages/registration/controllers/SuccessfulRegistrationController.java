@@ -29,19 +29,19 @@ public class SuccessfulRegistrationController {
 
     @FXML
     private void handleQuizButtonAction() {
-        NavigationService.go("/com/javaninjas/careerpathway/quiz/view/QuizQuestion.fxml");
+        NavigationService.go("/com/javaninjas/careerpathway/pages/quiz/views/QuizQuestion.fxml");
     }
 
     @FXML
     private void handleLoginLinkAction() {
         // Navigate to the login page
-        NavigationService.go("/com/javaninjas/careerpathway/login/views/loginPage.fxml");
+        NavigationService.go("/com/javaninjas/careerpathway/pages/login/views/LoginPage.fxml");
     }
 
     @FXML
     private void initialize() {
         if (quizButton != null) {
-            quizButton.setOnAction(e -> NavigationService.go("/com/javaninjas/careerpathway/quiz/view/QuizIntro.fxml"));
+            quizButton.setOnAction(e -> NavigationService.go("/com/javaninjas/careerpathway/pages/quiz/views/QuizIntro.fxml"));
         }
     }
 }

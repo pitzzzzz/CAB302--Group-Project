@@ -14,6 +14,6 @@ public class PathwayController {
     @FXML
     private void handleLogout() {
         UserSession.getInstance().logout();
-        NavigationService.go("/com/javaninjas/careerpathway/login/views/loginPage.fxml");
+        NavigationService.go("/com/javaninjas/careerpathway/pages/login/views/LoginPage.fxml");
     }
 }

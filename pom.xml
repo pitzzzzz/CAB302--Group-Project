@@ -26,6 +26,13 @@
             <version>21</version>
         </dependency>
 
+        <!-- OPENAI for prompt generation -->
+        <dependency>
+            <groupId>io.github.cdimascio</groupId>
+            <artifactId>java-dotenv</artifactId>
+            <version>5.2.2</version>
+        </dependency>
+
         <!-- SQLite JDBC for local database access -->
         <dependency>
             <groupId>org.xerial</groupId>
@@ -81,9 +88,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>
-                                com.javaninjas.careerpathway/com.javaninjas.careerpathway.app.Main
-                            </mainClass>
+                            <mainClass>com.javaninjas.careerpathway.app.Main</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>

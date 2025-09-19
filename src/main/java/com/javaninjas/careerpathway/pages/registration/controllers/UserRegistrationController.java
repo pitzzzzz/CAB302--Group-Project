@@ -146,7 +146,7 @@ public class UserRegistrationController implements Initializable {
 
     private void showRegistrationSuccess() {
         showAlert(Alert.AlertType.INFORMATION, "Registration Successful", "Your account has been created successfully.");
-        NavigationService.go("/com/javaninjas/careerpathway/registration/views/successfulRegistrationPage.fxml",
+        NavigationService.go("/com/javaninjas/careerpathway/pages/registration/views/successfulRegistrationPage.fxml",
                 (SuccessfulRegistrationController controller) -> controller.setWelcomeName(getFirstName()));
     }
 

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Ellipse?>
+
+<VBox xmlns="http://javafx.com/javafx/17.0.12"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.javaninjas.careerpathway.pages.quiz.controllers.QuizQuestionController"
+      alignment="TOP_CENTER"
+      spacing="0"
+      prefWidth="480"
+      prefHeight="640"
+      styleClass="root">
+
+    <!-- Scrollable content -->
+    <ScrollPane fitToWidth="true" vbarPolicy="AS_NEEDED" hbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+        <content>
+            <VBox alignment="TOP_CENTER" spacing="16" style="-fx-background-color: transparent;">
+
+                <!-- Header -->
+                <StackPane prefHeight="210" minHeight="140" maxHeight="260">
+                    <Pane prefHeight="210" style="-fx-background-color:#e6e6e6; -fx-background-radius:0 0 40 40;" />
+                    <!-- Dynamic progress dots container (controller will populate) -->
+                    <HBox fx:id="progressDots" spacing="10" alignment="TOP_CENTER" translateY="18" StackPane.alignment="TOP_CENTER"/>
+                    <Ellipse radiusX="300" radiusY="80" fill="white" strokeWidth="0"
+                             StackPane.alignment="BOTTOM_CENTER" translateY="44"/>
+                </StackPane>
+
+                <!-- Quiz content card -->
+                <VBox fx:id="questionsContainer" alignment="TOP_CENTER" spacing="12" prefWidth="420" styleClass="card">
+                    <!-- Question content will be dynamically added here by the controller -->
+                </VBox>
+            </VBox>
+        </content>
+    </ScrollPane>
+
+    <!-- Bottom controls -->
+    <VBox alignment="CENTER" spacing="6" prefWidth="420" style="-fx-padding:12;">
+        <HBox spacing="10" alignment="CENTER">
+            <Button fx:id="prevButton" onAction="#handlePrev" text="Previous" maxWidth="Infinity" prefHeight="44" styleClass="secondary-btn" HBox.hgrow="ALWAYS"/>
+            <Button fx:id="nextButton" onAction="#handleNext" text="Next" maxWidth="Infinity" prefHeight="44" styleClass="primary-btn" HBox.hgrow="ALWAYS"/>
+        </HBox>
+        <Button fx:id="submitButton" onAction="#handleSubmit" text="Submit" maxWidth="Infinity" prefHeight="44" styleClass="primary-btn" visible="false"/>
+        <Button onAction="#handleQuit" text="Quit Quiz" maxWidth="Infinity" prefHeight="30" styleClass="secondary-btn"/>
+    </VBox>
+</VBox>

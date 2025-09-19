@@ -10,9 +10,21 @@ public class QuizIntroController {
     private Button startButton;
 
     @FXML
-    private void initialize() {
-        if (startButton != null) {
-            startButton.setOnAction(e -> NavigationService.go("/com/javaninjas/careerpathway/quiz/view/QuizQuestion.fxml"));
-        }
+    private void startQuiz() {
+        NavigationService.go("/com/javaninjas/careerpathway/pages/loading/views/LoadingScreen.fxml", controller -> {
+            com.javaninjas.careerpathway.pages.loading.controllers.LoadingScreenController loadingController = (com.javaninjas.careerpathway.pages.loading.controllers.LoadingScreenController) controller;
+            loadingController.loadData(() -> {
+                // Simulate long-running task
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                return ""; // No data to pass
+            }, (data) -> {
+                // Navigate to the next page
+                NavigationService.go("/com/javaninjas/careerpathway/pages/quiz/views/QuizQuestion.fxml");
+            });
+        });
     }
 }

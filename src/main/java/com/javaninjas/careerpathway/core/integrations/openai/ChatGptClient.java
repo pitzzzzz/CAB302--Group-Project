@@ -11,6 +11,10 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.Objects;
 
+/**
+ * Low-level HTTP client for communicating with OpenAI.
+ * Only responsible for sending raw requests and returning raw JSON responses.
+ */
 public class ChatGptClient {
     private static final String OPENAI_URL = "https://api.openai.com/v1/chat/completions";
     private final String apiKey;
@@ -31,7 +35,6 @@ public class ChatGptClient {
     /**
      * Sends a raw chat completion request body (already a JSON string) to OpenAI
      * and returns the parsed JSON response.
-     * This client is intentionally small and only handles HTTP-level concerns.
      */
     public JsonNode sendChatCompletionRequest(String requestBodyJson) throws IOException, InterruptedException {
         HttpRequest req = HttpRequest.newBuilder()
@@ -48,19 +51,5 @@ public class ChatGptClient {
         }
 
         return mapper.readTree(resp.body());
-    }
-
-    /**
-     * Backwards-compatible helper that composes a career prompt and returns the
-     * parsed JSON.
-     * Delegates the domain logic to {@link ChatGptService} so callers that still
-     * use the
-     * old client API will continue to work.
-     */
-    public JsonNode requestCareerSuggestion(String userAnswersText) throws IOException, InterruptedException {
-        // Delegate to service to keep single-responsibility while providing
-        // compatibility
-        ChatGptService svc = new ChatGptService(this);
-        return svc.requestCareerSuggestion(userAnswersText);
     }
 }

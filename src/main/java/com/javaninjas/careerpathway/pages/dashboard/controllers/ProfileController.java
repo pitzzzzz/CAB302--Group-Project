@@ -42,7 +42,7 @@ public class ProfileController {
         UserSession session = UserSession.getInstance();
         if (session == null) {
             // If there's no session, redirect to login
-            NavigationService.go("/com/javaninjas/careerpathway/login/views/loginPage.fxml");
+            NavigationService.go("/com/javaninjas/careerpathway/pages/login/views/LoginPage.fxml");
             return;
         }
 
@@ -122,7 +122,7 @@ public class ProfileController {
     @FXML
     private void handleLogout() {
         UserSession.getInstance().logout();
-        NavigationService.go("/com/javaninjas/careerpathway/login/views/loginPage.fxml");
+        NavigationService.go("/com/javaninjas/careerpathway/pages/login/views/LoginPage.fxml");
     }
 
     @FXML
