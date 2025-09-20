@@ -1,9 +1,10 @@
 package com.javaninjas.careerpathway.db.dao;
 
-import com.javaninjas.careerpathway.pages.quizResults.models.QuizResult;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.javaninjas.careerpathway.pages.results.models.QuizResult;
 
 public class ResultDao {
     private final Connection conn;

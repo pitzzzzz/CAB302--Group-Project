@@ -1,44 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Ellipse?>
+<?import com.javaninjas.careerpathway.pages.quiz.components.ProgressDots?>
 
-<VBox xmlns="http://javafx.com/javafx/17.0.12"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.javaninjas.careerpathway.pages.quiz.controllers.QuizIntroController"
-      alignment="TOP_CENTER"
-      spacing="20"
-      prefWidth="480"
-      prefHeight="640"
-      styleClass="root">
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.javaninjas.careerpathway.pages.quiz.controllers.QuizIntroController"
+            prefWidth="480"
+            prefHeight="800"
+            styleClass="root">
 
+    <!-- Header with progress dots -->
+    <top>
+        <VBox alignment="TOP_CENTER" spacing="8" style="-fx-padding:12 20 6 20;">
+            <StackPane prefHeight="40" minHeight="40" maxHeight="40">
+                <!-- keep the original visual ellipse behind progress dots -->
+                <Pane prefHeight="40" style="-fx-background-color:transparent;" />
+            </StackPane>
 
-    <!-- Header with gradient background -->
-    <StackPane prefHeight="180" maxWidth="Infinity" VBox.vgrow="NEVER"
-               style="-fx-background-color: linear-gradient(to bottom right, #dbeafe, #bfdbfe);
-                      -fx-background-radius: 0 0 40 40;">
-        <!-- Progress dots -->
-        <HBox spacing="10" alignment="CENTER" StackPane.alignment="BOTTOM_CENTER" translateY="-15">
-            <Circle radius="6" styleClass="dot-active"/>
-            <Circle radius="5" styleClass="dot"/>
-            <Circle radius="5" styleClass="dot"/>
-            <Circle radius="5" styleClass="dot"/>
-            <Circle radius="5" styleClass="dot"/>
-            <Circle radius="5" styleClass="dot"/>
-        </HBox>
-    </StackPane>
+            <!-- Progress dots centered at top -->
+            <StackPane style="-fx-padding:8 12 0 12;" prefHeight="40">
+                <ProgressDots StackPane.alignment="CENTER" />
+            </StackPane>
+        </VBox>
+    </top>
 
-    <!-- Main content card -->
-    <VBox alignment="CENTER" spacing="14" prefWidth="360" styleClass="card">
-        <Label text="Let’s get started..." wrapText="true" styleClass="header"/>
-        <Label text="This short quiz will help us personalize your career pathway."
-               wrapText="true" styleClass="subtitle"/>
-        <Region prefHeight="30"/>
-        <Button fx:id="startButton" onAction="#startQuiz" text="Continue" prefWidth="220" prefHeight="44" styleClass="primary-btn"/>
-    </VBox>
-
-    <!-- Flexible spacer -->
-    <Region VBox.vgrow="ALWAYS"/>
-</VBox>
+    <!-- Main content card: place original intro content inside a centered card -->
+    <center>
+        <StackPane BorderPane.alignment="CENTER" style="-fx-padding:18 12 18 12;">
+            <VBox alignment="CENTER" spacing="14" prefWidth="360" styleClass="card" style="-fx-padding:28; -fx-background-radius:12; -fx-effect: dropshadow(two-pass-box, rgba(0,0,0,0.06), 8, 0, 0, 4);">
+                <!-- preserve original content text -->
+                <Label text="Lets get started..." wrapText="true" styleClass="header"/>
+                <Label text="This short quiz will help us personalize your career pathway." wrapText="true" styleClass="subtitle"/>
+                <Button fx:id="startButton"
+                        onAction="#startQuiz"
+                        text="Continue"
+                        prefWidth="360"
+                        prefHeight="44"
+                        style="-fx-background-color:#357ABD; -fx-text-fill:white; -fx-font-weight:700; -fx-background-radius:10;" />
+            </VBox>
+        </StackPane>
+    </center>
+</BorderPane>

@@ -8,9 +8,9 @@ import com.javaninjas.careerpathway.db.connection.Database;
 import com.javaninjas.careerpathway.db.dao.ResultDao;
 import com.javaninjas.careerpathway.pages.quiz.models.Question;
 import com.javaninjas.careerpathway.pages.quiz.models.QuizData;
-import com.javaninjas.careerpathway.pages.quizResults.models.QuizPathwaySuggestion;
-import com.javaninjas.careerpathway.pages.quizResults.models.QuizResult;
-import com.javaninjas.careerpathway.pages.quizResults.services.QuizResultService;
+import com.javaninjas.careerpathway.pages.results.models.QuizPathwaySuggestion;
+import com.javaninjas.careerpathway.pages.results.models.QuizResult;
+import com.javaninjas.careerpathway.pages.results.services.QuizResultService;
 
 import java.io.IOException;
 import java.sql.Connection;
