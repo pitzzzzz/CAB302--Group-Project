@@ -5,10 +5,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.javaninjas.careerpathway.core.config.OpenAIConfig;
-import com.javaninjas.careerpathway.core.integrations.openai.ChatGptClient;
-import com.javaninjas.careerpathway.core.integrations.openai.ChatGptService;
 import com.javaninjas.careerpathway.core.services.NavigationService;
 import com.javaninjas.careerpathway.db.connection.DatabaseInitializer;
 

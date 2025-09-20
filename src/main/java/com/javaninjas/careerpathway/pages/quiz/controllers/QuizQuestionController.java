@@ -1,6 +1,7 @@
 package com.javaninjas.careerpathway.pages.quiz.controllers;
 
 import com.javaninjas.careerpathway.core.services.NavigationService;
+import com.javaninjas.careerpathway.pages.loading.controllers.LoadingScreenController;
 import com.javaninjas.careerpathway.pages.quiz.models.Question;
 import com.javaninjas.careerpathway.pages.quiz.models.QuizData;
 import com.javaninjas.careerpathway.pages.quiz.services.QuizService;
@@ -115,8 +116,18 @@ public class QuizQuestionController {
     @FXML
     private void handleSubmit() {
         List<String> answers = Arrays.asList(selectedAnswers);
-        quizService.calculateResult(answers);
-        NavigationService.go("/com/javaninjas/careerpathway/pages/quiz/views/QuizResult.fxml");
+        NavigationService.go(
+                "/com/javaninjas/careerpathway/pages/loading/views/LoadingScreen.fxml",
+                (LoadingScreenController controller) -> {
+                    controller.loadData(
+                            () -> quizService.calculateResult(answers),
+                            (suggestion) -> {
+                                // This runs after calculation is complete
+                                NavigationService.go("/com/javaninjas/careerpathway/pages/quiz/views/QuizResult.fxml");
+                            }
+                    );
+                }
+        );
     }
 
     @FXML

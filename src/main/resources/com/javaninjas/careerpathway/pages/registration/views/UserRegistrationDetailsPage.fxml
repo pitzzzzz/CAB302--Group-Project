@@ -9,7 +9,7 @@
 	<!-- Top nav -->
 	<AnchorPane>
 		<StackPane.alignment>TOP_LEFT</StackPane.alignment>
-		<fx:include source="../../core/views/topNavBack.fxml" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" />
+		<fx:include source="/com/javaninjas/careerpathway/core/components/views/topNavBack.fxml" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" />
 	</AnchorPane>
 
 	<!-- Main content container -->

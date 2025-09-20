@@ -42,7 +42,7 @@ public class QuizService {
         return questionSets;
     }
 
-    public void calculateResult(List<String> answers) {
+    public QuizPathwaySuggestion calculateResult(List<String> answers) {
         UserSession session = UserSession.getInstance();
         long long_userId = session != null ? session.getUserID() : 0;
         int userId = (int) long_userId;
@@ -85,10 +85,12 @@ public class QuizService {
 
             QuizPathwaySuggestion suggestion = new QuizPathwaySuggestion("AI-Generated Pathway", "Based on your answers, here are some insights about you.", answers, String.valueOf(userId), traits);
             QuizResultService.setSuggestion(suggestion);
+            return suggestion;
 
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
             // Handle exception
+            return null;
         }
     }
 }

@@ -14,7 +14,7 @@
       styleClass="root">
 
     <!-- top nav -->
-    <fx:include source="../../core/views/topNavBack.fxml" />
+    <fx:include source="/com/javaninjas/careerpathway/core/components/views/topNavBack.fxml"/>
 
     <!-- Hero header with subtle gradient and centered text -->
     <StackPane prefHeight="180" maxWidth="Infinity"
