@@ -1,14 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.javaninjas.careerpathway.pages.dashboard.controllers.PathwayPopup"
-            prefHeight="400.0" prefWidth="600.0">
+            fx:controller="com.javaninjas.careerpathway.pages.dashboard.controllers.PathwayPopupController"
+            prefWidth="500" prefHeight="450"
+            style="-fx-padding: 20;">
+    <VBox spacing="12" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0"
+          AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0">
 
+        <!-- Job Info -->
+        <Label text="Job Details" style="-fx-font-size:18; -fx-font-weight:bold;" />
+        <Label fx:id="jobNameLabel" style="-fx-font-size:16;" />
+        <Label fx:id="jobDescriptionLabel" wrapText="true" />
+        <HBox spacing="5">
+            <Label text="Salary:" style="-fx-font-weight:bold;" />
+            <Label fx:id="salaryLabel" />
+        </HBox>
+
+        <Separator />
+
+        <!-- Course Info -->
+        <Label text="Related Course" style="-fx-font-size:18; -fx-font-weight:bold;" />
+        <HBox spacing="5">
+            <Label text="Course Name:" style="-fx-font-weight:bold;" />
+            <Label fx:id="courseNameLabel" />
+        </HBox>
+        <HBox spacing="5">
+            <Label text="Major:" style="-fx-font-weight:bold;" />
+            <Label fx:id="courseMajorLabel" />
+        </HBox>
+        <HBox spacing="5">
+            <Label text="Course Code:" style="-fx-font-weight:bold;" />
+            <Label fx:id="courseCodeLabel" />
+        </HBox>
+        <HBox spacing="5">
+            <Label text="QTAC Code:" style="-fx-font-weight:bold;" />
+            <Label fx:id="qtacCodeLabel" />
+        </HBox>
+        <Label text="Description:" style="-fx-font-weight:bold;" />
+        <Label fx:id="courseDescriptionLabel" wrapText="true" />
+
+        <Separator />
+
+        <!-- Back Button -->
+        <Button text="Back"
+                onAction="#handleBack"
+                style="-fx-background-color:#6699cc; -fx-text-fill:white;
+                       -fx-background-radius:8; -fx-padding:6 14;" />
+    </VBox>
 </AnchorPane>

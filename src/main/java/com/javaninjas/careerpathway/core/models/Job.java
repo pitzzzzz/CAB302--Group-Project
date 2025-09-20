@@ -5,18 +5,28 @@ public class Job {
     private final int courseID;
     private String jobDescription;
     private String jobName;
-
-    public Job(int jobID, int courseID, String jobName, String jobDescription) {
+    private int jobSalary;
+    public Job(int jobID, int courseID, String jobName, String jobDescription, int jobSalary) {
         this.jobID = jobID;
         this.courseID = courseID;
         this.jobName = jobName;
         this.jobDescription = jobDescription;
+        this.jobSalary = jobSalary;
     }
 
     // Getters
     public int getJobID() {
         return jobID;
     }
+
+    public int getJobSalary() {
+        return jobSalary;
+    }
+
+    public int get () {
+        return jobID;
+    }
+
 
     public int getCourseID() {
         return courseID;

@@ -13,7 +13,7 @@ public class JobDao {
 
     public static List<Job> getAllJobs() {
         List<Job> jobs = new ArrayList<>();
-        String sql = "SELECT jobID, courseID, jobName, jobDescription FROM jobs";
+        String sql = "SELECT jobID, courseID, JobName, JobDescription, ExpectedSalary  FROM Jobs";
 
         try (Connection conn = Database.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
@@ -22,9 +22,10 @@ public class JobDao {
             while (rs.next()) {
                 int jobID = rs.getInt("jobID");
                 int courseID = rs.getInt("courseID");
-                String jobName = rs.getString("jobName");
-                String jobDescription = rs.getString("jobDescription");
-                jobs.add(new Job(jobID, courseID, jobName, jobDescription));
+                String jobName = rs.getString("JobName");
+                String jobDescription = rs.getString("JobDescription");
+                int expectedSalary = rs.getInt("ExpectedSalary");
+                jobs.add(new Job(jobID, courseID, jobName, jobDescription, expectedSalary));
             }
 
         } catch (Exception e) {
