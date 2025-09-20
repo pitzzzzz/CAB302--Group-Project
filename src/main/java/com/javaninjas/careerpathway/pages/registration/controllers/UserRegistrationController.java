@@ -124,10 +124,13 @@ public class UserRegistrationController implements Initializable {
         return BCrypt.withDefaults().hashToString(12, password.toCharArray());
     }
 
-    private boolean saveUserToDatabase(String hashedPassword) {
+    /**
+     * Insert a user and return the generated id, or -1 on failure.
+     */
+    private int saveUserToDatabase(String hashedPassword) {
         String sql = "INSERT INTO users(first_name,last_name,email,password_hash,city,age_group,profile_stage,anonymous) VALUES(?,?,?,?,?,?,?,?)";
         try (Connection conn = Database.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+             PreparedStatement ps = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, getFirstName());
             ps.setString(2, getLastName());
             ps.setString(3, getEmail());
@@ -136,11 +139,16 @@ public class UserRegistrationController implements Initializable {
             ps.setString(6, ageSelect != null ? ageSelect.getValue() : null);
             ps.setString(7, profileStage != null ? profileStage.getValue() : null);
             ps.setInt(8, anonymousCheck != null && anonymousCheck.isSelected() ? 1 : 0);
-            ps.executeUpdate();
-            return true;
+            int affected = ps.executeUpdate();
+            if (affected == 0) return -1;
+            var rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+            return -1;
         } catch (SQLException ex) {
             showAlert(Alert.AlertType.ERROR, "Registration Error", "Failed to register user: " + ex.getMessage());
-            return false;
+            return -1;
         }
     }
 
@@ -158,7 +166,29 @@ public class UserRegistrationController implements Initializable {
 
         String hashed = hashPassword(getPassword());
 
-        if (!saveUserToDatabase(hashed)) return;
+        int newUserId = saveUserToDatabase(hashed);
+        if (newUserId <= 0) return;
+
+        // Instantiate a session for the newly created user so they're logged in
+        try {
+            com.javaninjas.careerpathway.core.auth.UserSession.getInstance(
+                    newUserId,
+                    getEmail(),
+                    profileStage != null && profileStage.getValue() != null ? profileStage.getValue() : "user",
+                    getFirstName(),
+                    getLastName(),
+                    "",
+                    ageSelect != null ? ageSelect.getValue() : "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    ""
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         showRegistrationSuccess();
     }

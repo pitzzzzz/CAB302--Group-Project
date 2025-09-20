@@ -41,7 +41,7 @@
 
 	<!-- Bottom navigation -->
 	<bottom>
-		<fx:include source="/com/javaninjas/careerpathway/core/components/views/bottomNav.fxml"/>
+		<fx:include source="/com/javaninjas/careerpathway/core/views/bottomNav.fxml" />
 	</bottom>
 
 </BorderPane>

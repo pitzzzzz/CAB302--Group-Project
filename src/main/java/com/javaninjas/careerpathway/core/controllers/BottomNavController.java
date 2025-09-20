@@ -17,6 +17,12 @@ public class BottomNavController {
 
     @FXML
     private void handleProfile() {
-        NavigationService.go("/com/javaninjas/careerpathway/pages/dashboard/views/userProfile.fxml");
+        // If there's no active session, go to login instead of profile.
+        com.javaninjas.careerpathway.core.auth.UserSession session = com.javaninjas.careerpathway.core.auth.UserSession.getInstance();
+        if (session == null) {
+            NavigationService.go("/com/javaninjas/careerpathway/pages/login/views/LoginPage.fxml");
+        } else {
+            NavigationService.go("/com/javaninjas/careerpathway/pages/dashboard/views/userProfile.fxml");
+        }
     }
 }
