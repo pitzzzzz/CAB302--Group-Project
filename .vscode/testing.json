@@ -1,0 +1,14 @@
+{
+    "java.test.config": [
+        {
+            "name": "JUnit",
+            "workingDirectory": "${workspaceFolder}",
+            "args": [],
+            "vmArgs": [
+                "-ea"
+            ],
+            "preLaunchTask": "clean compile"
+        }
+    ],
+    "java.test.defaultConfig": "JUnit"
+}

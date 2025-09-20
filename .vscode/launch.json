@@ -1,0 +1,14 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Run CareerPathwayApp (Maven JavaFX)",
+            "request": "launch",
+            "mainClass": "com.javaninjas.careerpathway.app.Main",
+            "projectName": "careerpathwayapp",
+            "preLaunchTask": "maven-javafx-run",
+            "console": "integratedTerminal"
+        }
+    ]
+}
