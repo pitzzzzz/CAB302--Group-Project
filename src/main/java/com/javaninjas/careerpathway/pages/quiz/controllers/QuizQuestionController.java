@@ -44,7 +44,6 @@ public class QuizQuestionController {
         progressDots.currentProperty().set(0);
 
         displayPage(currentPageIndex);
-        updateButtonVisibility();
     }
 
     private void displayPage(int pageIndex) {
@@ -53,7 +52,7 @@ public class QuizQuestionController {
 
         for (int i = 0; i < pageQuestions.size(); i++) {
             Question question = pageQuestions.get(i);
-            int questionIndex = pageIndex * 5 + i;
+            final int questionIndex = pageIndex * 5 + i;
 
             Label questionLabel = new Label((questionIndex + 1) + ". " + question.prompt());
             questionLabel.setWrapText(true);
@@ -81,12 +80,16 @@ public class QuizQuestionController {
             answerGroup.selectedToggleProperty().addListener((obs, oldToggle, newToggle) -> {
                 if (newToggle != null) {
                     selectedAnswers[questionIndex] = (String) newToggle.getUserData();
+                } else {
+                    selectedAnswers[questionIndex] = null;
                 }
+                updateButtonStates();
             });
 
             questionBox.getChildren().add(optionsBox);
             questionsContainer.getChildren().add(questionBox);
         }
+        updateButtonStates();
     }
 
     @FXML
@@ -94,7 +97,6 @@ public class QuizQuestionController {
         if (currentPageIndex < questionSets.size() - 1) {
             currentPageIndex++;
             displayPage(currentPageIndex);
-            updateButtonVisibility();
             progressDots.currentProperty().set(currentPageIndex);
         }
     }
@@ -104,19 +106,38 @@ public class QuizQuestionController {
         if (currentPageIndex > 0) {
             currentPageIndex--;
             displayPage(currentPageIndex);
-            updateButtonVisibility();
             progressDots.currentProperty().set(currentPageIndex);
         }
     }
 
-    private void updateButtonVisibility() {
+    private void updateButtonStates() {
         prevButton.setVisible(currentPageIndex > 0);
-        nextButton.setVisible(currentPageIndex < questionSets.size() - 1);
-        submitButton.setVisible(currentPageIndex == questionSets.size() - 1);
+        boolean isLastPage = currentPageIndex == questionSets.size() - 1;
+        nextButton.setVisible(!isLastPage);
+        submitButton.setVisible(isLastPage);
+
+        boolean allAnswered = areAllQuestionsOnPageAnswered();
+        nextButton.setDisable(!allAnswered);
+        submitButton.setDisable(!allAnswered);
+    }
+
+    private boolean areAllQuestionsOnPageAnswered() {
+        List<Question> pageQuestions = questionSets.get(currentPageIndex);
+        int questionsPerPage = 5;
+        for (int i = 0; i < pageQuestions.size(); i++) {
+            int questionIndex = currentPageIndex * questionsPerPage + i;
+            if (questionIndex < selectedAnswers.length && selectedAnswers[questionIndex] == null) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @FXML
     private void handleSubmit() {
+        if (!areAllQuestionsOnPageAnswered()) {
+            return;
+        }
         List<String> answers = Arrays.asList(selectedAnswers);
         NavigationService.go(
                 "/com/javaninjas/careerpathway/pages/loading/views/LoadingScreen.fxml",
