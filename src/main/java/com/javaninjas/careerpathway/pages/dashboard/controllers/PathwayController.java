@@ -7,6 +7,12 @@ import javafx.application.Platform;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+
+import com.javaninjas.careerpathway.core.models.Job;
+import com.javaninjas.careerpathway.pages.components.JobCardController;
 
 public class PathwayController {
 
@@ -15,6 +21,9 @@ public class PathwayController {
 
     @FXML
     private Label welcomeLabel;
+
+    @FXML
+    private HBox jobsContainer;
 
     @FXML
     public void initialize() {
@@ -46,7 +55,36 @@ public class PathwayController {
         });
 
         // TODO: If the user has no selected career, populate the UI with recommended job cards
-        // For now, the FXML contains placeholder jobs per the design.
+        // Replace placeholders: populate the jobsContainer HBox with cards loaded from jobCard.fxml
+        try {
+            if (jobsContainer != null) {
+                Job[] jobs = new Job[] {
+                    new Job(1, 0, "Software Engineer", "Design and build software applications.", 90000),
+                    new Job(2, 0, "Data Analyst", "Analyse data and produce insights.", 75000),
+                    new Job(3, 0, "UX Designer", "Design user experiences and interfaces.", 70000),
+                    new Job(4, 0, "Network Engineer", "Maintain and design network systems.", 80000),
+                    new Job(5, 0, "Product Manager", "Coordinate product development across teams.", 95000)
+                };
+
+                for (Job job : jobs) {
+                    try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/javaninjas/careerpathway/pages/components/jobCard.fxml"));
+                        Node node = loader.load();
+                        JobCardController controller = loader.getController();
+                        if (controller != null) {
+                            controller.setJob(job);
+                            controller.setOnApply(j -> {
+                                // default: navigate or log; replace with NavigationService if desired
+                                System.out.println("Learn more clicked for: " + j.getJobName());
+                            });
+                        }
+                        jobsContainer.getChildren().add(node);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        } catch (Exception ignored) {}
     }
 
     @FXML

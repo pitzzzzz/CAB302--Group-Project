@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="com.javaninjas.careerpathway.pages.components.JobCardController"
+    fx:id="root"
+    spacing="10" alignment="TOP_LEFT"
+    style="-fx-border-color:#111; -fx-border-radius:12; -fx-background-radius:12; -fx-padding:16; -fx-background-color:white; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.08),8,0,0,3);"
+    prefWidth="220">
+    <children>
+    <Label fx:id="titleLabel" text="Job Title" style="-fx-font-weight:bold; -fx-font-size:18;" />
+    <Label fx:id="descLabel" text="Description" wrapText="true" style="-fx-text-fill:#444; -fx-font-size:13;" />
+        <Label fx:id="salaryLabel" text="Avg salary - $x.xxx" style="-fx-font-size:13;" />
+        <Region VBox.vgrow="ALWAYS" />
+        <HBox alignment="CENTER">
+            <children>
+                <Button fx:id="applyButton" text="Learn more" alignment="CENTER" style="-fx-background-color:#4c89d9; -fx-text-fill:white; -fx-background-radius:18; -fx-padding:8 20;" />
+            </children>
+        </HBox>
+    </children>
+</VBox>
