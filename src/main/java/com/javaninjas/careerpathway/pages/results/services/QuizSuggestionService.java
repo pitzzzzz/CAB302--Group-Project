@@ -1,7 +1,7 @@
-package com.javaninjas.careerpathway.pages.quizResults.services;
+package com.javaninjas.careerpathway.pages.results.services;
 
-import com.javaninjas.careerpathway.pages.quizResults.QuizSuggestionRepository;
-import com.javaninjas.careerpathway.pages.quizResults.models.QuizPathwaySuggestion;
+import com.javaninjas.careerpathway.pages.results.QuizSuggestionRepository;
+import com.javaninjas.careerpathway.pages.results.models.QuizPathwaySuggestion;
 
 public class QuizSuggestionService {
     private final QuizSuggestionRepository repository;

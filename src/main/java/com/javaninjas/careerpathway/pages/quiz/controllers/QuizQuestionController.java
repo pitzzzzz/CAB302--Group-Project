@@ -5,6 +5,7 @@ import com.javaninjas.careerpathway.pages.loading.controllers.LoadingScreenContr
 import com.javaninjas.careerpathway.pages.quiz.models.Question;
 import com.javaninjas.careerpathway.pages.quiz.models.QuizData;
 import com.javaninjas.careerpathway.pages.quiz.services.QuizService;
+import com.javaninjas.careerpathway.pages.quiz.components.ProgressDots;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -19,17 +20,11 @@ import java.util.List;
 
 public class QuizQuestionController {
 
-    @FXML
-    private VBox questionsContainer;
-
-    @FXML
-    private Button prevButton;
-
-    @FXML
-    private Button nextButton;
-
-    @FXML
-    private Button submitButton;
+    @FXML private VBox questionsContainer;
+    @FXML private Button prevButton;
+    @FXML private Button nextButton;
+    @FXML private Button submitButton;
+    @FXML private ProgressDots progressDots; // <-- custom control directly injected
 
     private QuizService quizService;
     private List<List<Question>> questionSets;
@@ -43,6 +38,11 @@ public class QuizQuestionController {
         this.questionSets = quizService.getQuestionSets();
         this.totalQuestions = (int) questionSets.stream().mapToLong(List::size).sum();
         this.selectedAnswers = new String[totalQuestions];
+
+        // Configure the progress dots
+        progressDots.totalProperty().set(questionSets.size());
+        progressDots.currentProperty().set(0);
+
         displayPage(currentPageIndex);
         updateButtonVisibility();
     }
@@ -95,6 +95,7 @@ public class QuizQuestionController {
             currentPageIndex++;
             displayPage(currentPageIndex);
             updateButtonVisibility();
+            progressDots.currentProperty().set(currentPageIndex);
         }
     }
 
@@ -104,6 +105,7 @@ public class QuizQuestionController {
             currentPageIndex--;
             displayPage(currentPageIndex);
             updateButtonVisibility();
+            progressDots.currentProperty().set(currentPageIndex);
         }
     }
 
@@ -122,7 +124,6 @@ public class QuizQuestionController {
                     controller.loadData(
                             () -> quizService.calculateResult(answers),
                             (suggestion) -> {
-                                // This runs after calculation is complete
                                 NavigationService.go("/com/javaninjas/careerpathway/pages/quiz/views/QuizResult.fxml");
                             }
                     );
@@ -132,8 +133,6 @@ public class QuizQuestionController {
 
     @FXML
     private void handleQuit() {
-        // Optional: Add a confirmation dialog before quitting
-        // For now, just navigate back to the intro
-        // NavigationService.go("/com/javaninjas/careerpathway/pages/quiz/views/QuizIntro.fxml");
+        // Optional: Add confirmation or return to intro
     }
 }

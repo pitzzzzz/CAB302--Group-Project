@@ -1,10 +1,11 @@
 package com.javaninjas.careerpathway.core.models;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
-import com.javaninjas.careerpathway.pages.quizResults.models.QuizResult;
 
 import java.util.List;
 import java.util.Objects;
+
+import com.javaninjas.careerpathway.pages.results.models.QuizResult;
 
 /**
  * Simple POJO representing an application user.

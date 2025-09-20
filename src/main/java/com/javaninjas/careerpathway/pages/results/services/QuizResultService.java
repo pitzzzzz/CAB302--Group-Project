@@ -1,6 +1,6 @@
-package com.javaninjas.careerpathway.pages.quizResults.services;
+package com.javaninjas.careerpathway.pages.results.services;
 
-import com.javaninjas.careerpathway.pages.quizResults.models.QuizPathwaySuggestion;
+import com.javaninjas.careerpathway.pages.results.models.QuizPathwaySuggestion;
 
 public class QuizResultService {
     private static QuizPathwaySuggestion suggestion;

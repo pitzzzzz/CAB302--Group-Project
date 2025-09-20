@@ -1,9 +1,9 @@
-package com.javaninjas.careerpathway.pages.quizResults;
+package com.javaninjas.careerpathway.pages.results;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.javaninjas.careerpathway.pages.quizResults.models.QuizPathwaySuggestion;
+import com.javaninjas.careerpathway.pages.results.models.QuizPathwaySuggestion;
 
 public class InMemoryQuizSuggestionRepository implements QuizSuggestionRepository {
     private final List<QuizPathwaySuggestion> suggestions = new ArrayList<>();

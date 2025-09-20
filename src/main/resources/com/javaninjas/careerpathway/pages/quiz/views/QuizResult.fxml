@@ -5,42 +5,40 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 
-<VBox xmlns="http://javafx.com/javafx/17.0.12"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.javaninjas.careerpathway.pages.quiz.controllers.QuizResultController"
-      alignment="TOP_CENTER"
-      spacing="12"
-      prefWidth="480"
-      prefHeight="640"
-      styleClass="root">
-
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.javaninjas.careerpathway.pages.quizResults.controllers.QuizResultController"
+            prefWidth="480"
+            prefHeight="800"
+            styleClass="root">
 
     <!-- Header -->
-    <StackPane prefHeight="360" minHeight="280">
-        <Rectangle width="480" height="360" arcWidth="16" arcHeight="16" fill="#e6e6e6" stroke="#c7cbd0"/>
+    <top>
+        <VBox alignment="TOP_CENTER" spacing="16">
+            <StackPane prefHeight="120" minHeight="120" maxHeight="120">
+                <Pane prefHeight="100" style="-fx-background-color:#e6e6e6; -fx-background-radius:0 0 40 40;" />
+                <fx:include fx:id="progressDots" source="../../../core/ProgressDots.fxml" StackPane.alignment="TOP_CENTER" VBox.vgrow="ALWAYS" />
+                <Ellipse radiusX="300" radiusY="60" fill="white" strokeWidth="0"
+                         StackPane.alignment="BOTTOM_CENTER" translateY="30"/>
+            </StackPane>
+        </VBox>
+    </top>
 
-        <VBox alignment="TOP_CENTER" spacing="8" translateY="36">
+    <!-- Main content card -->
+    <center>
+        <VBox spacing="18" alignment="TOP_CENTER" styleClass="card">
             <Label text="You're All Set!" styleClass="header"/>
             <Label text="here's what we've learned so far..." styleClass="subtitle"/>
+            <VBox fx:id="detailsBox" spacing="8" alignment="TOP_LEFT" styleClass="card-content"/>
         </VBox>
+    </center>
 
-        <Ellipse radiusX="300" radiusY="80" fill="white" strokeWidth="0" StackPane.alignment="BOTTOM_CENTER" translateY="44"/>
-    </StackPane>
-
-    <!-- Learned items card -->
-    <ScrollPane fitToWidth="true" prefWidth="440" prefHeight="180" style="-fx-background-color:transparent;">
-        <VBox fx:id="detailsBox" spacing="18" alignment="TOP_LEFT" styleClass="card">
-            <!-- Example items dynamically populated by controller -->
+    <!-- Bottom controls -->
+    <bottom>
+        <VBox alignment="CENTER" spacing="6" prefWidth="420" style="-fx-padding:12;">
+            <Button fx:id="dashboardButton" text="Go To Dashboard" maxWidth="Infinity" prefHeight="44"
+                    styleClass="primary-btn"
+                    onAction="#goToDashboard"/>
         </VBox>
-    </ScrollPane>
-
-    <Region VBox.vgrow="ALWAYS"/>
-
-    <!-- Bottom CTA -->
-    <StackPane prefHeight="120" alignment="CENTER">
-        <Button fx:id="dashboardButton" text="Go To Dashboard" prefWidth="260" prefHeight="44"
-                styleClass="primary-btn"
-                onAction="#goToDashboard"/>
-
-    </StackPane>
-</VBox>
+    </bottom>
+</BorderPane>

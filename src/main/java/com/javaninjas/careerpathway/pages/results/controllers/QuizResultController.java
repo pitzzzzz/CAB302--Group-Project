@@ -1,13 +1,14 @@
-package com.javaninjas.careerpathway.pages.quizResults.controllers;
+package com.javaninjas.careerpathway.pages.results.controllers;
 
-import com.javaninjas.careerpathway.pages.quizResults.models.QuizPathwaySuggestion;
-import com.javaninjas.careerpathway.pages.quizResults.services.QuizResultService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 import java.util.List;
+
+import com.javaninjas.careerpathway.pages.results.models.QuizPathwaySuggestion;
+import com.javaninjas.careerpathway.pages.results.services.QuizResultService;
 
 public class QuizResultController {
     @FXML
