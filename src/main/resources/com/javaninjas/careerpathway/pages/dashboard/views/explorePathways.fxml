@@ -4,156 +4,45 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javaninjas.careerpathway.pages.dashboard.controllers.ExploreController">
-	<!-- Top header: title and logout -->
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+			fx:controller="com.javaninjas.careerpathway.pages.dashboard.controllers.ExploreController"
+			prefWidth="1200" prefHeight="800">
+
+	<!-- Top section -->
 	<top>
 		<AnchorPane style="-fx-background-color: transparent; -fx-padding: 16;">
-			<Label text="The Possibilities are endless" AnchorPane.leftAnchor="16" AnchorPane.topAnchor="8">
+			<Label text="The possibilities are endless..." AnchorPane.leftAnchor="16" AnchorPane.topAnchor="8">
 				<font>
-					<Font name="System Bold" size="28" />
+					<Font name="System Bold" size="20"/>
 				</font>
 			</Label>
 
-			<Button fx:id="logoutBtn" text="Logout" onAction="#handleLogout" AnchorPane.rightAnchor="16" AnchorPane.topAnchor="8" style="-fx-background-radius:16; -fx-border-radius:16; -fx-padding:6 12;" />
+			<Button fx:id="logoutBtn" text="Logout" onAction="#handleLogout"
+					AnchorPane.rightAnchor="16" AnchorPane.topAnchor="8"
+					style="-fx-background-radius:16; -fx-border-radius:16; -fx-padding:6 12;" />
+
+			<HBox alignment="CENTER" AnchorPane.topAnchor="50" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" style="-fx-padding: 5;">
+				<Button style="-fx-background-color: #6699cc; -fx-text-fill: white; -fx-background-radius: 15; -fx-padding: 12 28; -fx-font-size: 16;"
+						text="Find Out More"
+				onAction="#handleExplore"/>
+			</HBox>
 		</AnchorPane>
 	</top>
 
-	<!-- Center: toggles + scrollable content -->
+	<!-- Center section: job list -->
 	<center>
-			<VBox spacing="12" style="-fx-padding:16;">
-			<!-- Toggle row -->
-			<HBox spacing="10">
-				<ToggleButton text="Pay" style="-fx-background-radius:16; -fx-padding:6 14;" />
-				<ToggleButton text="Time" style="-fx-background-radius:16; -fx-padding:6 14;" />
-			</HBox>
-
-			<!-- Main white rounded pane containing the list -->
-			<StackPane style="-fx-background-color: #f8f8f8; -fx-border-color: #d0d0d0; -fx-border-radius:12; -fx-background-radius:12; -fx-padding:14;">
-				<ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" prefViewportHeight="360" style="-fx-background: transparent; -fx-background-color: transparent;">
-					<VBox spacing="8" style="-fx-padding:8;">
-						<!-- Repeat example rows to match mockup -->
-						<children>
-							<!-- Row template -->
-							<VBox spacing="6" style="-fx-padding:6 8; -fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-width: 0 0 1 0;">
-								<HBox alignment="CENTER_LEFT" spacing="12">
-									<Label text="Nurse" style="-fx-font-weight:bold; -fx-font-size:18;" />
-									<Region HBox.hgrow="ALWAYS" />
-									<Button text="Explore" style="-fx-background-radius:18; -fx-padding:6 16;" />
-								</HBox>
-
-								<GridPane hgap="12" vgap="4">
-									<columnConstraints>
-										<ColumnConstraints percentWidth="20" />
-										<ColumnConstraints percentWidth="20" />
-										<ColumnConstraints percentWidth="20" />
-										<ColumnConstraints percentWidth="30" />
-									</columnConstraints>
-
-									<rowConstraints>
-										<RowConstraints />
-									</rowConstraints>
-
-									<!-- Salary -->
-									<Label text="Salary" GridPane.columnIndex="0" style="-fx-font-weight:bold;" />
-									<Label text="USD 80,000 - USD 100,000" GridPane.columnIndex="0" GridPane.rowIndex="1" style="-fx-font-size:11; -fx-text-fill:#555;" />
-
-									<!-- Benefits -->
-									<Label text="Benefits" GridPane.columnIndex="1" style="-fx-font-weight:bold;" />
-									<Label text="High Job Demand" GridPane.columnIndex="1" GridPane.rowIndex="1" style="-fx-font-size:11; -fx-text-fill:#555;" />
-
-									<!-- Satisfaction -->
-									<Label text="Satisfaction" GridPane.columnIndex="2" style="-fx-font-weight:bold;" />
-									<Label text="4.6 / 5 - High" GridPane.columnIndex="2" GridPane.rowIndex="1" style="-fx-font-size:11; -fx-text-fill:#555;" />
-
-									<!-- Degree -->
-									<Label text="Degree" GridPane.columnIndex="3" style="-fx-font-weight:bold;" />
-									<Label text="CS-100 Nursing" GridPane.columnIndex="3" GridPane.rowIndex="1" style="-fx-font-size:11; -fx-text-fill:#555;" />
-								</GridPane>
-							</VBox>
-
-							<!-- Duplicate rows to emulate list -->
-							<VBox spacing="6" style="-fx-padding:6 8; -fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-width: 0 0 1 0;">
-								<HBox alignment="CENTER_LEFT" spacing="12">
-									<Label text="Nurse" style="-fx-font-weight:bold; -fx-font-size:18;" />
-									<Region HBox.hgrow="ALWAYS" />
-									<Button text="Explore" style="-fx-background-radius:18; -fx-padding:6 16;" />
-								</HBox>
-								<GridPane hgap="12" vgap="4">
-									<columnConstraints>
-										<ColumnConstraints percentWidth="20" />
-										<ColumnConstraints percentWidth="20" />
-										<ColumnConstraints percentWidth="20" />
-										<ColumnConstraints percentWidth="30" />
-									</columnConstraints>
-									<Label text="Salary" GridPane.columnIndex="0" style="-fx-font-weight:bold;" />
-									<Label text="USD 80,000 - USD 100,000" GridPane.columnIndex="0" GridPane.rowIndex="1" style="-fx-font-size:11; -fx-text-fill:#555;" />
-									<Label text="Benefits" GridPane.columnIndex="1" style="-fx-font-weight:bold;" />
-									<Label text="High Job Demand" GridPane.columnIndex="1" GridPane.rowIndex="1" style="-fx-font-size:11; -fx-text-fill:#555;" />
-									<Label text="Satisfaction" GridPane.columnIndex="2" style="-fx-font-weight:bold;" />
-									<Label text="4.6 / 5 - High" GridPane.columnIndex="2" GridPane.rowIndex="1" style="-fx-font-size:11; -fx-text-fill:#555;" />
-									<Label text="Degree" GridPane.columnIndex="3" style="-fx-font-weight:bold;" />
-									<Label text="CS-100 Nursing" GridPane.columnIndex="3" GridPane.rowIndex="1" style="-fx-font-size:11; -fx-text-fill:#555;" />
-								</GridPane>
-							</VBox>
-
-							<VBox spacing="6" style="-fx-padding:6 8; -fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-width: 0 0 1 0;">
-								<HBox alignment="CENTER_LEFT" spacing="12">
-									<Label text="Nurse" style="-fx-font-weight:bold; -fx-font-size:18;" />
-									<Region HBox.hgrow="ALWAYS" />
-									<Button text="Explore" style="-fx-background-radius:18; -fx-padding:6 16;" />
-								</HBox>
-								<GridPane hgap="12" vgap="4">
-									<columnConstraints>
-										<ColumnConstraints percentWidth="20" />
-										<ColumnConstraints percentWidth="20" />
-										<ColumnConstraints percentWidth="20" />
-										<ColumnConstraints percentWidth="30" />
-									</columnConstraints>
-									<Label text="Salary" GridPane.columnIndex="0" style="-fx-font-weight:bold;" />
-									<Label text="USD 80,000 - USD 100,000" GridPane.columnIndex="0" GridPane.rowIndex="1" style="-fx-font-size:11; -fx-text-fill:#555;" />
-									<Label text="Benefits" GridPane.columnIndex="1" style="-fx-font-weight:bold;" />
-									<Label text="High Job Demand" GridPane.columnIndex="1" GridPane.rowIndex="1" style="-fx-font-size:11; -fx-text-fill:#555;" />
-									<Label text="Satisfaction" GridPane.columnIndex="2" style="-fx-font-weight:bold;" />
-									<Label text="4.6 / 5 - High" GridPane.columnIndex="2" GridPane.rowIndex="1" style="-fx-font-size:11; -fx-text-fill:#555;" />
-									<Label text="Degree" GridPane.columnIndex="3" style="-fx-font-weight:bold;" />
-									<Label text="CS-100 Nursing" GridPane.columnIndex="3" GridPane.rowIndex="1" style="-fx-font-size:11; -fx-text-fill:#555;" />
-								</GridPane>
-							</VBox>
-
-							<VBox spacing="6" style="-fx-padding:6 8; -fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-width: 0 0 1 0;">
-								<HBox alignment="CENTER_LEFT" spacing="12">
-									<Label text="Nurse" style="-fx-font-weight:bold; -fx-font-size:18;" />
-									<Region HBox.hgrow="ALWAYS" />
-									<Button text="Explore" style="-fx-background-radius:18; -fx-padding:6 16;" />
-								</HBox>
-								<GridPane hgap="12" vgap="4">
-									<columnConstraints>
-										<ColumnConstraints percentWidth="20" />
-										<ColumnConstraints percentWidth="20" />
-										<ColumnConstraints percentWidth="20" />
-										<ColumnConstraints percentWidth="30" />
-									</columnConstraints>
-									<Label text="Salary" GridPane.columnIndex="0" style="-fx-font-weight:bold;" />
-									<Label text="USD 80,000 - USD 100,000" GridPane.columnIndex="0" GridPane.rowIndex="1" style="-fx-font-size:11; -fx-text-fill:#555;" />
-									<Label text="Benefits" GridPane.columnIndex="1" style="-fx-font-weight:bold;" />
-									<Label text="High Job Demand" GridPane.columnIndex="1" GridPane.rowIndex="1" style="-fx-font-size:11; -fx-text-fill:#555;" />
-									<Label text="Satisfaction" GridPane.columnIndex="2" style="-fx-font-weight:bold;" />
-									<Label text="4.6 / 5 - High" GridPane.columnIndex="2" GridPane.rowIndex="1" style="-fx-font-size:11; -fx-text-fill:#555;" />
-									<Label text="Degree" GridPane.columnIndex="3" style="-fx-font-weight:bold;" />
-									<Label text="CS-100 Nursing" GridPane.columnIndex="3" GridPane.rowIndex="1" style="-fx-font-size:11; -fx-text-fill:#555;" />
-								</GridPane>
-							</VBox>
-
-						</children>
-					</VBox>
-				</ScrollPane>
-			</StackPane>
+		<VBox spacing="50">
+			<padding>
+				<Insets top="20" right="20" bottom="20" left="20"/>
+			</padding>
+			<ListView fx:id="jobListView" prefHeight="600" prefWidth="600"/>
 		</VBox>
 	</center>
 
-	<!-- Bottom navigation bar -->
+	<!-- Bottom navigation -->
 	<bottom>
 		<fx:include source="/com/javaninjas/careerpathway/core/views/bottomNav.fxml" />
 	</bottom>
+
 </BorderPane>
 
