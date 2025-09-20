@@ -37,27 +37,29 @@ public class User {
 	// ===== Career-related fields =====
 	private Career selectedCareer; // chosen career
 	private CareerStrategyPlan careerStrategyPlan; // generated roadmap
+	private String recommendedCourse; // newly added, can be null
 
 	public User() {
 	}
 
 	public User(int userID,
-			String firstName,
-			String lastName,
-			String email,
-			String passwordHash,
-			String city,
-			String ageGroup,
-			String profileStage,
-			boolean anonymous,
-			String dateOfBirth,
-			String educationLevel,
-			String workExperience,
-			String interests,
-			String certifications,
-			String desiredSalary,
-			String preferredWorkHours,
-			String phoneNumber) {
+				String firstName,
+				String lastName,
+				String email,
+				String passwordHash,
+				String city,
+				String ageGroup,
+				String profileStage,
+				boolean anonymous,
+				String dateOfBirth,
+				String educationLevel,
+				String workExperience,
+				String interests,
+				String certifications,
+				String desiredSalary,
+				String preferredWorkHours,
+				String phoneNumber,
+				String recommendedCourse) {
 		this.userID = userID;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -75,176 +77,80 @@ public class User {
 		this.desiredSalary = desiredSalary;
 		this.preferredWorkHours = preferredWorkHours;
 		this.phoneNumber = phoneNumber;
+		this.recommendedCourse = recommendedCourse;
 	}
 
 	// Convenience constructor without extra profile fields
 	public User(int userID, String firstName, String lastName, String email, String passwordHash, String city,
-			String ageGroup, String profileStage, boolean anonymous) {
-		this(userID, firstName, lastName, email, passwordHash, city, ageGroup, profileStage, anonymous, null, null,
-				null, null, null, null, null, null);
+				String ageGroup, String profileStage, boolean anonymous) {
+		this(userID, firstName, lastName, email, passwordHash, city, ageGroup, profileStage, anonymous,
+				null, null, null, null, null, null, null, null, null);
 	}
 
 	// ===== Getters and setters =====
-	public int getUserID() {
-		return userID;
-	}
+	public int getUserID() { return userID; }
+	public void setUserID(int userID) { this.userID = userID; }
 
-	public void setUserID(int userID) {
-		this.userID = userID;
-	}
+	public String getFirstName() { return firstName; }
+	public void setFirstName(String firstName) { this.firstName = firstName; }
 
-	public String getFirstName() {
-		return firstName;
-	}
+	public String getLastName() { return lastName; }
+	public void setLastName(String lastName) { this.lastName = lastName; }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+	public String getEmail() { return email; }
+	public void setEmail(String email) { this.email = email; }
 
-	public String getLastName() {
-		return lastName;
-	}
+	public String getPasswordHash() { return passwordHash; }
+	public void setPasswordHash(String passwordHash) { this.passwordHash = passwordHash; }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+	public String getCity() { return city; }
+	public void setCity(String city) { this.city = city; }
 
-	public String getEmail() {
-		return email;
-	}
+	public String getAgeGroup() { return ageGroup; }
+	public void setAgeGroup(String ageGroup) { this.ageGroup = ageGroup; }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+	public String getProfileStage() { return profileStage; }
+	public void setProfileStage(String profileStage) { this.profileStage = profileStage; }
 
-	public String getPasswordHash() {
-		return passwordHash;
-	}
+	public boolean isAnonymous() { return anonymous; }
+	public void setAnonymous(boolean anonymous) { this.anonymous = anonymous; }
 
-	public void setPasswordHash(String passwordHash) {
-		this.passwordHash = passwordHash;
-	}
+	public String getDateOfBirth() { return dateOfBirth; }
+	public void setDateOfBirth(String dateOfBirth) { this.dateOfBirth = dateOfBirth; }
 
-	public String getCity() {
-		return city;
-	}
+	public String getEducationLevel() { return educationLevel; }
+	public void setEducationLevel(String educationLevel) { this.educationLevel = educationLevel; }
 
-	public void setCity(String city) {
-		this.city = city;
-	}
+	public String getWorkExperience() { return workExperience; }
+	public void setWorkExperience(String workExperience) { this.workExperience = workExperience; }
 
-	public String getAgeGroup() {
-		return ageGroup;
-	}
+	public String getInterests() { return interests; }
+	public void setInterests(String interests) { this.interests = interests; }
 
-	public void setAgeGroup(String ageGroup) {
-		this.ageGroup = ageGroup;
-	}
+	public String getCertifications() { return certifications; }
+	public void setCertifications(String certifications) { this.certifications = certifications; }
 
-	public String getProfileStage() {
-		return profileStage;
-	}
+	public String getDesiredSalary() { return desiredSalary; }
+	public void setDesiredSalary(String desiredSalary) { this.desiredSalary = desiredSalary; }
 
-	public void setProfileStage(String profileStage) {
-		this.profileStage = profileStage;
-	}
+	public String getPreferredWorkHours() { return preferredWorkHours; }
+	public void setPreferredWorkHours(String preferredWorkHours) { this.preferredWorkHours = preferredWorkHours; }
 
-	public boolean isAnonymous() {
-		return anonymous;
-	}
+	public String getPhoneNumber() { return phoneNumber; }
+	public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
 
-	public void setAnonymous(boolean anonymous) {
-		this.anonymous = anonymous;
-	}
-
-	public String getDateOfBirth() {
-		return dateOfBirth;
-	}
-
-	public void setDateOfBirth(String dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
-	}
-
-	public String getEducationLevel() {
-		return educationLevel;
-	}
-
-	public void setEducationLevel(String educationLevel) {
-		this.educationLevel = educationLevel;
-	}
-
-	public String getWorkExperience() {
-		return workExperience;
-	}
-
-	public void setWorkExperience(String workExperience) {
-		this.workExperience = workExperience;
-	}
-
-	public String getInterests() {
-		return interests;
-	}
-
-	public void setInterests(String interests) {
-		this.interests = interests;
-	}
-
-	public String getCertifications() {
-		return certifications;
-	}
-
-	public void setCertifications(String certifications) {
-		this.certifications = certifications;
-	}
-
-	public String getDesiredSalary() {
-		return desiredSalary;
-	}
-
-	public void setDesiredSalary(String desiredSalary) {
-		this.desiredSalary = desiredSalary;
-	}
-
-	public String getPreferredWorkHours() {
-		return preferredWorkHours;
-	}
-
-	public void setPreferredWorkHours(String preferredWorkHours) {
-		this.preferredWorkHours = preferredWorkHours;
-	}
-
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
-
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-
-	public List<QuizResult> getQuizResults() {
-		return quizResults;
-	}
-
-	public void setQuizResults(List<QuizResult> quizResults) {
-		this.quizResults = quizResults;
-	}
+	public List<QuizResult> getQuizResults() { return quizResults; }
+	public void setQuizResults(List<QuizResult> quizResults) { this.quizResults = quizResults; }
 
 	// ===== Career-related getters/setters =====
-	public Career getSelectedCareer() {
-		return selectedCareer;
-	}
+	public Career getSelectedCareer() { return selectedCareer; }
+	public void setSelectedCareer(Career selectedCareer) { this.selectedCareer = selectedCareer; }
 
-	public void setSelectedCareer(Career selectedCareer) {
-		this.selectedCareer = selectedCareer;
-	}
+	public CareerStrategyPlan getCareerStrategyPlan() { return careerStrategyPlan; }
+	public void setCareerStrategyPlan(CareerStrategyPlan careerStrategyPlan) { this.careerStrategyPlan = careerStrategyPlan; }
 
-	public CareerStrategyPlan getCareerStrategyPlan() {
-		return careerStrategyPlan;
-	}
-
-	public void setCareerStrategyPlan(CareerStrategyPlan careerStrategyPlan) {
-		this.careerStrategyPlan = careerStrategyPlan;
-	}
+	public String getRecommendedCourse() { return recommendedCourse; }
+	public void setRecommendedCourse(String recommendedCourse) { this.recommendedCourse = recommendedCourse; }
 
 	/** Convenience method to link both career and plan */
 	public void linkCareerWithPlan(Career career, CareerStrategyPlan plan) {
@@ -253,25 +159,20 @@ public class User {
 	}
 
 	// ===== Utility methods =====
-	/** Hash a plain-text password using BCrypt. */
 	public static String hashPassword(String password) {
 		return BCrypt.withDefaults().hashToString(12, password.toCharArray());
 	}
 
-	/** Verify a plain-text password against a BCrypt hash. */
 	public static boolean verifyPassword(String password, String hash) {
-		if (hash == null)
-			return false;
+		if (hash == null) return false;
 		BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), hash);
 		return result.verified;
 	}
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o)
-			return true;
-		if (o == null || getClass() != o.getClass())
-			return false;
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
 		User user = (User) o;
 		return userID == user.userID &&
 				anonymous == user.anonymous &&
@@ -292,14 +193,15 @@ public class User {
 				Objects.equals(phoneNumber, user.phoneNumber) &&
 				Objects.equals(quizResults, user.quizResults) &&
 				Objects.equals(selectedCareer, user.selectedCareer) &&
-				Objects.equals(careerStrategyPlan, user.careerStrategyPlan);
+				Objects.equals(careerStrategyPlan, user.careerStrategyPlan) &&
+				Objects.equals(recommendedCourse, user.recommendedCourse);
 	}
 
 	@Override
 	public int hashCode() {
 		return Objects.hash(userID, firstName, lastName, email, passwordHash, city, ageGroup, profileStage,
 				anonymous, dateOfBirth, educationLevel, workExperience, interests, certifications, desiredSalary,
-				preferredWorkHours, phoneNumber, quizResults, selectedCareer, careerStrategyPlan);
+				preferredWorkHours, phoneNumber, quizResults, selectedCareer, careerStrategyPlan, recommendedCourse);
 	}
 
 	@Override
@@ -315,6 +217,7 @@ public class User {
 				", anonymous=" + anonymous +
 				", selectedCareer=" + (selectedCareer != null ? selectedCareer.getName() : "none") +
 				", strategyPlan=" + (careerStrategyPlan != null ? careerStrategyPlan.getId() : "none") +
+				", recommendedCourse=" + (recommendedCourse != null ? recommendedCourse : "none") +
 				'}';
 	}
 }
