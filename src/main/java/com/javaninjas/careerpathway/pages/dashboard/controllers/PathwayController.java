@@ -74,8 +74,36 @@ public class PathwayController {
                         if (controller != null) {
                             controller.setJob(job);
                             controller.setOnApply(j -> {
-                                // default: navigate or log; replace with NavigationService if desired
-                                System.out.println("Learn more clicked for: " + j.getJobName());
+                                try {
+                                    // load the detail overlay
+                                    javafx.fxml.FXMLLoader detLoader = new javafx.fxml.FXMLLoader(getClass().getResource("/com/javaninjas/careerpathway/pages/components/jobDetail.fxml"));
+                                    javafx.scene.layout.StackPane overlay = detLoader.load();
+                                    com.javaninjas.careerpathway.pages.components.JobDetailController detCtrl = detLoader.getController();
+                                    if (detCtrl != null) {
+                                        detCtrl.setJob(j);
+                                        detCtrl.setOnSelect(sel -> {
+                                            System.out.println("Selected career: " + sel.getJobName());
+                                            // Optionally navigate or set user selection here
+                                        });
+
+                                        // set backdrop to blur the main content (center of BorderPane if present)
+                                        try {
+                                            javafx.scene.Node backdrop = (rootPane.getCenter() != null) ? rootPane.getCenter() : rootPane;
+                                            detCtrl.setBackdropNode(backdrop);
+                                        } catch (Exception ignored) {}
+                                    }
+
+                                    // add overlay to rootPane (make sure it covers)
+                                    if (rootPane != null) {
+                                        // ensure overlay grows and stays in sync with window size
+                                        overlay.prefWidthProperty().bind(rootPane.widthProperty());
+                                        overlay.prefHeightProperty().bind(rootPane.heightProperty());
+                                        rootPane.getChildren().add(overlay);
+                                        overlay.toFront();
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
                             });
                         }
                         jobsContainer.getChildren().add(node);
