@@ -114,7 +114,7 @@ public class LoginPageController {
 
                         // Update UI on the JavaFX Application Thread
                         Platform.runLater(() -> {
-                            UserSession.getInstance(userID, email, userType, firstName, lastName, null, null, null, null, null, null, null, null);
+                            UserSession.getInstance(userID, email, userType, firstName, lastName, null, null, null, null, null, null, null, null,null);
                             messageLabel.setText("Login successful!");
                             NavigationService.go("/com/javaninjas/careerpathway/pages/dashboard/views/userPathway.fxml");
                         });

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
@@ -44,10 +46,19 @@
 
         <Separator />
 
-        <!-- Back Button -->
-        <Button text="Back"
-                onAction="#handleBack"
-                style="-fx-background-color:#6699cc; -fx-text-fill:white;
-                       -fx-background-radius:8; -fx-padding:6 14;" />
+        <!-- Action Buttons -->
+        <HBox alignment="CENTER" spacing="10">
+            <!-- Back Button -->
+            <Button text="Back"
+                    onAction="#handleBack"
+                    style="-fx-background-color:#6699cc; -fx-text-fill:white;
+                           -fx-background-radius:15; -fx-padding:12 28; -fx-font-size:16;" />
+
+            <!-- Select Course Button -->
+            <Button text="Select Course"
+                    onAction="#handleSelectCourse"
+                    style="-fx-background-color:#6699cc; -fx-text-fill:white;
+                           -fx-background-radius:15; -fx-padding:12 28; -fx-font-size:16;" />
+        </HBox>
     </VBox>
 </AnchorPane>

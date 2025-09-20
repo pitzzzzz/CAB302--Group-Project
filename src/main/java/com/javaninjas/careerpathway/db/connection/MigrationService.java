@@ -23,12 +23,14 @@ public final class MigrationService {
                 "city TEXT," +
                 "age_group TEXT," +
                 "profile_stage TEXT," +
-                "anonymous INTEGER DEFAULT 0" +
+                "anonymous INTEGER DEFAULT 0," +
+                "recommendedCourse TEXT" + // <-- add this
                 ");";
         try (Statement stmt = conn.createStatement()) {
             stmt.execute(sql);
         }
     }
+
 
     private static void createQuizResultsTable(Connection conn) throws SQLException {
         String sql = "CREATE TABLE IF NOT EXISTS quiz_results (" +

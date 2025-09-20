@@ -30,6 +30,21 @@ public class UserDao {
         }
     }
 
+    public void updateRecommendedCourse(int userID, String course) throws SQLException {
+        String sql = "UPDATE users SET recommendedCourse = ? WHERE id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, course);
+            stmt.setInt(2, userID);
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Recommended course updated in DB for userID " + userID);
+            } else {
+                System.out.println("No user found with userID " + userID);
+            }
+        }
+    }
+
+
     public User getUserById(int id) throws SQLException {
         String sql = "SELECT * FROM users WHERE id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
