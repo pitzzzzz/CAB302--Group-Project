@@ -184,6 +184,7 @@ public class UserRegistrationController implements Initializable {
                     "",
                     "",
                     "",
+                    "",
                     ""
             );
         } catch (Exception e) {
