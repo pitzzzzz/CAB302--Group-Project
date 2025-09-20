@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.shape.Circle?>
 
-<!-- fx:root binds to ProgressDots.java (extends HBox) -->
 <fx:root xmlns="http://javafx.com/javafx/17.0.12"
          xmlns:fx="http://javafx.com/fxml/1"
          type="HBox"
-         fx:controller="com.javaninjas.careerpathway.pages.quiz.controllers.ProgressDotsController"
          spacing="8"
          alignment="CENTER">
-
-    <!-- Circles will be added dynamically by the controller -->
 </fx:root>

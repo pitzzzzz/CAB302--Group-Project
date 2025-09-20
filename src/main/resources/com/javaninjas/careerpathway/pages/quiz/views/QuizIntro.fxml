@@ -28,7 +28,7 @@
 
             <!-- Progress dots centered at top -->
             <StackPane style="-fx-padding:8 12 0 12;" prefHeight="40">
-                <ProgressDots StackPane.alignment="CENTER" />
+                <ProgressDots fx:id="progressDots" StackPane.alignment="CENTER" />
             </StackPane>
         </VBox>
     </top>

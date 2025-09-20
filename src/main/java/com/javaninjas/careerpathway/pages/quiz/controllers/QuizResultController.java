@@ -1,5 +1,7 @@
 package com.javaninjas.careerpathway.pages.quiz.controllers;
 
+import com.javaninjas.careerpathway.core.services.NavigationService;
+import com.javaninjas.careerpathway.pages.quiz.components.ProgressDots; // ✅ use this instead
 import com.javaninjas.careerpathway.pages.quiz.models.QuizData;
 import com.javaninjas.careerpathway.pages.quiz.services.QuizService;
 import com.javaninjas.careerpathway.pages.results.models.QuizPathwaySuggestion;
@@ -13,23 +15,20 @@ import javafx.scene.layout.VBox;
 import java.util.List;
 
 public class QuizResultController {
-    @FXML
-    private VBox detailsBox;
-    @FXML
-    private Button dashboardButton;
 
-    @FXML
-    private ProgressDotsController progressDotsController;
+    @FXML private VBox detailsBox;
+    @FXML private Button dashboardButton;
+    @FXML private ProgressDots progressDots;
 
     @FXML
     private void initialize() {
-        if (progressDotsController != null) {
-            QuizService quizService = new QuizService(new QuizData());
-            int totalPages = quizService.getQuestionSets().size();
-            progressDotsController.totalProperty().set(totalPages);
-            progressDotsController.currentProperty().set(totalPages - 1);
-        }
+        // Setup progress dots
+        QuizService quizService = new QuizService(new QuizData());
+        int totalPages = quizService.getQuestionSets().size();
+        progressDots.setTotal(totalPages);
+        progressDots.setCurrent(totalPages - 1); // highlight last page (results)
 
+        // Load suggestion
         QuizPathwaySuggestion suggestion = QuizResultService.getSuggestion();
 
         if (suggestion == null) {
@@ -53,7 +52,6 @@ public class QuizResultController {
 
     @FXML
     private void goToDashboard() {
-        com.javaninjas.careerpathway.core.services.NavigationService.go(
-                "/com/javaninjas/careerpathway/pages/dashboard/views/userPathway.fxml");
+        NavigationService.go("/com/javaninjas/careerpathway/pages/dashboard/views/userPathway.fxml");
     }
 }

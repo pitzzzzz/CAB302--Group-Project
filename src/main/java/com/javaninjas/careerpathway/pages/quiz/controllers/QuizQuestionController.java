@@ -1,21 +1,16 @@
 package com.javaninjas.careerpathway.pages.quiz.controllers;
 
 import com.javaninjas.careerpathway.core.services.NavigationService;
-import com.javaninjas.careerpathway.pages.loading.controllers.LoadingScreenController;
+import com.javaninjas.careerpathway.pages.quiz.components.ProgressDots;
 import com.javaninjas.careerpathway.pages.quiz.models.Question;
 import com.javaninjas.careerpathway.pages.quiz.models.QuizData;
 import com.javaninjas.careerpathway.pages.quiz.services.QuizService;
-import com.javaninjas.careerpathway.pages.quiz.components.ProgressDots;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class QuizQuestionController {
@@ -24,7 +19,7 @@ public class QuizQuestionController {
     @FXML private Button prevButton;
     @FXML private Button nextButton;
     @FXML private Button submitButton;
-    @FXML private ProgressDots progressDots; // <-- custom control directly injected
+    @FXML private ProgressDots progressDots; // <-- custom control injected
 
     private QuizService quizService;
     private List<List<Question>> questionSets;
@@ -34,14 +29,15 @@ public class QuizQuestionController {
 
     @FXML
     public void initialize() {
+        // Setup quiz data
         this.quizService = new QuizService(new QuizData());
         this.questionSets = quizService.getQuestionSets();
         this.totalQuestions = (int) questionSets.stream().mapToLong(List::size).sum();
         this.selectedAnswers = new String[totalQuestions];
 
-        // Configure the progress dots
-        progressDots.totalProperty().set(questionSets.size());
-        progressDots.currentProperty().set(0);
+        // Setup progress dots
+        progressDots.setTotal(questionSets.size());   // total number of pages
+        progressDots.setCurrent(0);                   // highlight first page
 
         displayPage(currentPageIndex);
     }
@@ -89,7 +85,52 @@ public class QuizQuestionController {
             questionBox.getChildren().add(optionsBox);
             questionsContainer.getChildren().add(questionBox);
         }
+
         updateButtonStates();
+        progressDots.setCurrent(pageIndex); // 🔑 update dot highlight
+    }
+
+    private void updateButtonStates() {
+        prevButton.setDisable(currentPageIndex == 0);
+        // Only enable Next (or Submit on last page) when all questions on the current page are answered
+        boolean pageComplete = isCurrentPageComplete();
+
+        boolean isLastPage = currentPageIndex == questionSets.size() - 1;
+
+        // Swap visibility: show Continue on non-last pages, show Submit on last page
+        nextButton.setVisible(!isLastPage);
+        submitButton.setVisible(isLastPage);
+
+        if (!isLastPage) {
+            nextButton.setDisable(!pageComplete);
+            submitButton.setDisable(true); // hidden anyway
+        } else {
+            nextButton.setDisable(true);
+            submitButton.setDisable(!pageComplete);
+        }
+    }
+
+    /**
+     * Returns true when every question on the current page has a selected answer.
+     */
+    private boolean isCurrentPageComplete() {
+        List<Question> pageQuestions = questionSets.get(currentPageIndex);
+        for (int i = 0; i < pageQuestions.size(); i++) {
+            int questionIndex = currentPageIndex * 5 + i;
+            if (questionIndex < 0 || questionIndex >= selectedAnswers.length) return false;
+            if (selectedAnswers[questionIndex] == null) return false;
+        }
+        return true;
+    }
+
+    // === Button Handlers ===
+
+    @FXML
+    private void handlePrev() {
+        if (currentPageIndex > 0) {
+            currentPageIndex--;
+            displayPage(currentPageIndex);
+        }
     }
 
     @FXML
@@ -97,63 +138,50 @@ public class QuizQuestionController {
         if (currentPageIndex < questionSets.size() - 1) {
             currentPageIndex++;
             displayPage(currentPageIndex);
-            progressDots.currentProperty().set(currentPageIndex);
         }
-    }
-
-    @FXML
-    private void handlePrev() {
-        if (currentPageIndex > 0) {
-            currentPageIndex--;
-            displayPage(currentPageIndex);
-            progressDots.currentProperty().set(currentPageIndex);
-        }
-    }
-
-    private void updateButtonStates() {
-        prevButton.setVisible(currentPageIndex > 0);
-        boolean isLastPage = currentPageIndex == questionSets.size() - 1;
-        nextButton.setVisible(!isLastPage);
-        submitButton.setVisible(isLastPage);
-
-        boolean allAnswered = areAllQuestionsOnPageAnswered();
-        nextButton.setDisable(!allAnswered);
-        submitButton.setDisable(!allAnswered);
-    }
-
-    private boolean areAllQuestionsOnPageAnswered() {
-        List<Question> pageQuestions = questionSets.get(currentPageIndex);
-        int questionsPerPage = 5;
-        for (int i = 0; i < pageQuestions.size(); i++) {
-            int questionIndex = currentPageIndex * questionsPerPage + i;
-            if (questionIndex < selectedAnswers.length && selectedAnswers[questionIndex] == null) {
-                return false;
-            }
-        }
-        return true;
     }
 
     @FXML
     private void handleSubmit() {
-        if (!areAllQuestionsOnPageAnswered()) {
-            return;
-        }
-        List<String> answers = Arrays.asList(selectedAnswers);
-        NavigationService.go(
-                "/com/javaninjas/careerpathway/pages/loading/views/LoadingScreen.fxml",
-                (LoadingScreenController controller) -> {
-                    controller.loadData(
-                            () -> quizService.calculateResult(answers),
-                            (suggestion) -> {
-                                NavigationService.go("/com/javaninjas/careerpathway/pages/quiz/views/QuizResult.fxml");
-                            }
-                    );
-                }
-        );
-    }
+        // Before navigating, ensure we have a user session for this quiz-taker
+        try {
+            com.javaninjas.careerpathway.core.auth.UserSession existing = com.javaninjas.careerpathway.core.auth.UserSession.getInstance();
+            if (existing == null) {
+                // Create a lightweight session using available info. Use userID=0 for anonymous/new users.
+                com.javaninjas.careerpathway.core.auth.UserSession.getInstance(
+                        0,
+                        "quizuser@example.com",
+                        "student",
+                        "Quiz",
+                        "Taker",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        ""
+                );
+            }
 
-    @FXML
-    private void handleQuit() {
-        // Optional: Add confirmation or return to intro
+            // Collect answers and persist/analyse using QuizService
+            List<String> allAnswers = java.util.Arrays.asList(selectedAnswers);
+            quizService.calculateResult(allAnswers);
+
+        } catch (Exception e) {
+            // don't block navigation for minor session/analytics failures
+            e.printStackTrace();
+        }
+
+        // Step 1: go to loading screen
+        NavigationService.go("/com/javaninjas/careerpathway/pages/loading/views/LoadingScreen.fxml");
+
+        // Step 2: after a delay, go to dashboard
+        javafx.animation.PauseTransition pause = new javafx.animation.PauseTransition(javafx.util.Duration.seconds(2));
+        pause.setOnFinished(event -> {
+            NavigationService.go("/com/javaninjas/careerpathway/pages/dashboard/views/userPathway.fxml");
+        });
+        pause.play();
     }
 }
