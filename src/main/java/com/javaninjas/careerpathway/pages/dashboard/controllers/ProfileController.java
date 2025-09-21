@@ -7,9 +7,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import com.javaninjas.careerpathway.core.services.NavigationService;
+import javafx.scene.layout.BorderPane;
 
 public class ProfileController {
 
+    public BorderPane mainContent;
     @FXML
     private Label firstNameLabel;
     @FXML
