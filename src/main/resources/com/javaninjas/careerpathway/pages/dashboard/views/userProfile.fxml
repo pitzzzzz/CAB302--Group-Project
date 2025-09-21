@@ -71,32 +71,31 @@
 <!--    </center>-->
 
         <center>
-            <ScrollPane fitToWidth="true" fitToHeight="true" style="-fx-background-color: #f0f2f5; -fx-padding: 20;">
-                <GridPane hgap="20" vgap="20" style="-fx-padding: 20;" maxWidth="1200" maxHeight="800">
-                    <!-- 3 equal-width columns -->
+            <ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-background-color: #f0f2f5; -fx-padding: 20;">
+                <GridPane hgap="20" maxHeight="1200" maxWidth="1600" style="-fx-padding: 20;" vgap="20">
+                    <!-- 4 equal-width columns -->
                     <columnConstraints>
-                        <ColumnConstraints percentWidth="33" hgrow="ALWAYS"/>
-                        <ColumnConstraints percentWidth="33" hgrow="ALWAYS"/>
-                        <ColumnConstraints percentWidth="33" hgrow="ALWAYS"/>
+                        <ColumnConstraints hgrow="ALWAYS" percentWidth="25" />
+                        <ColumnConstraints hgrow="ALWAYS" percentWidth="25" />
+                        <ColumnConstraints hgrow="ALWAYS" percentWidth="25" />
+                        <ColumnConstraints hgrow="ALWAYS" percentWidth="25" />
                     </columnConstraints>
 
-                    <!-- 3 rows: top half split, bottom half full width -->
+                    <!-- 4 equal-height rows -->
                     <rowConstraints>
-                        <RowConstraints percentHeight="25" vgrow="ALWAYS"/>
-                        <RowConstraints percentHeight="25" vgrow="ALWAYS"/>
-                        <RowConstraints percentHeight="50" vgrow="ALWAYS"/>
+                        <RowConstraints percentHeight="25" vgrow="ALWAYS" />
+                        <RowConstraints percentHeight="25" vgrow="ALWAYS" />
+                        <RowConstraints percentHeight="25" vgrow="ALWAYS" />
+                        <RowConstraints percentHeight="25" vgrow="ALWAYS" />
                     </rowConstraints>
 
-                    <!-- Left 2x2 Profile Card -->
-                    <VBox alignment="CENTER" spacing="20"
-                          style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 25;
-                         -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 2);"
-                          GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" GridPane.rowSpan="2">
+                    <!-- Profile Card (2x2, top-left corner) -->
+                    <VBox alignment="CENTER" spacing="20" style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 25;                          -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 2);" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" GridPane.rowSpan="2">
+                        <Label style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #7f8c8d;" text="Main Profile Card (2x2)" />
 
-                        <Label style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #7f8c8d;"
-                               text="Main Profile Card (2x2)" />
+                        <Label style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #7f8c8d;" text="Main Profile Card (2x2)" />
 
-                        <GridPane hgap="10" vgap="10" maxWidth="500">
+                        <GridPane alignment="CENTER" hgap="10" maxWidth="500" vgap="10">
                             <children>
                                 <Label text="First Name" />
                                 <Label fx:id="firstNameLabel" text="John" GridPane.columnIndex="1" />
@@ -124,34 +123,25 @@
                     </VBox>
 
                     <!-- Top Right Card -->
-                    <VBox alignment="CENTER"
-                          style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 25;
-                         -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 2);"
-                          GridPane.columnIndex="2" GridPane.rowIndex="0">
-                        <Label style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #7f8c8d;"
-                               text="Top Right Card (2x2)" />
+                    <VBox alignment="CENTER" style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 25;
+                    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 2);" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="0">
+                        <Label style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #7f8c8d;" text="Top Right Card" />
                     </VBox>
 
                     <!-- Bottom Right Card -->
-                    <VBox alignment="CENTER"
-                          style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 25;
-                         -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 2);"
-                          GridPane.columnIndex="2" GridPane.rowIndex="1">
-                        <Label style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #7f8c8d;"
-                               text="Bottom Right Card (2x2)" />
+                    <VBox alignment="CENTER" style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 25;
+                    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 2);" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                        <Label style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #7f8c8d;" text="Bottom Right Card" />
                     </VBox>
 
                     <!-- Full Width Bottom Card -->
-                    <VBox alignment="CENTER"
-                          style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 25;
-                         -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 2);"
-                          GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="2">
-                        <Label style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #7f8c8d;"
-                               text="Goals/Settings Card" />
+                    <VBox alignment="CENTER" style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 25;                          -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 2);" GridPane.columnIndex="0" GridPane.columnSpan="4" GridPane.rowIndex="2" GridPane.rowSpan="2">
+                        <Label style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #7f8c8d;" text="Goals/Settings Card (Full Width, 2 Rows)" />
                     </VBox>
                 </GridPane>
             </ScrollPane>
         </center>
+
 
 
         <bottom>
