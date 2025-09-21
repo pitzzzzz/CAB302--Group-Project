@@ -1,30 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.geometry.Insets?>
+
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-			fx:controller="com.javaninjas.careerpathway.pages.dashboard.controllers.ExploreController"
-			prefWidth="1200" prefHeight="800">
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javaninjas.careerpathway.pages.dashboard.controllers.ExploreController">
 
 	<!-- Top section -->
 	<top>
 		<AnchorPane style="-fx-background-color: transparent; -fx-padding: 16;">
 			<Label text="The possibilities are endless..." AnchorPane.leftAnchor="16" AnchorPane.topAnchor="8">
 				<font>
-					<Font name="System Bold" size="20"/>
+					<Font name="System Bold" size="20" />
 				</font>
 			</Label>
 
-			<Button fx:id="logoutBtn" text="Logout" onAction="#handleLogout"
-					AnchorPane.rightAnchor="16" AnchorPane.topAnchor="8"
-					style="-fx-background-radius:16; -fx-border-radius:16; -fx-padding:6 12;" />
+			<Button fx:id="logoutBtn" onAction="#handleLogout" style="-fx-background-radius:16; -fx-border-radius:16; -fx-padding:6 12;" text="Logout" AnchorPane.rightAnchor="16" AnchorPane.topAnchor="8" />
 
-			<HBox alignment="CENTER" AnchorPane.topAnchor="50" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" style="-fx-padding: 5;">
-				<Button style="-fx-background-color: #6699cc; -fx-text-fill: white; -fx-background-radius: 15; -fx-padding: 12 28; -fx-font-size: 16;"
-						text="Find Out More"
-				onAction="#handleExplore"/>
+			<HBox alignment="CENTER" style="-fx-padding: 5;" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="50">
+				<Button onAction="#handleExplore" style="-fx-background-color: #6699cc; -fx-text-fill: white; -fx-background-radius: 15; -fx-padding: 12 28; -fx-font-size: 16;" text="Find Out More" />
 			</HBox>
 		</AnchorPane>
 	</top>
@@ -33,9 +28,9 @@
 	<center>
 		<VBox spacing="50">
 			<padding>
-				<Insets top="20" right="20" bottom="20" left="20"/>
+				<Insets bottom="20" left="20" right="20" top="20" />
 			</padding>
-			<ListView fx:id="jobListView" prefHeight="600" prefWidth="600"/>
+			<ListView fx:id="jobListView" prefHeight="600" prefWidth="600" />
 		</VBox>
 	</center>
 
@@ -45,4 +40,3 @@
 	</bottom>
 
 </BorderPane>
-

@@ -1,76 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javaninjas.careerpathway.pages.dashboard.controllers.ProfileController">
+<StackPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javaninjas.careerpathway.pages.dashboard.controllers.ProfileController">
+
+    <!-- Main content -->
+    <BorderPane fx:id="mainContent">
     <top>
-        <AnchorPane style="-fx-padding: 12;">
-            <Button onAction="#handleBack" style="-fx-background-color: transparent; -fx-font-size: 14;" text="← back" AnchorPane.leftAnchor="12" AnchorPane.topAnchor="8" />
-            <Button fx:id="logoutBtn" onAction="#handleLogout" style="-fx-background-radius: 16; -fx-padding: 6 12;" text="Logout" AnchorPane.rightAnchor="12" AnchorPane.topAnchor="8" />
+        <AnchorPane style="-fx-padding:16; -fx-background-color: #f8f9fa;">
+            <!-- Hamburger menu button -->
+
+            <Label alignment="CENTER" text="User Profile" AnchorPane.leftAnchor="60" AnchorPane.rightAnchor="80" AnchorPane.topAnchor="8">
+                <font>
+                    <Font name="System Bold" size="24" />
+                </font>
+            </Label>
+
+            <Button onAction="#handleLogout" style="-fx-background-radius:16; -fx-padding:6 12;" text="Logout" AnchorPane.rightAnchor="12" AnchorPane.topAnchor="8" />
         </AnchorPane>
     </top>
+        <center>
+            <ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-background-color: #f0f2f5; -fx-padding: 20;">
+                <GridPane hgap="20" maxHeight="1200" maxWidth="1600" style="-fx-padding: 20;" vgap="20">
+                    <!-- 4 equal-width columns -->
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="ALWAYS" percentWidth="25" />
+                        <ColumnConstraints hgrow="ALWAYS" percentWidth="25" />
+                        <ColumnConstraints hgrow="ALWAYS" percentWidth="25" />
+                        <ColumnConstraints hgrow="ALWAYS" percentWidth="25" />
+                    </columnConstraints>
 
-    <center>
-        <VBox alignment="TOP_CENTER" spacing="20" style="-fx-padding: 24;">
-            <Label style="-fx-font-size: 28; -fx-font-weight: bold;" text="Your Details" />
+                    <!-- 4 equal-height rows -->
+                    <rowConstraints>
+                        <RowConstraints percentHeight="25" vgrow="ALWAYS" />
+                        <RowConstraints percentHeight="25" vgrow="ALWAYS" />
+                        <RowConstraints percentHeight="25" vgrow="ALWAYS" />
+                        <RowConstraints percentHeight="25" vgrow="ALWAYS" />
+                    </rowConstraints>
 
-            <GridPane hgap="10" maxWidth="500" vgap="10">
-                <columnConstraints>
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="250.0" />
-                </columnConstraints>
-                <rowConstraints>
-                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                </rowConstraints>
-                <children>
-                    <Label text="First Name" />
-                    <Label fx:id="firstNameLabel" text="John" GridPane.columnIndex="1" />
-                    <TextField fx:id="firstNameField" managed="false" visible="false" GridPane.columnIndex="1" />
+                    <!-- Profile Card (2x2, top-left corner) -->
+                    <VBox alignment="CENTER" spacing="20" style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 25;                          -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 2);" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" GridPane.rowSpan="2">
+                        <Label style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #7f8c8d;" text="Your Details" />
 
-                    <Label text="Last Name" GridPane.rowIndex="1" />
-                    <Label fx:id="lastNameLabel" text="Doe" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                    <TextField fx:id="lastNameField" managed="false" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <GridPane alignment="CENTER" hgap="10" maxWidth="500" vgap="10">
+                            <children>
+                                <Label text="First Name" />
+                                <Label fx:id="firstNameLabel" text="John" GridPane.columnIndex="1" />
+                                <TextField fx:id="firstNameField" managed="false" visible="false" GridPane.columnIndex="1" />
 
-                    <Label text="Email" GridPane.rowIndex="2" />
-                    <Label fx:id="emailLabel" text="john.doe@example.com" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                    <TextField fx:id="emailField" managed="false" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                <Label text="Last Name" GridPane.rowIndex="1" />
+                                <Label fx:id="lastNameLabel" text="Doe" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <TextField fx:id="lastNameField" managed="false" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-                    <Label text="Phone" GridPane.rowIndex="3" />
-                    <Label fx:id="phoneLabel" text="123-456-7890" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                    <TextField fx:id="phoneField" managed="false" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                </children>
-            </GridPane>
+                                <Label text="Email" GridPane.rowIndex="2" />
+                                <Label fx:id="emailLabel" text="john.doe@example.com" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                <TextField fx:id="emailField" managed="false" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-            <HBox fx:id="editControlsBox" alignment="CENTER" spacing="10">
-                <Button fx:id="editButton" onAction="#handleEdit" text="Edit" />
-                <Button fx:id="saveButton" managed="false" onAction="#handleSave" text="Save" visible="false" />
-                <Button fx:id="cancelButton" managed="false" onAction="#handleCancel" text="Cancel" visible="false" />
-            </HBox>
+                                <Label text="Phone" GridPane.rowIndex="3" />
+                                <Label fx:id="phoneLabel" text="123-456-7890" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                <TextField fx:id="phoneField" managed="false" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                            </children>
+                        </GridPane>
 
-            <Region VBox.vgrow="ALWAYS" />
+                        <HBox alignment="CENTER" spacing="10">
+                            <Button fx:id="editButton" onAction="#handleEdit" text="Edit" />
+                            <Button fx:id="saveButton" managed="false" onAction="#handleSave" text="Save" visible="false" />
+                            <Button fx:id="cancelButton" managed="false" onAction="#handleCancel" text="Cancel" visible="false" />
+                        </HBox>
+                    </VBox>
 
-            <HBox alignment="CENTER" style="-fx-padding: 24;">
-                <Button onAction="#handleViewPathwayReport" style="-fx-background-color: #6699cc; -fx-text-fill: white; -fx-background-radius: 20; -fx-padding: 12 28; -fx-font-size: 16;" text="View Your Pathway Report" />
-            </HBox>
-        </VBox>
-    </center>
+                    <!-- Top Right Card -->
+                    <VBox alignment="CENTER" style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 25;
+                    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 2);" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="0">
+                        <Label style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #7f8c8d;" text="Top Right Card" />
+                    </VBox>
 
-    <bottom>
+                    <!-- Bottom Right Card -->
+                    <VBox alignment="CENTER" style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 25;
+                    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 2);" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                        <Label style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #7f8c8d;" text="Bottom Right Card" />
+                    </VBox>
+
+                    <!-- Full Width Bottom Card -->
+                    <VBox alignment="CENTER" style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 25;                          -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 2);" GridPane.columnIndex="0" GridPane.columnSpan="4" GridPane.rowIndex="2" GridPane.rowSpan="2">
+                        <Label style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #7f8c8d;" text="Goals/Settings Card (Full Width, 2 Rows)" />
+                    </VBox>
+                </GridPane>
+            </ScrollPane>
+        </center>
+
+
+
+        <bottom>
         <fx:include source="/com/javaninjas/careerpathway/core/views/bottomNav.fxml" />
     </bottom>
 </BorderPane>
+
+</StackPane>
