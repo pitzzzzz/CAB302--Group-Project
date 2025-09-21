@@ -14,6 +14,21 @@ public class UserDao {
         this.conn = conn;
     }
 
+
+    public void updateSuggestedCareer(int userID, String career) throws SQLException {
+        String sql = "UPDATE users SET suggested_career = ? WHERE id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, career);
+            stmt.setInt(2, userID);
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Suggested career updated in DB for userID " + userID);
+            } else {
+                System.out.println("No user found with userID " + userID);
+            }
+        }
+    }
+
     public void addUser(User user) throws SQLException {
         String sql = "INSERT INTO users (first_name, last_name, email, password_hash, city, age_group, profile_stage, anonymous) " +
                      "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -51,17 +66,20 @@ public class UserDao {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                User user = new User(
-                        rs.getInt("id"),
-                        rs.getString("first_name"),
-                        rs.getString("last_name"),
-                        rs.getString("email"),
-                        rs.getString("password_hash"),
-                        rs.getString("city"),
-                        rs.getString("age_group"),
-                        rs.getString("profile_stage"),
-                        rs.getInt("anonymous") == 1
-                );
+        User user = new User(
+            rs.getInt("id"),
+            rs.getString("first_name"),
+            rs.getString("last_name"),
+            rs.getString("email"),
+            rs.getString("password_hash"),
+            rs.getString("city"),
+            rs.getString("age_group"),
+            rs.getString("profile_stage"),
+            rs.getInt("anonymous") == 1,
+            null, null, null, null, null, null, null, null,
+            rs.getString("recommendedCourse"),
+            rs.getString("suggested_career")
+        );
                 user.setQuizResults(getQuizResultsForUser(id));
                 return user;
             }
@@ -75,17 +93,20 @@ public class UserDao {
         try (Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                User user = new User(
-                        rs.getInt("id"),
-                        rs.getString("first_name"),
-                        rs.getString("last_name"),
-                        rs.getString("email"),
-                        rs.getString("password_hash"),
-                        rs.getString("city"),
-                        rs.getString("age_group"),
-                        rs.getString("profile_stage"),
-                        rs.getInt("anonymous") == 1
-                );
+        User user = new User(
+            rs.getInt("id"),
+            rs.getString("first_name"),
+            rs.getString("last_name"),
+            rs.getString("email"),
+            rs.getString("password_hash"),
+            rs.getString("city"),
+            rs.getString("age_group"),
+            rs.getString("profile_stage"),
+            rs.getInt("anonymous") == 1,
+            null, null, null, null, null, null, null, null,
+            rs.getString("recommendedCourse"),
+            rs.getString("suggested_career")
+        );
                 user.setQuizResults(getQuizResultsForUser(user.getUserID()));
                 users.add(user);
             }

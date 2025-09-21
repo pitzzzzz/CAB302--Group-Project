@@ -175,14 +175,29 @@ public class QuizQuestionController {
             e.printStackTrace();
         }
 
-        // Step 1: go to loading screen
-        NavigationService.go("/com/javaninjas/careerpathway/pages/loading/views/LoadingScreen.fxml");
-
-        // Step 2: after a delay, go to dashboard
-        javafx.animation.PauseTransition pause = new javafx.animation.PauseTransition(javafx.util.Duration.seconds(2));
-        pause.setOnFinished(event -> {
-            NavigationService.go("/com/javaninjas/careerpathway/pages/dashboard/views/userPathway.fxml");
-        });
-        pause.play();
+        // Step 1: go to loading screen and start AI analysis
+        NavigationService.go(
+            "/com/javaninjas/careerpathway/pages/loading/views/LoadingScreen.fxml",
+            (controller) -> {
+                if (controller instanceof com.javaninjas.careerpathway.pages.loading.controllers.LoadingScreenController loadingController) {
+                    List<String> allAnswers = java.util.Arrays.asList(selectedAnswers);
+                    loadingController.loadData(
+                        () -> {
+                            // Run AI analysis and persist answers
+                            try {
+                                return quizService.calculateResult(allAnswers);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                return null;
+                            }
+                        },
+                        (result) -> {
+                            // When done, go to results page
+                            NavigationService.go("/com/javaninjas/careerpathway/pages/quiz/views/QuizResult.fxml");
+                        }
+                    );
+                }
+            }
+        );
     }
 }

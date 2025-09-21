@@ -7,38 +7,40 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/17.0.12"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.javaninjas.careerpathway.pages.quizResults.controllers.QuizResultController"
+            fx:controller="com.javaninjas.careerpathway.pages.results.controllers.QuizResultController"
             prefWidth="480"
             prefHeight="800"
             styleClass="root">
 
     <!-- Header -->
     <top>
-        <VBox alignment="TOP_CENTER" spacing="16">
-            <StackPane prefHeight="120" minHeight="120" maxHeight="120">
-                <Pane prefHeight="100" style="-fx-background-color:#e6e6e6; -fx-background-radius:0 0 40 40;" />
-                <fx:include fx:id="progressDots" source="../../../core/ProgressDots.fxml" StackPane.alignment="TOP_CENTER" VBox.vgrow="ALWAYS" />
-                <Ellipse radiusX="300" radiusY="60" fill="white" strokeWidth="0"
-                         StackPane.alignment="BOTTOM_CENTER" translateY="30"/>
-            </StackPane>
+        <VBox alignment="TOP_CENTER" spacing="12" style="-fx-background-color: #f7f7fa; -fx-padding: 32 0 0 0;">
+            <Label text="Quiz Results" styleClass="header" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #3a3a3a;" />
+            <Label text="Here's what we've learned about you!" styleClass="subtitle" style="-fx-font-size: 16px; -fx-text-fill: #666;" />
         </VBox>
     </top>
 
     <!-- Main content card -->
     <center>
-        <VBox spacing="18" alignment="TOP_CENTER" styleClass="card">
-            <Label text="You're All Set!" styleClass="header"/>
-            <Label text="here's what we've learned so far..." styleClass="subtitle"/>
-            <VBox fx:id="detailsBox" spacing="8" alignment="TOP_LEFT" styleClass="card-content"/>
+        <VBox spacing="18" alignment="TOP_CENTER" style="-fx-padding: 32;">
+            <VBox style="-fx-background-color: white; -fx-background-radius: 18; -fx-padding: 32; -fx-effect: dropshadow(gaussian, #d1d1d1, 12, 0.2, 0, 2);">
+                <Label text="You're All Set!" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2a2a2a; -fx-padding: 0 0 12 0;" />
+                <Label text="See your personalized insights below." style="-fx-font-size: 14px; -fx-text-fill: #888; -fx-padding: 0 0 18 0;" />
+                <Separator />
+                <VBox fx:id="detailsBox" spacing="12" alignment="TOP_LEFT" style="-fx-padding: 18 0 0 0;" />
+            </VBox>
         </VBox>
     </center>
 
     <!-- Bottom controls -->
     <bottom>
-        <VBox alignment="CENTER" spacing="6" prefWidth="420" style="-fx-padding:12;">
-            <Button fx:id="dashboardButton" text="Go To Dashboard" maxWidth="Infinity" prefHeight="44"
-                    styleClass="primary-btn"
+        <HBox alignment="CENTER" style="-fx-padding: 32 0 32 0;">
+            <Region minWidth="0" HBox.hgrow="ALWAYS" />
+            <Button fx:id="dashboardButton" text="Go To Dashboard"
+                    minWidth="180" maxWidth="240" prefHeight="44"
+                    style="-fx-background-color: linear-gradient(to right, #4f8cff, #6a7cff); -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-background-radius: 22; -fx-effect: dropshadow(gaussian, #b3c6ff, 8, 0.2, 0, 2);"
                     onAction="#goToDashboard"/>
-        </VBox>
+            <Region minWidth="0" HBox.hgrow="ALWAYS" />
+        </HBox>
     </bottom>
 </BorderPane>

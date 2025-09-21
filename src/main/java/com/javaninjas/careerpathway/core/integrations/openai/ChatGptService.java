@@ -63,6 +63,59 @@ public class ChatGptService {
         }
 
         String content = choices.get(0).path("message").path("content").asText();
-        return mapper.readTree(content);
+
+        // Some models may wrap JSON in markdown code fences. Strip them if present.
+        String sanitized = stripMarkdownCodeFences(content);
+
+        try {
+            return mapper.readTree(sanitized);
+        } catch (IOException primary) {
+            // Heuristic fallback: attempt to extract the first JSON object substring
+            int firstBrace = sanitized.indexOf('{');
+            int lastBrace = sanitized.lastIndexOf('}');
+            if (firstBrace >= 0 && lastBrace > firstBrace) {
+                String candidate = sanitized.substring(firstBrace, lastBrace + 1);
+                try {
+                    return mapper.readTree(candidate);
+                } catch (IOException ignored) {
+                    // fall through to rethrow original
+                }
+            }
+            throw new IOException("Failed to parse OpenAI JSON content: " + truncateForLog(sanitized), primary);
+        }
+    }
+
+    /**
+     * Removes surrounding ```json / ``` fences (or ``` with any language) if they exist.
+     */
+    private String stripMarkdownCodeFences(String text) {
+        if (text == null) return null;
+        String trimmed = text.trim();
+        if (trimmed.startsWith("```")) {
+            // Remove initial fence line
+            int firstNewline = trimmed.indexOf('\n');
+            if (firstNewline > 0) {
+                trimmed = trimmed.substring(firstNewline + 1); // after language hint
+            } else {
+                // Single-line fenced content like ```json { ... } ```
+                trimmed = trimmed.substring(3);
+            }
+            // Remove closing fence if present
+            int closingFence = trimmed.lastIndexOf("```\n");
+            if (closingFence == -1) {
+                closingFence = trimmed.lastIndexOf("```");
+            }
+            if (closingFence >= 0) {
+                trimmed = trimmed.substring(0, closingFence);
+            }
+        }
+        return trimmed.trim();
+    }
+
+    private String truncateForLog(String text) {
+        if (text == null) return "null";
+        int max = 300;
+        if (text.length() <= max) return text;
+        return text.substring(0, max) + "...";
     }
 }

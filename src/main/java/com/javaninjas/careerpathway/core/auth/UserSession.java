@@ -102,26 +102,27 @@ public final class UserSession {
 
 	public User getLoggedInUser() {
 		if (instance == null) return null;
-		return new User(
-				this.userID,
-				this.firstName,
-				this.lastName,
-				this.email,
-				null, // passwordHash is not stored in session
-				null, // city is not stored in session
-				null, // ageGroup is not stored in session
-				null, // profileStage is not stored in session
-				false, // anonymous is not stored in session
-				this.dateOfBirth,
-				this.educationLevel,
-				this.workExperience,
-				this.interests,
-				this.certifications,
-				this.desiredSalary,
-				this.preferredWorkHours,
-				this.phoneNumber,
-				this.recommendedCourse // include recommendedCourse
-		);
+	return new User(
+		this.userID,
+		this.firstName,
+		this.lastName,
+		this.email,
+		null, // passwordHash is not stored in session
+		null, // city is not stored in session
+		null, // ageGroup is not stored in session
+		null, // profileStage is not stored in session
+		false, // anonymous is not stored in session
+		this.dateOfBirth,
+		this.educationLevel,
+		this.workExperience,
+		this.interests,
+		this.certifications,
+		this.desiredSalary,
+		this.preferredWorkHours,
+		this.phoneNumber,
+		this.recommendedCourse, // include recommendedCourse
+		null // suggestedCareer not stored in session
+	);
 	}
 
 	public static void logout() {

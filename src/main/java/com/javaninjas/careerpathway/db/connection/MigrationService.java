@@ -24,7 +24,8 @@ public final class MigrationService {
                 "age_group TEXT," +
                 "profile_stage TEXT," +
                 "anonymous INTEGER DEFAULT 0," +
-                "recommendedCourse TEXT" + // <-- add this
+                "recommendedCourse TEXT," +
+                "suggested_career TEXT" +
                 ");";
         try (Statement stmt = conn.createStatement()) {
             stmt.execute(sql);

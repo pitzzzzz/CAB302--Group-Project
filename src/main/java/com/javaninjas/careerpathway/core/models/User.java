@@ -39,6 +39,7 @@ public class User {
 	private Career selectedCareer; // chosen career
 	private CareerStrategyPlan careerStrategyPlan; // generated roadmap
 	private String recommendedCourse; // newly added, can be null
+	private String suggestedCareer; // AI suggested career
 
 	public User() {
 	}
@@ -60,7 +61,8 @@ public class User {
 				String desiredSalary,
 				String preferredWorkHours,
 				String phoneNumber,
-				String recommendedCourse) {
+				String recommendedCourse,
+				String suggestedCareer) {
 		this.userID = userID;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -79,14 +81,17 @@ public class User {
 		this.preferredWorkHours = preferredWorkHours;
 		this.phoneNumber = phoneNumber;
 		this.recommendedCourse = recommendedCourse;
+		this.suggestedCareer = suggestedCareer;
 	}
 
-	// Convenience constructor without extra profile fields
-	public User(int userID, String firstName, String lastName, String email, String passwordHash, String city,
-				String ageGroup, String profileStage, boolean anonymous) {
-		this(userID, firstName, lastName, email, passwordHash, city, ageGroup, profileStage, anonymous,
-				null, null, null, null, null, null, null, null, null);
-	}
+    // Convenience constructor without extra profile fields
+    public User(int userID, String firstName, String lastName, String email, String passwordHash, String city,
+		String ageGroup, String profileStage, boolean anonymous) {
+	this(userID, firstName, lastName, email, passwordHash, city, ageGroup, profileStage, anonymous,
+		null, null, null, null, null, null, null, null, null, null);
+    }
+	public String getSuggestedCareer() { return suggestedCareer; }
+	public void setSuggestedCareer(String suggestedCareer) { this.suggestedCareer = suggestedCareer; }
 
 	// ===== Getters and setters =====
 	public int getUserID() { return userID; }
