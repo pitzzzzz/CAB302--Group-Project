@@ -39,6 +39,7 @@ public class PathwayPopupController {
     private ComboBox<String> courseComboBox; // must match fx:id in FXML
 
     private User currentUser;
+    private Runnable closeHandler;
 
     @FXML
     public void initialize() {
@@ -66,6 +67,10 @@ public class PathwayPopupController {
         } else {
             courseNameLabel.setText("No course found");
         }
+    }
+
+    public void setCloseHandler(Runnable handler) {
+        this.closeHandler = handler;
     }
 
     @FXML
@@ -97,7 +102,9 @@ public class PathwayPopupController {
 
 
     @FXML
-    private void handleBack() {
-        NavigationService.goBack();
+    private void handleClose() {
+        if (closeHandler != null) {
+            closeHandler.run();
+        }
     }
 }

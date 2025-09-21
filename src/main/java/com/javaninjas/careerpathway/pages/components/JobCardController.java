@@ -7,6 +7,12 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 import java.util.function.Consumer;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
 import javafx.util.Duration;
@@ -47,7 +53,55 @@ public class JobCardController {
         this.onApply = handler;
         if (applyButton != null) {
             applyButton.setOnAction(evt -> {
-                if (onApply != null && job != null) onApply.accept(job);
+                // If an external handler is provided (e.g., PathwayController.showPopup), prefer it
+                if (onApply != null && job != null) {
+                    onApply.accept(job);
+                    return; // prevent the card from creating its own overlay
+                }
+
+                // No external handler — fallback to showing job detail overlay from this card
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/javaninjas/careerpathway/pages/components/jobDetail.fxml"));
+                    Node overlay = loader.load();
+                    JobDetailController ctrl = loader.getController();
+                    if (ctrl != null) {
+                        ctrl.setJob(job);
+
+                        Scene scene = null;
+                        if (root != null) scene = root.getScene();
+
+                        Node backdrop = null;
+                        Parent attachParent = null;
+
+                        if (scene != null) {
+                            // prefer explicit fx:id nodes used by PathwayController
+                            Node rootPaneNode = scene.lookup("#rootPane");
+                            Node mainContentNode = scene.lookup("#mainContent");
+
+                            if (rootPaneNode instanceof StackPane) attachParent = (Parent) rootPaneNode;
+                            else if (scene.getRoot() instanceof StackPane) attachParent = scene.getRoot();
+                            else if (scene.getRoot() instanceof Pane) attachParent = scene.getRoot();
+
+                            backdrop = mainContentNode != null ? mainContentNode : scene.getRoot();
+                        }
+
+                        // Attach overlay to the top-level stack/pane so it sits above the pathway UI
+                        if (attachParent instanceof StackPane) {
+                            StackPane stack = (StackPane) attachParent;
+                            StackPane.setAlignment(overlay, javafx.geometry.Pos.CENTER);
+                            stack.getChildren().add(overlay);
+                        } else if (attachParent instanceof Pane) {
+                            ((Pane) attachParent).getChildren().add(overlay);
+                        } else if (root != null && root.getScene() != null && root.getScene().getRoot() instanceof Pane) {
+                            ((Pane) root.getScene().getRoot()).getChildren().add(overlay);
+                        }
+
+                        // Give the overlay controller the backdrop node so it can apply/remove blur
+                        ctrl.setBackdropNode(backdrop);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             });
         }
     }

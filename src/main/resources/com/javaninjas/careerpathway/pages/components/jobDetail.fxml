@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Pos?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="http://javafx.com/javafx/11.0.1"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.javaninjas.careerpathway.pages.components.JobDetailController"
+           fx:id="root"
+           alignment="CENTER"
+           maxWidth="Infinity"
+           maxHeight="Infinity"
+           style="-fx-background-color: rgba(0,0,0,0.55);">
+
+    <children>
+      <VBox fx:id="card"
+          alignment="TOP_LEFT"
+          spacing="24"
+          prefWidth="460"
+          prefHeight="360"
+          minWidth="380"
+          minHeight="300"
+          maxWidth="520"
+          StackPane.alignment="CENTER"
+          style="-fx-background-color:white; -fx-border-color:#d4d6de; -fx-border-width:1; -fx-border-radius:20; -fx-background-radius:20; -fx-effect:dropshadow(one-pass-box, rgba(0,0,0,0.18), 18, 0, 0, 8);">
+            <padding>
+                <Insets top="28" right="32" bottom="28" left="32" />
+            </padding>
+
+            <children>
+                <HBox alignment="CENTER_LEFT" spacing="16">
+                    <children>
+                        <Label fx:id="titleLabel"
+                               text="Software engineer"
+                               wrapText="true"
+                               style="-fx-font-size:28; -fx-font-weight:700; -fx-text-fill:#1f1f1f;" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Button fx:id="closeBtn"
+                                focusTraversable="false"
+                                text="go back"
+                                style="-fx-background-color:#d9dade; -fx-text-fill:#2f2f2f; -fx-font-weight:600; -fx-font-size:13; -fx-background-radius:18; -fx-border-radius:18; -fx-padding:6 18;" />
+                    </children>
+                </HBox>
+
+                <VBox spacing="12">
+                    <children>
+                        <Label fx:id="descLabel"
+                               text="[description]"
+                               wrapText="true"
+                               style="-fx-font-size:14; -fx-text-fill:#4a4a4a; -fx-line-spacing:4;" />
+                        <VBox spacing="4">
+                            <children>
+                                <Label fx:id="salaryLabel"
+                                       text="Avg salary - $x.xxx"
+                                       style="-fx-font-size:14; -fx-font-weight:600; -fx-text-fill:#1f1f1f;" />
+                                <Label text="satisfaction - x / 5"
+                                       style="-fx-font-size:14; -fx-text-fill:#1f1f1f;" />
+                            </children>
+                        </VBox>
+                    </children>
+                </VBox>
+
+                <HBox alignment="CENTER" spacing="18">
+                    <children>
+                        <VBox alignment="CENTER" spacing="6"
+                              prefWidth="180"
+                              style="-fx-padding:12 20; -fx-border-color:#c6c9d3; -fx-border-radius:18; -fx-background-radius:18; -fx-background-color:transparent;">
+                            <children>
+                                <Label text="benefit #1"
+                                       style="-fx-font-size:13; -fx-font-weight:600; -fx-text-fill:#2b2b2b;" />
+                                <Label text="e.g. hybrid role"
+                                       wrapText="true"
+                                       alignment="CENTER"
+                                       style="-fx-font-size:12; -fx-text-fill:#6b6b6b;" />
+                            </children>
+                        </VBox>
+                        <VBox alignment="CENTER" spacing="6"
+                              prefWidth="180"
+                              style="-fx-padding:12 20; -fx-border-color:#c6c9d3; -fx-border-radius:18; -fx-background-radius:18; -fx-background-color:transparent;">
+                            <children>
+                                <Label text="benefit #2"
+                                       style="-fx-font-size:13; -fx-font-weight:600; -fx-text-fill:#2b2b2b;" />
+                                <Label text="e.g. high starting salary"
+                                       wrapText="true"
+                                       alignment="CENTER"
+                                       style="-fx-font-size:12; -fx-text-fill:#6b6b6b;" />
+                            </children>
+                        </VBox>
+                        <VBox alignment="CENTER" spacing="6"
+                              prefWidth="180"
+                              style="-fx-padding:12 20; -fx-border-color:#c6c9d3; -fx-border-radius:18; -fx-background-radius:18; -fx-background-color:transparent;">
+                            <children>
+                                <Label text="benefit #3"
+                                       style="-fx-font-size:13; -fx-font-weight:600; -fx-text-fill:#2b2b2b;" />
+                                <Label text="e.g. problem solving"
+                                       wrapText="true"
+                                       alignment="CENTER"
+                                       style="-fx-font-size:12; -fx-text-fill:#6b6b6b;" />
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+
+                <HBox alignment="CENTER_LEFT" spacing="24">
+                    <children>
+                        <VBox alignment="CENTER_LEFT" spacing="12">
+                            <children>
+                                <RadioButton text="have you heard of this career before?"
+                                             wrapText="true"
+                                             style="-fx-font-size:13; -fx-text-fill:#3a3a3a;" />
+                                <RadioButton text="do you have any experience in this field?"
+                                             wrapText="true"
+                                             style="-fx-font-size:13; -fx-text-fill:#3a3a3a;" />
+                            </children>
+                        </VBox>
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Button fx:id="selectBtn"
+                                prefWidth="200"
+                                prefHeight="46"
+                                text="Select This Career"
+                                style="-fx-background-color:#4f86e0; -fx-text-fill:white; -fx-font-size:15; -fx-font-weight:600; -fx-background-radius:22; -fx-border-radius:22; -fx-padding:10 28;" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</StackPane>

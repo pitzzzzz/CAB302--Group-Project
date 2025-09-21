@@ -4,30 +4,35 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javaninjas.careerpathway.pages.dashboard.controllers.PathwayController" fx:id="rootPane">
-	<!-- Top header -->
-	<top>
-		<AnchorPane style="-fx-padding:16;">
-			<Button fx:id="logoutBtn" text="Logout" AnchorPane.rightAnchor="12" AnchorPane.topAnchor="8" style="-fx-background-radius:16; -fx-padding:6 12;" onAction="#handleLogout" />
-		</AnchorPane>
-	</top>
+<StackPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javaninjas.careerpathway.pages.dashboard.controllers.PathwayController" fx:id="rootPane">
+    <BorderPane fx:id="mainContent">
+        <!-- Top header -->
+        <top>
+            <AnchorPane style="-fx-padding:16;">
+                <Button fx:id="logoutBtn" text="Logout" AnchorPane.rightAnchor="12" AnchorPane.topAnchor="8" style="-fx-background-radius:16; -fx-padding:6 12;" onAction="#handleLogout" />
+            </AnchorPane>
+        </top>
 
-	<!-- Center content: recommended jobs / pathway dashboard -->
-	<center>
-		<VBox spacing="12" style="-fx-padding:18; -fx-alignment:CENTER;">
-			<Label fx:id="welcomeLabel" text="Welcome [name]," style="-fx-font-size:28; -fx-font-weight:bold;" />
-			<Label text="here are the top careers we would recommend..." style="-fx-font-size:14; -fx-text-fill:#333;" />
+        <!-- Center content: recommended jobs / pathway dashboard -->
+        <center>
+            <VBox spacing="12" style="-fx-padding:18; -fx-alignment:CENTER;">
+                <Label fx:id="welcomeLabel" text="Welcome [name]," style="-fx-font-size:28; -fx-font-weight:bold;" />
+                <Label text="here are the top careers we would recommend..." style="-fx-font-size:14; -fx-text-fill:#333;" />
 
-			<!-- Row of job cards: non-scrollable HBox that we'll populate programmatically -->
-			<HBox fx:id="jobsContainer" spacing="12" style="-fx-padding:18;" alignment="CENTER" />
+                <!-- Row of job cards: non-scrollable HBox that we'll populate programmatically -->
+                <HBox fx:id="jobsContainer" spacing="12" style="-fx-padding:18;" alignment="CENTER" />
 
-			<Label text="wanting more options? explore more" style="-fx-font-style:italic; -fx-text-fill:#666;" />
-		</VBox>
-	</center>
+                <Label text="wanting more options? explore more" style="-fx-font-style:italic; -fx-text-fill:#666;" />
+            </VBox>
+        </center>
 
-	<!-- Bottom navigation -->
-	<bottom>
-		<fx:include source="/com/javaninjas/careerpathway/core/views/bottomNav.fxml" />
-	</bottom>
-</BorderPane>
+        <!-- Bottom navigation -->
+        <bottom>
+            <fx:include source="/com/javaninjas/careerpathway/core/views/bottomNav.fxml" />
+        </bottom>
+    </BorderPane>
 
+    <!-- Blurred background -->
+    <Pane fx:id="blurPane" style="-fx-background-color: rgba(0, 0, 0, 0.3);" visible="false" />
+
+</StackPane>
