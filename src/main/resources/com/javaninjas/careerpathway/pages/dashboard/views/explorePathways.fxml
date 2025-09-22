@@ -5,8 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.javaninjas.careerpathway.pages.dashboard.controllers.ExploreController">
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javaninjas.careerpathway.pages.dashboard.controllers.ExploreController">
 
     <!-- Top section -->
     <top>
@@ -17,19 +16,16 @@
                 </font>
             </Label>
 
-            <Button fx:id="logoutBtn" onAction="#handleLogout"
-                    style="-fx-background-radius:16; -fx-border-radius:16; -fx-padding:6 12;"
-                    text="Logout" AnchorPane.rightAnchor="16" AnchorPane.topAnchor="8" />
+            <Button fx:id="logoutBtn" onAction="#handleLogout" style="-fx-background-radius:16; -fx-border-radius:16; -fx-padding:6 12;" text="Logout" AnchorPane.rightAnchor="16" AnchorPane.topAnchor="8" />
 
-            <VBox alignment="CENTER" spacing="8"
-                  AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="50">
-                <Label text="Explore different career pathways and find the one that's right for you"
-                       style="-fx-font-size: 14; -fx-text-fill: #666666;" />
-                <TextField fx:id="searchField" promptText="Search pathways..."
-                           style="-fx-background-radius: 16; -fx-border-radius: 16; -fx-padding: 8 12; -fx-border-color: #ccc; -fx-border-width: 1;"
-                           prefWidth="400" maxWidth="600"/>
-                <Button text="Search" onAction="#handleSearch"
-                        style="-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-background-radius: 16; -fx-padding: 8 20; -fx-font-weight: 600; -fx-font-size: 14;" />
+            <VBox alignment="CENTER" spacing="8" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="50">
+                <Label style="-fx-font-size: 14; -fx-text-fill: #666666;" text="Explore different career pathways and find the one that's right for you" />
+            <FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="20.0">
+               <children>
+                      <TextField fx:id="searchField" maxWidth="600" prefWidth="400" promptText="Search pathways..." style="-fx-background-radius: 16; -fx-border-radius: 16; -fx-padding: 8 12; -fx-border-color: #ccc; -fx-border-width: 1;" />
+                      <Button onAction="#handleSearch" style="-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-background-radius: 16; -fx-padding: 8 20; -fx-font-weight: 600; -fx-font-size: 14;" text="Search" />
+               </children>
+            </FlowPane>
 
             </VBox>
 
@@ -42,15 +38,11 @@
         <ScrollPane fitToWidth="true" style="-fx-background-color: #f8f9fa;">
             <VBox spacing="20">
                 <padding>
-                    <Insets top="20" right="20" bottom="20" left="20" />
+                    <Insets bottom="20" left="20" right="20" top="20" />
                 </padding>
 
                 <!-- Cards container with responsive grid -->
-                <FlowPane fx:id="pathwayCardsContainer"
-                          hgap="20" vgap="20"
-                          alignment="CENTER"
-                          prefWrapLength="1000"
-                          style="-fx-padding: 10;" />
+                <FlowPane fx:id="pathwayCardsContainer" alignment="CENTER" hgap="20" prefWrapLength="1000" style="-fx-padding: 10;" vgap="20" />
 
             </VBox>
         </ScrollPane>
