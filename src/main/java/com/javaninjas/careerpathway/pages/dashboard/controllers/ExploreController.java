@@ -5,9 +5,11 @@ import com.javaninjas.careerpathway.core.models.Job;
 import com.javaninjas.careerpathway.db.dao.JobDao;
 import com.javaninjas.careerpathway.core.services.NavigationService;
 import com.javaninjas.careerpathway.pages.components.PathwayCardController;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 
@@ -18,10 +20,37 @@ public class ExploreController {
 
     @FXML private FlowPane pathwayCardsContainer;
     @FXML private Button logoutBtn;
+    @FXML private TextField searchField;
+    @FXML public void initialize() {
+        loadPathwayCards();
+    }
+
 
     @FXML
-    public void initialize() {
-        loadPathwayCards();
+    public void handleSearch(ActionEvent actionEvent) {
+        String query = searchField.getText().toLowerCase();
+        if (query.isEmpty()) {
+            loadPathwayCards();
+            return;
+        }
+        // Filter cards based on search query
+        pathwayCardsContainer.getChildren().clear();
+        try {
+            List<Job> jobs = JobDao.getAllJobs();
+            for (Job job : jobs) {
+                if (job.getJobName().toLowerCase().contains(query)) {
+                    VBox pathwayCard = createPathwayCard(job);
+                    if (pathwayCard != null) {
+                        pathwayCardsContainer.getChildren().add(pathwayCard);
+                    }
+                }
+            }
+            System.out.println("Search found " + pathwayCardsContainer.getChildren().size() + " matching jobs");
+        } catch (Exception e) {
+            System.err.println("Error during search: " + e.getMessage());
+            e.printStackTrace();
+        }
+
     }
 
     /**
@@ -125,4 +154,5 @@ public class ExploreController {
         UserSession.getInstance().logout();
         NavigationService.go("/com/javaninjas/careerpathway/pages/login/views/LoginPage.fxml");
     }
+
 }

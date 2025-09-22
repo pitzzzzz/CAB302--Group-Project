@@ -25,10 +25,15 @@
                   AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="50">
                 <Label text="Explore different career pathways and find the one that's right for you"
                        style="-fx-font-size: 14; -fx-text-fill: #666666;" />
-                <Button onAction="#handleRefreshPaths"
-                        style="-fx-background-color: #6699cc; -fx-text-fill: white; -fx-background-radius: 15; -fx-padding: 12 28; -fx-font-size: 16;"
-                        text="Refresh Pathways" />
+                <TextField fx:id="searchField" promptText="Search pathways..."
+                           style="-fx-background-radius: 16; -fx-border-radius: 16; -fx-padding: 8 12; -fx-border-color: #ccc; -fx-border-width: 1;"
+                           prefWidth="400" maxWidth="600"/>
+                <Button text="Search" onAction="#handleSearch"
+                        style="-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-background-radius: 16; -fx-padding: 8 20; -fx-font-weight: 600; -fx-font-size: 14;" />
+
             </VBox>
+
+
         </AnchorPane>
     </top>
 
