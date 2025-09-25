@@ -83,9 +83,16 @@
                         <Label style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #7f8c8d;" text="Bottom Right Card" />
                     </VBox>
 
-                    <!-- Full Width Bottom Card -->
-                    <VBox alignment="CENTER" style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 25;                          -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 2);" GridPane.columnIndex="0" GridPane.columnSpan="4" GridPane.rowIndex="2" GridPane.rowSpan="2">
-                        <Label style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #7f8c8d;" text="Goals/Settings Card (Full Width, 2 Rows)" />
+                    <!-- Full Width Bottom Card: Favourites -->
+                    <VBox alignment="CENTER_LEFT" spacing="12" style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 2);" GridPane.columnIndex="0" GridPane.columnSpan="4" GridPane.rowIndex="2" GridPane.rowSpan="2">
+                        <Label style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #7f8c8d;" text="Your Favourites" />
+                            <HBox alignment="CENTER_LEFT" spacing="8">
+                                <Button fx:id="favPrevBtn" text="◀" mnemonicParsing="false" style="-fx-font-size:18; -fx-background-radius:8;" />
+                                <ScrollPane fx:id="favouritesScroll" fitToHeight="true" fitToWidth="false" prefHeight="220" prefWidth="1000" style="-fx-background-color: transparent;">
+                                    <HBox fx:id="favouritesContainer" spacing="12" style="-fx-padding:10;" />
+                                </ScrollPane>
+                                <Button fx:id="favNextBtn" text="▶" mnemonicParsing="false" style="-fx-font-size:18; -fx-background-radius:8;" />
+                            </HBox>
                     </VBox>
                 </GridPane>
             </ScrollPane>

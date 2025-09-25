@@ -39,25 +39,26 @@ public class PathwayFilterComponent {
                 "<$50k",
                 "$50k-$80k",
                 "$80k-$120k",
-                ">$120k"
-        ));
+                ">$120k"));
         salaryCombo.getSelectionModel().selectFirst();
 
         satisfactionCombo.setItems(FXCollections.observableArrayList(
                 "Any",
                 "Low",
                 "Medium",
-                "High"
-        ));
+                "High"));
         satisfactionCombo.getSelectionModel().selectFirst();
 
-        // Ensure tag toggle buttons carry the theme class and update visual state on selection
+        // Ensure tag toggle buttons carry the theme class and update visual state on
+        // selection
         tagButtons.getChildren().stream().filter(node -> node instanceof ToggleButton).forEach(node -> {
             ToggleButton tb = (ToggleButton) node;
-            if (!tb.getStyleClass().contains("tag-toggle")) tb.getStyleClass().add("tag-toggle");
+            if (!tb.getStyleClass().contains("tag-toggle"))
+                tb.getStyleClass().add("tag-toggle");
             tb.selectedProperty().addListener((obs, oldV, newV) -> {
                 if (newV) {
-                    if (!tb.getStyleClass().contains("selected")) tb.getStyleClass().add("selected");
+                    if (!tb.getStyleClass().contains("selected"))
+                        tb.getStyleClass().add("selected");
                 } else {
                     tb.getStyleClass().remove("selected");
                 }
@@ -67,13 +68,15 @@ public class PathwayFilterComponent {
 
     /**
      * Called when Apply is pressed. Fires a simple console log for now.
-     * In the containing controller (ExploreController) you can look up this component
+     * In the containing controller (ExploreController) you can look up this
+     * component
      * and call getSelectedFilters() to apply filtering logic.
      */
     @FXML
     private void applyFilters() {
         System.out.println("Applying filters: " + getSelectedFilters());
-        // Ideally fire a custom event or call a callback. For now, set a user data property
+        // Ideally fire a custom event or call a callback. For now, set a user data
+        // property
         // Consumers should obtain values via getters.
     }
 
@@ -92,7 +95,8 @@ public class PathwayFilterComponent {
         List<String> tags = new ArrayList<>();
         tagButtons.getChildren().stream().filter(n -> n instanceof ToggleButton).forEach(n -> {
             ToggleButton t = (ToggleButton) n;
-            if (t.isSelected()) tags.add(t.getText());
+            if (t.isSelected())
+                tags.add(t.getText());
         });
         return tags;
     }

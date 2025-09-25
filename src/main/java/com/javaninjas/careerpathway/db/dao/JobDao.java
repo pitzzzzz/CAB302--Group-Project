@@ -34,4 +34,20 @@ public class JobDao {
 
         return jobs;
     }
+
+    public static Job getJobById(int jobId) {
+        String sql = "SELECT jobID, courseID, JobName, JobDescription, ExpectedSalary FROM Jobs WHERE jobID = ?";
+        try (java.sql.Connection conn = com.javaninjas.careerpathway.db.connection.Database.getConnection();
+             java.sql.PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, jobId);
+            try (java.sql.ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return new Job(rs.getInt("jobID"), rs.getInt("courseID"), rs.getString("JobName"), rs.getString("JobDescription"), rs.getInt("ExpectedSalary"));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

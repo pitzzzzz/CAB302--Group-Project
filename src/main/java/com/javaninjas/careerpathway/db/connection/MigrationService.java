@@ -10,6 +10,7 @@ public final class MigrationService {
     public static void runMigrations(Connection conn) throws SQLException {
         createUsersTable(conn);
         createQuizResultsTable(conn);
+        createFavoritesTable(conn);
         // add other table creations here
     }
 
@@ -40,6 +41,19 @@ public final class MigrationService {
                 "question TEXT NOT NULL," +
                 "answer TEXT NOT NULL," +
                 "FOREIGN KEY(user_id) REFERENCES users(id)" +
+                ");";
+        try (Statement stmt = conn.createStatement()) {
+            stmt.execute(sql);
+        }
+    }
+
+    private static void createFavoritesTable(Connection conn) throws SQLException {
+        String sql = "CREATE TABLE IF NOT EXISTS user_favorites (" +
+                "user_id INTEGER NOT NULL," +
+                "job_id INTEGER NOT NULL," +
+                "PRIMARY KEY(user_id, job_id)," +
+                "FOREIGN KEY(user_id) REFERENCES users(id)," +
+                "FOREIGN KEY(job_id) REFERENCES Jobs(jobID)" +
                 ");";
         try (Statement stmt = conn.createStatement()) {
             stmt.execute(sql);

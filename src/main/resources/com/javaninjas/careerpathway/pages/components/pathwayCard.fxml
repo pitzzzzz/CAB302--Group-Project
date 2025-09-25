@@ -29,9 +29,18 @@
     <!-- Spacer to push button to bottom -->
     <Region VBox.vgrow="ALWAYS" />
 
-    <!-- Learn More Button -->
-    <Button fx:id="learnMoreBtn" text="Learn More"
-            prefWidth="240" prefHeight="36"
-            style="-fx-background-color:#3b82f6; -fx-text-fill:white; -fx-background-radius:18; -fx-padding:8 20; -fx-font-weight:600; -fx-font-size:13;" />
+       <HBox alignment="CENTER_LEFT" spacing="12">
+              <!-- Learn More Button expands to take available space -->
+              <Button fx:id="learnMoreBtn" text="Learn More" HBox.hgrow="ALWAYS"
+                            prefHeight="36"
+                            style="-fx-background-color:#3b82f6; -fx-text-fill:white; -fx-background-radius:18; -fx-padding:8 20; -fx-font-weight:600; -fx-font-size:13;" />
+
+              <!-- Favourite heart toggle (styled to appear as a heart at bottom-right) -->
+              <ToggleButton fx:id="favouriteBtn" mnemonicParsing="false" prefWidth="40" prefHeight="36" style="-fx-background-color: transparent; -fx-padding:0; -fx-cursor: hand;">
+                     <graphic>
+                            <Label text="♡" fx:id="heartLabel" style="-fx-font-size:20; -fx-text-fill: #cbd5e1; -fx-padding:0 6 0 6;" />
+                     </graphic>
+              </ToggleButton>
+       </HBox>
 
 </VBox>

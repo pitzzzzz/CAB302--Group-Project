@@ -2,6 +2,9 @@ package com.javaninjas.careerpathway.pages.components;
 
 import com.javaninjas.careerpathway.core.models.Job;
 import com.javaninjas.careerpathway.core.services.NavigationService;
+import com.javaninjas.careerpathway.core.auth.UserSession;
+import com.javaninjas.careerpathway.db.connection.Database;
+import com.javaninjas.careerpathway.db.dao.UserDao;
 import com.javaninjas.careerpathway.pages.dashboard.controllers.PathwayPopupController;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
@@ -12,8 +15,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
-import java.text.NumberFormat;
-import java.util.Locale;
+// ...existing imports...
 import java.util.function.Consumer;
 
 public class PathwayCardController {
@@ -23,9 +25,12 @@ public class PathwayCardController {
     @FXML private Label jobDescription;
     @FXML private Label pathwaySalaryLabel;
     @FXML private Button learnMoreBtn;
+    @FXML private javafx.scene.control.ToggleButton favouriteBtn;
+    @FXML private Label heartLabel;
 
     private Job job;
     private Consumer<Job> onLearnMore;
+    private boolean isFavourite = false;
 
     @FXML
     private void initialize() {
@@ -40,6 +45,7 @@ public class PathwayCardController {
         this.job = job;
         if (job != null) {
             updateCardDisplay();
+            updateFavouriteState();
         }
     }
 
@@ -75,6 +81,36 @@ public class PathwayCardController {
 
         // Format and set salary
         pathwaySalaryLabel.setText("Avg salary - $" + job.getJobSalary());
+    }
+
+    private void updateFavouriteState() {
+        try {
+            UserSession session = UserSession.getInstance();
+            if (session == null) return; // not logged in
+
+            int userId = session.getUserID();
+            try (java.sql.Connection conn = Database.getConnection()) {
+                UserDao userDao = new UserDao(conn);
+                isFavourite = userDao.getFavouriteJobIds(userId).contains(job.getJobID());
+            }
+            applyHeartVisual();
+        } catch (Exception e) {
+            System.err.println("Error updating favourite state: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private void applyHeartVisual() {
+        if (heartLabel == null || favouriteBtn == null) return;
+        if (isFavourite) {
+            heartLabel.setText("♥");
+            heartLabel.setStyle("-fx-font-size:18; -fx-text-fill: #e53e3e;");
+            favouriteBtn.setSelected(true);
+        } else {
+            heartLabel.setText("♡");
+            heartLabel.setStyle("-fx-font-size:18; -fx-text-fill: #cbd5e1;");
+            favouriteBtn.setSelected(false);
+        }
     }
 
     /**
@@ -140,6 +176,34 @@ public class PathwayCardController {
                     (PathwayPopupController controller) -> controller.setJob(job)
             );
         });
+
+        // Favourite button handler
+        if (favouriteBtn != null) {
+            favouriteBtn.setOnAction(evt -> {
+                try {
+                    UserSession session = UserSession.getInstance();
+                    if (session == null) {
+                        System.out.println("User not logged in - cannot favourite job");
+                        return;
+                    }
+                    int userId = session.getUserID();
+                    try (java.sql.Connection conn = Database.getConnection()) {
+                        UserDao userDao = new UserDao(conn);
+                        if (!isFavourite) {
+                            userDao.addFavourite(userId, job.getJobID());
+                            isFavourite = true;
+                        } else {
+                            userDao.removeFavourite(userId, job.getJobID());
+                            isFavourite = false;
+                        }
+                        applyHeartVisual();
+                    }
+                } catch (Exception ex) {
+                    System.err.println("Error toggling favourite: " + ex.getMessage());
+                    ex.printStackTrace();
+                }
+            });
+        }
     }
 
     /**

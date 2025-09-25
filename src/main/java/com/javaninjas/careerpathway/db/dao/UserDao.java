@@ -131,4 +131,38 @@ public class UserDao {
         }
         return quizResults;
     }
+
+    /**
+     * Returns a list of job IDs the given user has favourited.
+     */
+    public List<Integer> getFavouriteJobIds(int userId) throws SQLException {
+        List<Integer> favs = new ArrayList<>();
+        String sql = "SELECT job_id FROM user_favorites WHERE user_id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                favs.add(rs.getInt("job_id"));
+            }
+        }
+        return favs;
+    }
+
+    public void addFavourite(int userId, int jobId) throws SQLException {
+        String sql = "INSERT OR IGNORE INTO user_favorites (user_id, job_id) VALUES (?, ?)";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, userId);
+            stmt.setInt(2, jobId);
+            stmt.executeUpdate();
+        }
+    }
+
+    public void removeFavourite(int userId, int jobId) throws SQLException {
+        String sql = "DELETE FROM user_favorites WHERE user_id = ? AND job_id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, userId);
+            stmt.setInt(2, jobId);
+            stmt.executeUpdate();
+        }
+    }
 }
