@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="com.javaninjas.careerpathway.pages.dashboard.components.PathwayFilterComponent"
+    spacing="8" alignment="CENTER_LEFT" styleClass="">
+
+    <HBox spacing="8" alignment="CENTER_LEFT">
+    <Label text="Filters:" styleClass="section-header" />
+
+        <FlowPane fx:id="tagButtons" hgap="8" vgap="8" prefWrapLength="500">
+            <!-- Default tag buttons; controller can modify or replace these at runtime -->
+            <children>
+                <ToggleButton text="IT" styleClass="tag-toggle" />
+                <ToggleButton text="Healthcare" styleClass="tag-toggle" />
+                <ToggleButton text="Engineering" styleClass="tag-toggle" />
+                <ToggleButton text="Finance" styleClass="tag-toggle" />
+                <ToggleButton text="Education" styleClass="tag-toggle" />
+            </children>
+        </FlowPane>
+
+        <Region HBox.hgrow="ALWAYS" />
+
+        <Button fx:id="openPresetsBtn" text="Presets ▾" />
+    </HBox>
+
+    <HBox spacing="10" alignment="CENTER_LEFT">
+    <Label text="Salary:" />
+    <ComboBox fx:id="salaryCombo" prefWidth="180" styleClass="combo-box" />
+
+    <Label text="Satisfaction:" />
+    <ComboBox fx:id="satisfactionCombo" prefWidth="180" styleClass="combo-box" />
+
+    <Button fx:id="applyBtn" text="Apply" onAction="#applyFilters" styleClass="primary-btn" />
+    <Button fx:id="clearBtn" text="Clear" onAction="#clearFilters" styleClass="secondary-btn" />
+    </HBox>
+
+</VBox>

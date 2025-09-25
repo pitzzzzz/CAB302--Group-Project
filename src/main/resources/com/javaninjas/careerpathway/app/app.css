@@ -125,6 +125,22 @@
     -fx-underline: true;
 }
 
+/* Tag toggle buttons used for filters */
+.tag-toggle {
+    -fx-background-color: #f3f4f6;
+    -fx-text-fill: #111827;
+    -fx-background-radius: 12px;
+    -fx-padding: 6 10;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+}
+.tag-toggle:hover { -fx-background-color: #e5e7eb; }
+.tag-toggle:selected, .tag-toggle:selected:hover {
+    -fx-background-color: #dbeafe;
+    -fx-text-fill: #0f1724;
+}
+
 /* Quiz question options (buttons inside cards) */
 .question-option {
     -fx-background-color: #f3f4f6;
