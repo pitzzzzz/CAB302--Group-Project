@@ -12,8 +12,8 @@ public class PersonalityPromptBuilder {
         "    \"You want to find meaning in your work\",\n" +
         "    \"You enjoy collaborating on big goals\"\n" +
         "  ],\n" +
-        "  \"suggestedCareer\": \"Data Analyst\"\n" +
+        "  \"recommendedDegree\": \"Bachelor of Data Science\"\n" +
         "}\n\n" +
-    "Return ONLY raw JSON with no markdown, no backticks, no explanation. The field 'suggestedCareer' should be a single string with the most suitable career for the user.";
+    "Return ONLY raw JSON with no markdown, no backticks, no explanation. The field 'recommendedDegree' should be a single string with the most suitable degree for the user based on their traits.";
     }
 }

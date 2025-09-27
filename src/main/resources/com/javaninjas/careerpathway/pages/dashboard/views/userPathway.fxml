@@ -13,17 +13,19 @@
             </AnchorPane>
         </top>
 
-        <!-- Center content: recommended jobs / pathway dashboard -->
+        <!-- Center content: recommended jobs / pathway dashboard with scroll -->
         <center>
-            <VBox spacing="12" style="-fx-padding:18; -fx-alignment:CENTER;">
-                <Label fx:id="welcomeLabel" text="Welcome [name]," style="-fx-font-size:28; -fx-font-weight:bold;" />
-                <Label text="here are the top careers we would recommend..." style="-fx-font-size:14; -fx-text-fill:#333;" />
+            <ScrollPane fitToWidth="true" fitToHeight="true" style="-fx-background-color:transparent;" vbarPolicy="ALWAYS">
+                <VBox spacing="18" style="-fx-padding:32 0 32 0; -fx-alignment:CENTER; -fx-background-color:#f7faff;" minHeight="600.0" maxHeight="Infinity">
+                    <Label fx:id="welcomeLabel" text="Welcome [name]," style="-fx-font-size:32; -fx-font-weight:bold; -fx-padding:0 0 8 0;" />
+                    <Label text="Here are the top careers we recommend for you" style="-fx-font-size:16; -fx-text-fill:#3a3a3a; -fx-padding:0 0 18 0;" />
 
-                <!-- Row of job cards: non-scrollable HBox that we'll populate programmatically -->
-                <HBox fx:id="jobsContainer" spacing="12" style="-fx-padding:18;" alignment="CENTER" />
+                    <!-- Row of job cards: scrollable and responsive -->
+                    <HBox fx:id="jobsContainer" spacing="18" style="-fx-padding:18; -fx-background-color:#fff; -fx-background-radius:16; -fx-border-radius:16; -fx-border-color:#e0e6ef; -fx-border-width:1;" alignment="CENTER" />
 
-                <Label text="wanting more options? explore more" style="-fx-font-style:italic; -fx-text-fill:#666;" />
-            </VBox>
+                    <Label text="Want more options? Explore more pathways!" style="-fx-font-style:italic; -fx-text-fill:#666; -fx-padding:12 0 0 0;" />
+                </VBox>
+            </ScrollPane>
         </center>
 
         <!-- Bottom navigation -->

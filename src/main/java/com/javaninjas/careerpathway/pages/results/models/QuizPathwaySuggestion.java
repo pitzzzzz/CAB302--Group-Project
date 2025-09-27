@@ -9,16 +9,16 @@ public class QuizPathwaySuggestion {
     private final String userId;
     private final List<String> traits;
     private final List<String> reflections;
-    private final String suggestedCareer;
+    private final String recommendedDegree;
 
-    public QuizPathwaySuggestion(String pathwayName, String description, List<String> answers, String userId, List<String> traits, List<String> reflections, String suggestedCareer) {
+    public QuizPathwaySuggestion(String pathwayName, String description, List<String> answers, String userId, List<String> traits, List<String> reflections, String recommendedDegree) {
         this.pathwayName = pathwayName;
         this.description = description;
         this.answers = answers;
         this.userId = userId;
         this.traits = traits;
         this.reflections = reflections;
-        this.suggestedCareer = suggestedCareer;
+        this.recommendedDegree = recommendedDegree;
     }
 
     public String getPathwayName() { return pathwayName; }
@@ -27,5 +27,5 @@ public class QuizPathwaySuggestion {
     public String getUserId() { return userId; }
     public List<String> getTraits() { return traits; }
     public List<String> getReflections() { return reflections; }
-    public String getSuggestedCareer() { return suggestedCareer; }
+    public String getRecommendedDegree() { return recommendedDegree; }
 }

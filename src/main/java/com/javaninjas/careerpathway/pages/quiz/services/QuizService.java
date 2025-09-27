@@ -68,7 +68,7 @@ public class QuizService {
     // AI-powered analysis (optional, runs only if API key present)
     List<String> traits = new ArrayList<>();
     List<String> reflections = new ArrayList<>();
-    String suggestedCareer = null;
+    String recommendedDegree = null;
     String description;
         try {
             String apiKey = null;
@@ -106,8 +106,8 @@ public class QuizService {
                         reflections.add(reflNode.asText());
                     }
                 }
-                if (suggestionJson.has("suggestedCareer")) {
-                    suggestedCareer = suggestionJson.get("suggestedCareer").asText();
+                if (suggestionJson.has("recommendedDegree")) {
+                    recommendedDegree = suggestionJson.get("recommendedDegree").asText();
                 }
 
                 if (traits.isEmpty()) {
@@ -137,16 +137,16 @@ public class QuizService {
         String.valueOf(userId),
         traits,
         reflections,
-        suggestedCareer
+        recommendedDegree
     );
 
-    // Persist suggested career for user if available
-    if (userId > 0 && suggestedCareer != null && !suggestedCareer.isBlank()) {
+    // Persist recommended degree for user if available
+    if (userId > 0 && recommendedDegree != null && !recommendedDegree.isBlank()) {
         try (Connection conn = Database.getConnection()) {
             com.javaninjas.careerpathway.db.dao.UserDao userDao = new com.javaninjas.careerpathway.db.dao.UserDao(conn);
-            userDao.updateSuggestedCareer(userId, suggestedCareer);
+            userDao.updateRecommendedCourse(userId, recommendedDegree);
         } catch (Exception e) {
-            System.out.println("[DB ERROR] Could not persist suggested career: " + e.getMessage());
+            System.out.println("[DB ERROR] Could not persist recommended degree: " + e.getMessage());
         }
     }
 

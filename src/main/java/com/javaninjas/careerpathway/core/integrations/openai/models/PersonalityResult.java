@@ -5,7 +5,7 @@ import java.util.List;
 public class PersonalityResult {
     private List<String> coreTraits;
     private List<String> reflections;
-    private String suggestedCareer;
+    private String recommendedDegree;
 
     public List<String> getCoreTraits() {
         return coreTraits;
@@ -23,11 +23,11 @@ public class PersonalityResult {
         this.reflections = reflections;
     }
 
-    public String getSuggestedCareer() {
-        return suggestedCareer;
+    public String getRecommendedDegree() {
+        return recommendedDegree;
     }
 
-    public void setSuggestedCareer(String suggestedCareer) {
-        this.suggestedCareer = suggestedCareer;
+    public void setRecommendedDegree(String recommendedDegree) {
+        this.recommendedDegree = recommendedDegree;
     }
 }

@@ -1,15 +1,26 @@
 package com.javaninjas.careerpathway.core.config;
+
+import io.github.cdimascio.dotenv.Dotenv;
+
 /**
  * Centralized config loader for API keys and environment settings.
+ * Only loads values from the .env file, not from system environment variables.
  */
 public class OpenAIConfig {
-    private static String KEY="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";
+    private static final String KEY;
 
     static {
-        System.out.println("Loaded OpenAI key: " + KEY);
+        Dotenv dotenv = Dotenv.configure()
+                .ignoreIfMalformed()
+                .ignoreIfMissing()
+                .load();
+
+        KEY = dotenv.get("OPENAI_API_KEY"); // only from .env
+
+        System.out.println("Loaded OpenAI key: " + (KEY != null && !KEY.isBlank() ? "[REDACTED]" : "MISSING"));
+
         if (KEY == null || KEY.isBlank()) {
-            throw new IllegalStateException("Missing OpenAI API key. " +
-                    "Set OPENAI_API_KEY in .env or system environment variables.");
+            throw new IllegalStateException("Missing OpenAI API key in .env file (OPENAI_API_KEY).");
         }
     }
 

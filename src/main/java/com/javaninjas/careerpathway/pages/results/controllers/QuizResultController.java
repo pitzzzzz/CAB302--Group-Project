@@ -25,10 +25,11 @@ public class QuizResultController {
             return;
         }
 
-        if (suggestion.getSuggestedCareer() != null && !suggestion.getSuggestedCareer().isBlank()) {
-            Label careerLabel = new Label("Suggested Career: " + suggestion.getSuggestedCareer());
-            careerLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #4f8cff; -fx-padding: 0 0 12 0;");
-            detailsBox.getChildren().add(careerLabel);
+
+        if (suggestion.getRecommendedDegree() != null && !suggestion.getRecommendedDegree().isBlank()) {
+            Label degreeLabel = new Label("Recommended Degree: " + suggestion.getRecommendedDegree());
+            degreeLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #4f8cff; -fx-padding: 0 0 12 0;");
+            detailsBox.getChildren().add(degreeLabel);
         }
 
         detailsBox.getChildren().add(new Label("Based on your answers, here are some insights about you:"));
