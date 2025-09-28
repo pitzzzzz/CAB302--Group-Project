@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ProgressBar?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 
-<VBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.javaninjas.careerpathway.pages.loading.controllers.LoadingScreenController"
-      alignment="CENTER" spacing="20">
+<VBox alignment="CENTER" spacing="20" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javaninjas.careerpathway.pages.loading.controllers.LoadingScreenController">
     <padding>
-        <Insets top="50" right="50" bottom="50" left="50"/>
+        <Insets bottom="50" left="50" right="50" top="50" />
     </padding>
 
-    <Label text="Please wait, we're generating your results..."/>
+    <Label text="Please wait, we're generating your results..." />
+    <ImageView fitWidth="500.0" preserveRatio="true">
+        <Image url="@/com/javaninjas/careerpathway/Assets/DataExtraction.gif" />
+    </ImageView>
 
-    <ProgressBar fx:id="progressBar" prefWidth="400"/>
+    <ProgressBar fx:id="progressBar" prefWidth="400" />
 
-    <Label fx:id="statusLabel"/>
+    <Label fx:id="statusLabel" />
+
 
 </VBox>
