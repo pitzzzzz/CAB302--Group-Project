@@ -34,8 +34,19 @@
 
                         <!-- Weekly guide container (shown when suggested career exists) -->
                         <VBox fx:id="weeklyGuideSection" managed="false" visible="false" style="-fx-max-height: 500px; -fx-min-height: 300px; -fx-pref-height: 400px;">
+                            <!-- Weekly guide header -->
+                            <VBox spacing="16" style="-fx-padding: 0 0 16 0;">
+                                <HBox alignment="CENTER_LEFT" spacing="12">
+                                    <Label text="📚" style="-fx-font-size: 24px;" />
+                                    <VBox spacing="4">
+                                        <Label text="Your Learning Journey" style="-fx-font-size: 18px; -fx-font-weight: 700; -fx-text-fill: #1e293b;" />
+                                        <Label text="Follow this structured plan to achieve your career goals" style="-fx-font-size: 14px; -fx-text-fill: #64748b;" />
+                                    </VBox>
+                                </HBox>
+                            </VBox>
+                            
                             <ScrollPane fx:id="weeklyGuideScrollPane" fitToWidth="true" VBox.vgrow="ALWAYS" style="-fx-background-color:transparent;" vbarPolicy="AS_NEEDED" hbarPolicy="NEVER" styleClass="weekly-guide-scroll">
-                                <VBox fx:id="weeklyGuideContainer" spacing="20" style="-fx-padding: 20;">
+                                <VBox fx:id="weeklyGuideContainer" spacing="16" style="-fx-padding: 8 0 24 0;">
                                     <!-- Weekly guide content will be added dynamically -->
                                 </VBox>
                             </ScrollPane>

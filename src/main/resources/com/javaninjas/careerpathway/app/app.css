@@ -265,3 +265,58 @@
 .weekly-guide-container {
     -fx-background-color: transparent;
 }
+
+/* Weekly guide enhanced styles */
+.week-card {
+    -fx-background-color: linear-gradient(to bottom right, #ffffff, #f8fafc);
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-padding: 24;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1.5;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 16, 0.2, 0, 4);
+}
+
+.week-card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 20, 0.3, 0, 6);
+    -fx-border-color: #cbd5e1;
+}
+
+.task-checkbox {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d1d5db;
+    -fx-border-radius: 4;
+    -fx-border-width: 2;
+}
+
+.task-checkbox:selected {
+    -fx-background-color: #3b82f6;
+    -fx-border-color: #2563eb;
+}
+
+.task-row {
+    -fx-background-color: #f1f5f9;
+    -fx-background-radius: 12;
+    -fx-padding: 12 16;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 12;
+    -fx-border-width: 1;
+}
+
+.task-row:hover {
+    -fx-background-color: #f8fafc;
+    -fx-border-color: #cbd5e1;
+}
+
+.task-row-completed {
+    -fx-background-color: #f0f9ff;
+    -fx-border-color: #0ea5e9;
+}
+
+.progress-circle {
+    -fx-background-color: #3b82f6;
+    -fx-background-radius: 50%;
+    -fx-border-color: #1e40af;
+    -fx-border-radius: 50%;
+    -fx-border-width: 2;
+}

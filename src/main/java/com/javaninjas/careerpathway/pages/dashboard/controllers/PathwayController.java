@@ -147,6 +147,7 @@ public class PathwayController {
                 // Populate job cards
                 if (jobsContainer != null) {
                     jobsContainer.getChildren().clear();
+                    jobCardNodes.clear(); // Clear backup list
                     for (com.javaninjas.careerpathway.core.models.Job job : jobsToShow) {
                         try {
                             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/javaninjas/careerpathway/pages/components/jobCard.fxml"));
@@ -159,6 +160,7 @@ public class PathwayController {
                                 });
                             }
                             jobsContainer.getChildren().add(node);
+                            jobCardNodes.add(node); // Backup the job card node
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -192,33 +194,24 @@ public class PathwayController {
             popupController.setCloseHandler(this::hidePopup);
             // Remove any existing dark overlays (for example jobDetail overlays) so we only show the main modal
             try {
-                // remove overlays directly attached to rootPane or mainContent
+                // Only remove specific overlay nodes, not job cards or main content
                 rootPane.getChildren().removeIf(n -> {
-                    if (n == blurPane || n == mainContent) return false;
+                    if (n == blurPane || n == mainContent || n == popupContent) return false;
+                    // Only remove nodes that are clearly overlays (have overlay styling and aren't job containers)
                     String s = n.getStyle();
+                    String id = n.getId();
                     if (s != null && (s.contains("rgba(0,0,0") || s.contains("rgba(0, 0, 0"))) {
+                        // Don't remove nodes that are part of the main UI structure
+                        if (id != null && (id.contains("job") || id.contains("card") || id.contains("container"))) {
+                            return false;
+                        }
                         return true; // remove dark fullscreen overlays
                     }
                     return false;
                 });
-
-                if (mainContent instanceof javafx.scene.layout.Pane pane) {
-                    pane.getChildren().removeIf(n -> {
-                        if (n == blurPane) return false;
-                        String s = n.getStyle();
-                        if (s != null && (s.contains("rgba(0,0,0") || s.contains("rgba(0, 0, 0"))) {
-                            return true;
-                        }
-                        return false;
-                    });
-                }
-
-                // also walk the scene graph to remove overlays that were attached deeper in the hierarchy
-                try {
-                    if (rootPane.getScene() != null && rootPane.getScene().getRoot() instanceof javafx.scene.Parent sceneRoot) {
-                        removeDarkOverlaysRecursive(sceneRoot);
-                    }
-                } catch (Exception ignored2) {}
+                
+                // Don't recursively clean mainContent to avoid removing job cards
+                // The above cleanup should be sufficient for removing stray overlays
             } catch (Exception ignored) {}
 
             // Add popup to root stack and center it
@@ -304,6 +297,11 @@ public class PathwayController {
         if (descriptionLabel != null) {
             descriptionLabel.setText("Here are the top careers we recommend for you");
         }
+        
+        // Restore job cards if they're missing
+        if (jobsContainer != null && jobsContainer.getChildren().isEmpty() && !jobCardNodes.isEmpty()) {
+            jobsContainer.getChildren().setAll(jobCardNodes);
+        }
     }
 
     /**
@@ -361,29 +359,51 @@ public class PathwayController {
                 // Display the career plan (from cache or newly fetched)
                 if (plan != null && plan.getPlan() != null) {
                     for (com.javaninjas.careerpathway.core.integrations.openai.models.CareerPlan.WeekPlan weekPlan : plan.getPlan()) {
-                        VBox weekBox = new VBox(8);
-                        weekBox.setStyle("-fx-background-color: #fff; -fx-border-radius: 16; -fx-background-radius: 16; -fx-padding: 18 24 18 24; -fx-border-color: #e0e6ef; -fx-border-width: 1; -fx-effect: dropshadow(gaussian, #e0e6ef, 4, 0, 0, 2);");
-                        Label weekLabel = new Label("Week " + weekPlan.getWeek());
-                        weekLabel.setStyle("-fx-font-size: 22px; -fx-font-weight: bold;");
-                        VBox tasksBox = new VBox(4);
+                        // Create modern week card
+                        VBox weekCard = new VBox(16);
+                        weekCard.setStyle("-fx-background-color: linear-gradient(to bottom right, #ffffff, #f8fafc); -fx-border-radius: 20; -fx-background-radius: 20; -fx-padding: 24; -fx-border-color: #e2e8f0; -fx-border-width: 1.5; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 16, 0.2, 0, 4);");
+                        
+                        // Week header with progress indicator
+                        HBox weekHeader = new HBox(16);
+                        weekHeader.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
+                        
+                        // Progress circle
+                        javafx.scene.layout.StackPane progressCircle = new javafx.scene.layout.StackPane();
+                        javafx.scene.shape.Circle circle = new javafx.scene.shape.Circle(20);
+                        circle.setFill(javafx.scene.paint.Color.web("#3b82f6"));
+                        circle.setStroke(javafx.scene.paint.Color.web("#1e40af"));
+                        circle.setStrokeWidth(2);
+                        Label weekNumber = new Label(String.valueOf(weekPlan.getWeek()));
+                        weekNumber.setStyle("-fx-font-size: 14px; -fx-font-weight: 700; -fx-text-fill: white;");
+                        progressCircle.getChildren().addAll(circle, weekNumber);
+                        
+                        // Week title
+                        Label weekTitle = new Label("Week " + weekPlan.getWeek());
+                        weekTitle.setStyle("-fx-font-size: 20px; -fx-font-weight: 700; -fx-text-fill: #1e293b;");
+                        
+                        weekHeader.getChildren().addAll(progressCircle, weekTitle);
+                        
+                        // Tasks section
+                        VBox tasksSection = new VBox(8);
                         if (weekPlan.getTasks() != null) {
                             for (String task : weekPlan.getTasks()) {
                                 Label taskLabel = new Label("• " + task);
-                                taskLabel.setStyle("-fx-font-size: 15px; -fx-text-fill: #444;");
-                                tasksBox.getChildren().add(taskLabel);
+                                taskLabel.setStyle("-fx-font-size: 15px; -fx-text-fill: #374151; -fx-wrap-text: true; -fx-padding: 8 0;");
+                                taskLabel.setWrapText(true);
+                                tasksSection.getChildren().add(taskLabel);
                             }
                         }
-                        Button completeBtn = new Button("Complete Tasks");
-                        completeBtn.setStyle("-fx-background-color: #8bb6e6; -fx-text-fill: #fff; -fx-font-size: 16px; -fx-background-radius: 16; -fx-padding: 6 24 6 24; -fx-font-weight: bold;");
-                        weekBox.getChildren().addAll(weekLabel, tasksBox, completeBtn);
-                        weeklyGuideContainer.getChildren().add(weekBox);
+                        
+                        // Build the complete week card
+                        weekCard.getChildren().addAll(weekHeader, tasksSection);
+                        weeklyGuideContainer.getChildren().add(weekCard);
                     }
                     
-                    // Add cache info for debugging (optional)
+                    // Add cache info for debugging (optional) - styled nicely
                     java.time.LocalDateTime cacheTime = com.javaninjas.careerpathway.core.services.CareerPlanCacheService.getCacheTimestamp(suggestedCareer);
                     if (cacheTime != null) {
-                        Label cacheInfo = new Label("Plan cached at: " + cacheTime.format(java.time.format.DateTimeFormatter.ofPattern("HH:mm:ss")));
-                        cacheInfo.setStyle("-fx-font-size: 11px; -fx-text-fill: #888; -fx-padding: 10 0 0 0;");
+                        Label cacheInfo = new Label("📅 Plan generated at " + cacheTime.format(java.time.format.DateTimeFormatter.ofPattern("HH:mm:ss")));
+                        cacheInfo.setStyle("-fx-font-size: 11px; -fx-text-fill: #64748b; -fx-padding: 12 0 0 0; -fx-font-style: italic;");
                         weeklyGuideContainer.getChildren().add(cacheInfo);
                     }
                 } else {
