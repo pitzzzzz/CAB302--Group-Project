@@ -38,6 +38,9 @@ public class PathwayController {
     @FXML
     private HBox jobsContainer;
 
+    // keep a copy of the initial job card nodes so we can restore them if they are accidentally removed
+    private java.util.List<javafx.scene.Node> jobCardNodes = new java.util.ArrayList<>();
+
     private Node popupContent;
 
     @FXML
@@ -69,119 +72,36 @@ public class PathwayController {
             }
         });
 
-        // Show personalized jobs if suggested_career is null, else show weekly guide for the career
+        // TODO: If the user has no selected career, populate the UI with recommended job cards
+        // Replace placeholders: populate the jobsContainer HBox with cards loaded from jobCard.fxml
         try {
-            com.javaninjas.careerpathway.core.auth.UserSession session = com.javaninjas.careerpathway.core.auth.UserSession.getInstance();
-            int userId = session != null ? session.getUserID() : 0;
-            String suggestedCareer = null;
-            if (userId > 0) {
-                try (java.sql.Connection conn = com.javaninjas.careerpathway.db.connection.Database.getConnection()) {
-                    com.javaninjas.careerpathway.db.dao.UserDao userDao = new com.javaninjas.careerpathway.db.dao.UserDao(conn);
-                    com.javaninjas.careerpathway.core.models.User user = userDao.getUserById(userId);
-                    if (user != null) {
-                        suggestedCareer = user.getSuggestedCareer();
-                    }
-                } catch (Exception e) { e.printStackTrace(); }
-            }
+            if (jobsContainer != null) {
+                Job[] jobs = new Job[] {
+                    new Job(1, 0, "Software Engineer", "Design and build software applications.", 90000),
+                    new Job(2, 0, "Data Analyst", "Analyse data and produce insights.", 75000),
+                    new Job(3, 0, "UX Designer", "Design user experiences and interfaces.", 70000),
+                    new Job(4, 0, "Network Engineer", "Maintain and design network systems.", 80000),
+                    new Job(5, 0, "Product Manager", "Coordinate product development across teams.", 95000)
+                };
 
-            if (suggestedCareer == null || suggestedCareer.isBlank()) {
-                // Show personalized jobs (existing logic)
-                if (jobsContainer != null) {
-                    jobsContainer.getChildren().clear();
-                    String recommendedCourse = session != null ? session.getRecommendedCourse() : null;
-                    java.util.List<com.javaninjas.careerpathway.core.models.Job> allJobs = com.javaninjas.careerpathway.db.dao.JobDao.getAllJobs();
-                    java.util.List<com.javaninjas.careerpathway.core.models.Job> filteredJobs = new java.util.ArrayList<>();
-                    if (recommendedCourse != null && !recommendedCourse.isBlank()) {
-                        java.util.List<com.javaninjas.careerpathway.core.models.Course> allCourses = com.javaninjas.careerpathway.db.dao.CourseDao.getAllCourses();
-                        java.util.Set<Integer> matchingCourseIds = new java.util.HashSet<>();
-                        for (com.javaninjas.careerpathway.core.models.Course course : allCourses) {
-                            if (course.getCourseName() != null && course.getCourseName().toLowerCase().contains(recommendedCourse.toLowerCase())) {
-                                matchingCourseIds.add(course.getCourseID());
-                            } else if (course.getCourseMajor() != null && course.getCourseMajor().toLowerCase().contains(recommendedCourse.toLowerCase())) {
-                                matchingCourseIds.add(course.getCourseID());
-                            }
-                        }
-                        for (com.javaninjas.careerpathway.core.models.Job job : allJobs) {
-                            if (matchingCourseIds.contains(job.getCourseID())) {
-                                filteredJobs.add(job);
-                            }
-                        }
-                    }
-                    java.util.List<com.javaninjas.careerpathway.core.models.Job> jobsToShow;
-                    if (!filteredJobs.isEmpty()) {
-                        jobsToShow = filteredJobs;
-                    } else {
-                        java.util.Collections.shuffle(allJobs);
-                        jobsToShow = allJobs.subList(0, Math.min(5, allJobs.size()));
-                    }
-                    for (com.javaninjas.careerpathway.core.models.Job job : jobsToShow) {
-                        try {
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/javaninjas/careerpathway/pages/components/jobCard.fxml"));
-                            Node node = loader.load();
-                            JobCardController controller = loader.getController();
-                            if (controller != null) {
-                                controller.setJob(job);
-                                controller.setOnApply(j -> {
-                                    showPopup(j);
-                                });
-                            }
-                            jobsContainer.getChildren().add(node);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            } else {
-                // Show 10-week guide for the suggested career (fetch from AI)
-                if (mainContent != null) {
-                    mainContent.setCenter(null);
-                    VBox guideBox = new VBox(20);
-                    guideBox.setStyle("-fx-padding: 32 0 0 0;");
-                    Label title = new Label("Your Pathway To Becoming a " + suggestedCareer);
-                    title.setStyle("-fx-font-size: 32px; -fx-font-weight: bold; -fx-padding: 0 0 32 0;");
-                    guideBox.getChildren().add(title);
+                for (Job job : jobs) {
                     try {
-                        // Fetch 10-week plan from AI
-                        String apiKey = com.javaninjas.careerpathway.core.config.OpenAIConfig.getApiKey();
-                        if (apiKey != null && !apiKey.isBlank()) {
-                            com.javaninjas.careerpathway.core.integrations.openai.ChatGptClient client = new com.javaninjas.careerpathway.core.integrations.openai.ChatGptClient(apiKey);
-                            com.javaninjas.careerpathway.core.integrations.openai.ChatGptService chatGptService = new com.javaninjas.careerpathway.core.integrations.openai.ChatGptService(client);
-                            com.javaninjas.careerpathway.core.integrations.openai.models.CareerPlan plan = chatGptService.requestCareerPlan(suggestedCareer);
-                            if (plan != null && plan.getPlan() != null) {
-                                for (com.javaninjas.careerpathway.core.integrations.openai.models.CareerPlan.WeekPlan weekPlan : plan.getPlan()) {
-                                    VBox weekBox = new VBox(8);
-                                    weekBox.setStyle("-fx-background-color: #fff; -fx-border-radius: 16; -fx-background-radius: 16; -fx-padding: 18 24 18 24; -fx-border-color: #e0e6ef; -fx-border-width: 1; -fx-effect: dropshadow(gaussian, #e0e6ef, 4, 0, 0, 2);");
-                                    Label weekLabel = new Label("Week " + weekPlan.getWeek());
-                                    weekLabel.setStyle("-fx-font-size: 22px; -fx-font-weight: bold;");
-                                    VBox tasksBox = new VBox(4);
-                                    if (weekPlan.getTasks() != null) {
-                                        for (String task : weekPlan.getTasks()) {
-                                            Label taskLabel = new Label("• " + task);
-                                            taskLabel.setStyle("-fx-font-size: 15px; -fx-text-fill: #444;");
-                                            tasksBox.getChildren().add(taskLabel);
-                                        }
-                                    }
-                                    Button completeBtn = new Button("Complete Tasks");
-                                    completeBtn.setStyle("-fx-background-color: #8bb6e6; -fx-text-fill: #fff; -fx-font-size: 16px; -fx-background-radius: 16; -fx-padding: 6 24 6 24; -fx-font-weight: bold;");
-                                    weekBox.getChildren().addAll(weekLabel, tasksBox, completeBtn);
-                                    guideBox.getChildren().add(weekBox);
-                                }
-                            } else {
-                                guideBox.getChildren().add(new Label("Could not fetch a weekly plan from AI."));
-                            }
-                        } else {
-                            guideBox.getChildren().add(new Label("AI is not enabled. No API key found."));
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/javaninjas/careerpathway/pages/components/jobCard.fxml"));
+                        Node node = loader.load();
+                        JobCardController controller = loader.getController();
+                        if (controller != null) {
+                            controller.setJob(job);
+                            controller.setOnApply(j -> {
+                                showPopup(j);
+                            });
                         }
-                    } catch (Exception ex) {
-                        guideBox.getChildren().add(new Label("Error fetching plan from AI: " + ex.getMessage()));
-                        ex.printStackTrace();
+                        jobsContainer.getChildren().add(node);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                    mainContent.setCenter(guideBox);
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        } catch (Exception ignored) {}
 
         // Make blurPane cover the whole root and block mouse events when visible
         try {
@@ -265,6 +185,13 @@ public class PathwayController {
             rootPane.getChildren().remove(popupContent);
             popupContent = null;
         }
+
+        // If for any reason the job cards were removed while the popup was open, restore them
+        try {
+            if (jobsContainer != null && jobsContainer.getChildren().isEmpty() && !jobCardNodes.isEmpty()) {
+                jobsContainer.getChildren().setAll(jobCardNodes);
+            }
+        } catch (Exception ignored) {}
     }
 
     // Recursively remove dark full-screen overlay nodes from the provided parent
