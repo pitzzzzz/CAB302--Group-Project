@@ -100,7 +100,9 @@ public class QuizQuestionController {
 
         // Swap visibility: show Continue on non-last pages, show Submit on last page
         nextButton.setVisible(!isLastPage);
+        nextButton.setManaged(!isLastPage); // hides space when not visible
         submitButton.setVisible(isLastPage);
+        submitButton.setManaged(isLastPage); // shows space only on last page
 
         if (!isLastPage) {
             nextButton.setDisable(!pageComplete);

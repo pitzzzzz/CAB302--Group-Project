@@ -24,7 +24,14 @@
 
             <Button fx:id="nextButton" onAction="#handleNext" prefHeight="44" prefWidth="180" style="-fx-background-color:#357ABD; -fx-text-fill:white; -fx-font-weight:700; -fx-background-radius:10;" text="Continue" />
 
-            <Button fx:id="submitButton" onAction="#handleSubmit" prefHeight="44" prefWidth="180" style="-fx-background-color:#28A745; -fx-text-fill:white; -fx-font-weight:700; -fx-background-radius:10;" text="Submit" visible="false" />
+            <Button fx:id="submitButton"
+                    onAction="#handleSubmit"
+                    text="Submit"
+                    prefWidth="180"
+                    prefHeight="44"
+                    visible="false"
+                    managed="false"
+                    style="-fx-background-color:#28A745; -fx-text-fill:white; -fx-font-weight:700; -fx-background-radius:10;" />
         </HBox>
     </VBox>
 </ScrollPane>
