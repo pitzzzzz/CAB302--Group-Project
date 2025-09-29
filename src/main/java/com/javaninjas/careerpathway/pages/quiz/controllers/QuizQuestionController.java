@@ -59,7 +59,8 @@ public class QuizQuestionController {
             questionBox.getChildren().add(questionLabel);
 
             ToggleGroup answerGroup = new ToggleGroup();
-            HBox optionsBox = new HBox(15);
+            // 🔽 changed HBox → VBox so options stack vertically
+            VBox optionsBox = new VBox(10);
             optionsBox.setPadding(new Insets(10, 0, 0, 0));
 
             for (String answer : question.options()) {
@@ -87,7 +88,7 @@ public class QuizQuestionController {
         }
 
         updateButtonStates();
-        progressDots.setCurrent(pageIndex); // 🔑 update dot highlight
+        progressDots.setCurrent(pageIndex); // update dot highlight
     }
 
     private void updateButtonStates() {
