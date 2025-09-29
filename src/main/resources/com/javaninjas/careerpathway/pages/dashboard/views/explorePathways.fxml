@@ -5,7 +5,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javaninjas.careerpathway.pages.dashboard.controllers.ExploreController">
+<StackPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javaninjas.careerpathway.pages.dashboard.controllers.ExploreController" fx:id="rootPane">
+    
+    <BorderPane fx:id="mainContent">
 
     <!-- Top section -->
     <top>
@@ -50,9 +52,14 @@
         </ScrollPane>
     </center>
 
-    <!-- Bottom navigation -->
-    <bottom>
-        <fx:include source="/com/javaninjas/careerpathway/core/views/bottomNav.fxml" />
-    </bottom>
+        <!-- Bottom navigation -->
+        <bottom>
+            <fx:include source="/com/javaninjas/careerpathway/core/views/bottomNav.fxml" />
+        </bottom>
 
-</BorderPane>
+    </BorderPane>
+    
+    <!-- Blur overlay for popup background -->
+    <Pane fx:id="blurPane" style="-fx-background-color: rgba(0, 0, 0, 0.3);" visible="false" />
+    
+</StackPane>
