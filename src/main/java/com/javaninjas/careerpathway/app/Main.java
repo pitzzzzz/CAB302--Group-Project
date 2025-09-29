@@ -18,6 +18,9 @@ public class Main extends Application {
         // Ensure application connection is successful before UI loads
         DatabaseInitializer.initialize();
 
+        // Start cache maintenance service
+        com.javaninjas.careerpathway.core.services.CacheMaintenanceService.startMaintenance();
+
         // Initialize navigation
         NavigationService.init(stage);
         stage.setTitle("CAB302: Career Pathway Application");
@@ -30,6 +33,13 @@ public class Main extends Application {
         NavigationService.go("/com/javaninjas/careerpathway/pages/login/views/LoginPage.fxml");
 
         stage.show();
+    }
+    
+    @Override
+    public void stop() throws Exception {
+        // Stop cache maintenance service when application closes
+        com.javaninjas.careerpathway.core.services.CacheMaintenanceService.stopMaintenance();
+        super.stop();
     }
 
     public static void main(String[] args) {

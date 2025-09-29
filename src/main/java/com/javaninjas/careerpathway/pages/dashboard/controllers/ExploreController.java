@@ -2,8 +2,8 @@ package com.javaninjas.careerpathway.pages.dashboard.controllers;
 
 import com.javaninjas.careerpathway.core.auth.UserSession;
 import com.javaninjas.careerpathway.core.models.Job;
-import com.javaninjas.careerpathway.db.dao.JobDao;
 import com.javaninjas.careerpathway.core.services.NavigationService;
+import com.javaninjas.careerpathway.core.services.JobCacheService;
 import com.javaninjas.careerpathway.pages.components.PathwayCardController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,24 +28,22 @@ public class ExploreController {
 
     @FXML
     public void handleSearch(ActionEvent actionEvent) {
-        String query = searchField.getText().toLowerCase();
+        String query = searchField.getText().trim();
         if (query.isEmpty()) {
             loadPathwayCards();
             return;
         }
-        // Filter cards based on search query
+        // Filter cards based on search query using cache
         pathwayCardsContainer.getChildren().clear();
         try {
-            List<Job> jobs = JobDao.getAllJobs();
-            for (Job job : jobs) {
-                if (job.getJobName().toLowerCase().contains(query)) {
-                    VBox pathwayCard = createPathwayCard(job);
-                    if (pathwayCard != null) {
-                        pathwayCardsContainer.getChildren().add(pathwayCard);
-                    }
+            List<Job> filteredJobs = JobCacheService.getJobsBySearch(query);
+            for (Job job : filteredJobs) {
+                VBox pathwayCard = createPathwayCard(job);
+                if (pathwayCard != null) {
+                    pathwayCardsContainer.getChildren().add(pathwayCard);
                 }
             }
-            System.out.println("Search found " + pathwayCardsContainer.getChildren().size() + " matching jobs");
+            System.out.println("Search found " + filteredJobs.size() + " matching jobs for query: " + query);
         } catch (Exception e) {
             System.err.println("Error during search: " + e.getMessage());
             e.printStackTrace();
@@ -63,8 +61,8 @@ public class ExploreController {
         pathwayCardsContainer.getChildren().clear();
 
         try {
-            // Get all jobs from database
-            List<Job> jobs = JobDao.getAllJobs();
+            // Get all jobs from cache or database
+            List<Job> jobs = JobCacheService.getAllJobs();
 
             // Create a card for each job
             for (Job job : jobs) {
@@ -143,6 +141,8 @@ public class ExploreController {
     @FXML
     private void handleRefreshPaths() {
         System.out.println("Refreshing pathway cards...");
+        // Clear cache to ensure fresh data
+        JobCacheService.clearJobsCache();
         loadPathwayCards();
     }
 
@@ -151,7 +151,7 @@ public class ExploreController {
      */
     @FXML
     private void handleLogout() {
-        UserSession.getInstance().logout();
+        UserSession.logout();
         NavigationService.go("/com/javaninjas/careerpathway/pages/login/views/LoginPage.fxml");
     }
 

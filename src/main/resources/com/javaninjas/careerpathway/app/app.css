@@ -202,3 +202,66 @@
 .header-rounded {
     -fx-background-radius: 0 0 40 40;
 }
+
+/* Weekly Guide Scroll Container Styles - Similar to explore page */
+.weekly-guide-scroll {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-border-color: transparent;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-fit-to-width: true;
+    -fx-smooth-scroll: true;
+}
+
+.weekly-guide-scroll .viewport {
+    -fx-background-color: transparent;
+    -fx-background-radius: 12;
+}
+
+.weekly-guide-scroll .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10px;
+    -fx-padding: 2;
+    -fx-background-radius: 5;
+}
+
+.weekly-guide-scroll .scroll-bar:vertical .track {
+    -fx-background-color: rgba(0, 0, 0, 0.1);
+    -fx-background-radius: 5;
+    -fx-border-color: transparent;
+    -fx-pref-width: 6px;
+}
+
+.weekly-guide-scroll .scroll-bar:vertical .thumb {
+    -fx-background-color: rgba(59, 130, 246, 0.6);
+    -fx-background-radius: 5;
+    -fx-border-color: transparent;
+    -fx-pref-width: 6px;
+}
+
+.weekly-guide-scroll .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: rgba(59, 130, 246, 0.8);
+}
+
+.weekly-guide-scroll .scroll-bar:vertical .thumb:pressed {
+    -fx-background-color: rgba(59, 130, 246, 1.0);
+}
+
+/* Hide horizontal scroll bar */
+.weekly-guide-scroll .scroll-bar:horizontal {
+    -fx-pref-height: 0px;
+    -fx-max-height: 0px;
+    -fx-opacity: 0;
+    -fx-padding: 0;
+}
+
+/* Smooth scrolling content */
+.weekly-guide-scroll .content {
+    -fx-background-color: transparent;
+}
+
+/* Weekly guide content styling */
+.weekly-guide-container {
+    -fx-background-color: transparent;
+}

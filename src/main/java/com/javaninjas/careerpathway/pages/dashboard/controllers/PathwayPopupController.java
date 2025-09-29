@@ -4,8 +4,7 @@ import com.javaninjas.careerpathway.core.models.Job;
 import com.javaninjas.careerpathway.core.models.Course;
 import com.javaninjas.careerpathway.core.models.User;
 import com.javaninjas.careerpathway.core.auth.UserSession;
-import com.javaninjas.careerpathway.core.services.NavigationService;
-import com.javaninjas.careerpathway.db.dao.CourseDao;
+import com.javaninjas.careerpathway.core.services.JobCacheService;
 import com.javaninjas.careerpathway.db.dao.UserDao;
 import com.javaninjas.careerpathway.db.connection.Database;
 
@@ -39,6 +38,7 @@ public class PathwayPopupController {
     private ComboBox<String> courseComboBox; // must match fx:id in FXML
 
     private User currentUser;
+    private Job currentJob;
     private Runnable closeHandler;
 
     @FXML
@@ -52,12 +52,16 @@ public class PathwayPopupController {
 
     public void setJob(Job job) {
         if (job == null) return;
+        
+        // Store reference to current job
+        this.currentJob = job;
 
         jobNameLabel.setText(job.getJobName());
         jobDescriptionLabel.setText(job.getJobDescription());
         salaryLabel.setText(String.valueOf(job.getJobSalary()));
 
-        Course course = CourseDao.getCourseById(job.getCourseID());
+        // Use cached course data to avoid repeated database queries
+        Course course = JobCacheService.getCourseById(job.getCourseID());
         if (course != null) {
             courseNameLabel.setText(course.getCourseName());
             courseMajorLabel.setText(course.getCourseMajor());
@@ -80,23 +84,38 @@ public class PathwayPopupController {
             return;
         }
 
-        // Get the course name directly from the label
-        String selectedCourse = courseNameLabel.getText();
-        if (selectedCourse != null && !selectedCourse.isEmpty() && !selectedCourse.equals("No course found")) {
-            try {
-                // Update the User object in memory
+        if (currentJob == null) {
+            System.out.println("No job selected.");
+            return;
+        }
+
+        try {
+            UserDao userDao = new UserDao(Database.getConnection());
+            
+            // Save the career title to suggested_career column
+            String careerTitle = currentJob.getJobName();
+            currentUser.setSuggestedCareer(careerTitle);
+            userDao.updateSuggestedCareer(currentUser.getUserID(), careerTitle);
+            System.out.println("Selected career saved to DB: " + careerTitle);
+            
+            // Also save the course name if available
+            String selectedCourse = courseNameLabel.getText();
+            if (selectedCourse != null && !selectedCourse.isEmpty() && !selectedCourse.equals("No course found")) {
                 currentUser.setRecommendedCourse(selectedCourse);
-
-                // Update the database
-                UserDao userDao = new UserDao(Database.getConnection());
                 userDao.updateRecommendedCourse(currentUser.getUserID(), selectedCourse);
-
-                System.out.println("Select Course button clicked! Course saved to DB: " + selectedCourse);
-            } catch (SQLException e) {
-                e.printStackTrace();
+                System.out.println("Recommended course saved to DB: " + selectedCourse);
             }
-        } else {
-            System.out.println("No valid course to save.");
+            
+            System.out.println("Career selection completed successfully!");
+            
+            // Close the popup after successful selection
+            if (closeHandler != null) {
+                closeHandler.run();
+            }
+            
+        } catch (SQLException e) {
+            System.err.println("Error saving career selection: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 

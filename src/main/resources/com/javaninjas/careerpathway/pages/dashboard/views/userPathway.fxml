@@ -15,17 +15,34 @@
 
         <!-- Center content: recommended jobs / pathway dashboard with scroll -->
         <center>
-            <ScrollPane fitToWidth="true" fitToHeight="true" style="-fx-background-color:transparent;" vbarPolicy="ALWAYS">
-                <VBox spacing="18" style="-fx-padding:32 0 32 0; -fx-alignment:CENTER; -fx-background-color:#f7faff;" minHeight="600.0" maxHeight="Infinity">
+            <VBox fx:id="mainContentContainer" spacing="0" style="-fx-background-color:#f7faff;">
+                <!-- Fixed header section -->
+                <VBox fx:id="headerSection" spacing="18" style="-fx-padding:32 32 24 32; -fx-alignment:CENTER;">
                     <Label fx:id="welcomeLabel" text="Welcome [name]," style="-fx-font-size:32; -fx-font-weight:bold; -fx-padding:0 0 8 0;" />
-                    <Label text="Here are the top careers we recommend for you" style="-fx-font-size:16; -fx-text-fill:#3a3a3a; -fx-padding:0 0 18 0;" />
-
-                    <!-- Row of job cards: scrollable and responsive -->
-                    <HBox fx:id="jobsContainer" spacing="18" style="-fx-padding:18; -fx-background-color:#fff; -fx-background-radius:16; -fx-border-radius:16; -fx-border-color:#e0e6ef; -fx-border-width:1;" alignment="CENTER" />
-
-                    <Label text="Want more options? Explore more pathways!" style="-fx-font-style:italic; -fx-text-fill:#666; -fx-padding:12 0 0 0;" />
+                    <Label fx:id="descriptionLabel" text="Here are the top careers we recommend for you" style="-fx-font-size:16; -fx-text-fill:#3a3a3a; -fx-padding:0 0 18 0;" />
                 </VBox>
-            </ScrollPane>
+
+                <!-- Scrollable content area -->
+                <ScrollPane fx:id="contentScrollPane" fitToWidth="true" VBox.vgrow="ALWAYS" style="-fx-background-color:transparent;" vbarPolicy="AS_NEEDED" hbarPolicy="NEVER">
+                    <VBox fx:id="scrollableContent" spacing="18" style="-fx-padding:0 32 32 32; -fx-alignment:CENTER;">
+                        <!-- Job recommendations container (shown when no suggested career) -->
+                        <VBox fx:id="jobRecommendationsSection" spacing="18" managed="true" visible="true">
+                            <!-- Row of job cards: scrollable and responsive -->
+                            <HBox fx:id="jobsContainer" spacing="18" style="-fx-padding:18; -fx-background-color:#fff; -fx-background-radius:16; -fx-border-radius:16; -fx-border-color:#e0e6ef; -fx-border-width:1;" alignment="CENTER" />
+                            <Label text="Want more options? Explore more pathways!" style="-fx-font-style:italic; -fx-text-fill:#666; -fx-padding:12 0 0 0;" />
+                        </VBox>
+
+                        <!-- Weekly guide container (shown when suggested career exists) -->
+                        <VBox fx:id="weeklyGuideSection" managed="false" visible="false" style="-fx-max-height: 500px; -fx-min-height: 300px; -fx-pref-height: 400px;">
+                            <ScrollPane fx:id="weeklyGuideScrollPane" fitToWidth="true" VBox.vgrow="ALWAYS" style="-fx-background-color:transparent;" vbarPolicy="AS_NEEDED" hbarPolicy="NEVER" styleClass="weekly-guide-scroll">
+                                <VBox fx:id="weeklyGuideContainer" spacing="20" style="-fx-padding: 20;">
+                                    <!-- Weekly guide content will be added dynamically -->
+                                </VBox>
+                            </ScrollPane>
+                        </VBox>
+                    </VBox>
+                </ScrollPane>
+            </VBox>
         </center>
 
         <!-- Bottom navigation -->
