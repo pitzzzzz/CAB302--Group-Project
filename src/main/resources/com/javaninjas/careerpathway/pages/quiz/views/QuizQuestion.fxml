@@ -1,78 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Ellipse?>
-<?import com.javaninjas.careerpathway.pages.quiz.components.ProgressDots?>
+<?import com.javaninjas.careerpathway.pages.quiz.components.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17.0.12"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.javaninjas.careerpathway.pages.quiz.controllers.QuizQuestionController"
-            prefWidth="480"
-            prefHeight="800"
-            styleClass="root">
+<ScrollPane fitToWidth="true" styleClass="root" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javaninjas.careerpathway.pages.quiz.controllers.QuizQuestionController">
 
-    <!-- Header with progress dots and page indicator -->
-    <top>
-        <VBox alignment="TOP_CENTER" spacing="8" style="-fx-padding:12 20 6 20;">
-            <StackPane prefHeight="40" minHeight="40" maxHeight="40">
-                <!-- header background removed; only progress dots will be shown below -->
-            </StackPane>
+    <VBox alignment="CENTER" spacing="20" style="-fx-padding:12 20;">
 
-            <!-- Progress dots centered at top -->
-            <StackPane style="-fx-padding:8 12 0 12;" prefHeight="40">
-                <ProgressDots fx:id="progressDots" />
-            </StackPane>
+        <!-- Header with progress dots -->
+        <VBox alignment="TOP_CENTER" spacing="8">
+            <ProgressDots fx:id="progressDots" />
         </VBox>
-    </top>
 
-    <!-- Quiz content card: center the card and its children -->
-    <center>
-        <StackPane BorderPane.alignment="CENTER" style="-fx-padding:18 12 18 12;">
-            <VBox fx:id="questionsContainer"
-                  alignment="CENTER"
-                  spacing="18"
-                  prefWidth="520"
-                  maxWidth="720"
-                  styleClass="card"
-                  style="-fx-padding:28; -fx-background-radius:12; -fx-effect: dropshadow(two-pass-box, rgba(0,0,0,0.08), 10, 0, 0, 4);">
-                <!-- Question content will be dynamically added here by the controller -->
-            </VBox>
-        </StackPane>
-    </center>
-
-    <!-- Bottom controls: pinned to bottom center -->
-    <bottom>
-        <VBox alignment="CENTER" spacing="12" style="-fx-padding:12 20 24 20;">
-            <HBox alignment="CENTER" spacing="24">
-                <Button fx:id="prevButton"
-                        onAction="#handlePrev"
-                        text="Go Back"
-                        prefWidth="180"
-                        prefHeight="44"
-                        style="-fx-background-color:#95B4DB; -fx-text-fill:white; -fx-font-weight:600; -fx-background-radius:10;" />
-
-                <Button fx:id="nextButton"
-                        onAction="#handleNext"
-                        text="Continue"
-                        prefWidth="180"
-                        prefHeight="44"
-                        style="-fx-background-color:#357ABD; -fx-text-fill:white; -fx-font-weight:700; -fx-background-radius:10;" />
-
-                <Button fx:id="submitButton"
-                        onAction="#handleSubmit"
-                        text="Submit"
-                        prefWidth="180"
-                        prefHeight="44"
-                        visible="false"
-                        style="-fx-background-color:#28A745; -fx-text-fill:white; -fx-font-weight:700; -fx-background-radius:10;" />
-            </HBox>
+        <!-- Quiz content card -->
+        <VBox fx:id="questionsContainer" alignment="CENTER" maxWidth="720" prefWidth="520" spacing="18" style="-fx-padding:28; -fx-background-radius:12; -fx-effect: dropshadow(two-pass-box, rgba(0,0,0,0.08), 10, 0, 0, 4);" styleClass="card">
+            <!-- Question content will be dynamically added here by the controller -->
         </VBox>
-    </bottom>
-</BorderPane>
+
+        <!-- Bottom controls -->
+        <HBox alignment="CENTER" spacing="24">
+            <Button fx:id="prevButton" onAction="#handlePrev" prefHeight="44" prefWidth="180" style="-fx-background-color:#357abd; -fx-text-fill:white; -fx-font-weight:600; -fx-background-radius:10;" text="Go Back" />
+
+            <Button fx:id="nextButton" onAction="#handleNext" prefHeight="44" prefWidth="180" style="-fx-background-color:#357ABD; -fx-text-fill:white; -fx-font-weight:700; -fx-background-radius:10;" text="Continue" />
+
+            <Button fx:id="submitButton" onAction="#handleSubmit" prefHeight="44" prefWidth="180" style="-fx-background-color:#28A745; -fx-text-fill:white; -fx-font-weight:700; -fx-background-radius:10;" text="Submit" visible="false" />
+        </HBox>
+    </VBox>
+</ScrollPane>
