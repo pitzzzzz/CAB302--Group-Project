@@ -19,6 +19,10 @@ public class QuizResult {
         this.answer = answer;
     }
 
+    public QuizResult(String id2, Object object, Object question2, Object answer2) {
+        //TODO Auto-generated constructor stub
+    }
+
     public int getId() {
         return id;
     }

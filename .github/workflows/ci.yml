@@ -1,4 +1,4 @@
-name: CI Build and Test (Windows)
+name: CI Run Tests (Windows)
 
 on:
   push:
@@ -7,10 +7,11 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  test:
     runs-on: windows-latest
+
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Set up Java 21
@@ -19,5 +20,5 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
 
-      - name: Build and run tests
-        run: .\mvnw clean install
+      - name: Run tests only
+        run: .\mvnw test
