@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Test class for the Career model.
  * Focuses on testing constructor, getters/setters, equals/hashCode, and utility methods.
  */
-class CareerTest {
+public class careerTest {
 
     // --- Test Data ---
     private static final String ID = "uuid-12345";

@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Test class for the CareerPlan and its nested class WeekPlan.
  * Verifies the correct functionality of all getters and setters.
  */
-class CareerPlanTest {
+public class careerPlanTest {
 
     // Test Data for WeekPlan
     private static final int WEEK_ONE = 1;

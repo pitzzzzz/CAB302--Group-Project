@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Test class for PersonalityResult model.
  * Verifies the correct functionality of all getters and setters.
  */
-class PersonalityResultTest {
+public class personalResultTest {
 
     // Test Data
     private static final List<String> CORE_TRAITS_DATA = Arrays.asList("Extroverted", "Analytical", "Conscientious");

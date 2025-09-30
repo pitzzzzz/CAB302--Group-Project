@@ -52,7 +52,7 @@ class MockCareer {
  * Test class for the CareerStrategyPlan model.
  * Focuses on testing constructor, getters/setters, utility methods, and equals/hashCode.
  */
-class CareerStrategyPlanTest {
+public class careerStrategyplan {
 
     // --- Test Data ---
     private static final String PLAN_ID = "plan-001";

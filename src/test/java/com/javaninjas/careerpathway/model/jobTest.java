@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Test class for the Job model.
  * Focuses on constructor, getters/setters, final field immutability, and toString.
  */
-class JobTest {
+public class jobTest {
 
     // --- Test Data ---
     private static final int JOB_ID = 5001;

@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Test class for the ChatResponse model.
  * Verifies the correct behavior of the setter and getter for the 'answer' field.
  */
-class ChatResponseTest {
+public class chatResponeTest {
 
     // Test Data
     private static final String VALID_ANSWER = "This is a test response from the chat model.";

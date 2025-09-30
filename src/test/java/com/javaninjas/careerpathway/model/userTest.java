@@ -36,7 +36,7 @@ class MockQuizResult extends QuizResult {
 // -------------------------------------------
 
 
-class UserTest {
+public class userTest {
 
     // --- Test Data ---
     private static final int USER_ID = 1;

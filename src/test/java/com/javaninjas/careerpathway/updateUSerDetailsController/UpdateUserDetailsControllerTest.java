@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Test class for UpdateUserDetailsController.
  */
-class UpdateUserDetailsControllerTest {
+public class UpdateUserDetailsControllerTest {
 
     private final UpdateUserDetailsController controller = new UpdateUserDetailsController();
 

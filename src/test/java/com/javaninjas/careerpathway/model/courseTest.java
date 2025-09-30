@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Test class for the Course model.
  * Focuses on constructor, getters/setters, and the toString method.
  */
-class CourseTest {
+public class courseTest {
 
     // --- Test Data ---
     private static final int ID = 101;
