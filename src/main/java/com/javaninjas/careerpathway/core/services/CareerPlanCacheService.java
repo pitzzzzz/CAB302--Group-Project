@@ -73,9 +73,24 @@ public class CareerPlanCacheService {
             if (entry != null) {
                 cache.remove(cacheKey);
             }
+
+            // Attempt to load a persisted plan from DB for this user
+            try {
+                com.javaninjas.careerpathway.core.auth.UserSession session = UserSession.getInstance();
+                if (session != null) {
+                    int userId = session.getUserID();
+                    com.javaninjas.careerpathway.core.integrations.openai.models.CareerPlan persisted = com.javaninjas.careerpathway.db.dao.CareerPlanDao.getPlan(userId, careerName);
+                    if (persisted != null) {
+                        // Cache it in-memory for faster subsequent access
+                        cache.put(cacheKey, new CacheEntry(persisted));
+                        return persisted;
+                    }
+                }
+            } catch (Exception ignored) {}
+
             return null;
         }
-        
+
         return entry.getPlan();
     }
     
@@ -89,6 +104,14 @@ public class CareerPlanCacheService {
         String cacheKey = generateCacheKey(careerName);
         if (cacheKey != null && plan != null) {
             cache.put(cacheKey, new CacheEntry(plan));
+            // Persist plan to DB so it survives restarts
+            try {
+                com.javaninjas.careerpathway.core.auth.UserSession session = UserSession.getInstance();
+                if (session != null) {
+                    int userId = session.getUserID();
+                    com.javaninjas.careerpathway.db.dao.CareerPlanDao.saveOrUpdatePlan(userId, careerName, plan);
+                }
+            } catch (Exception ignored) {}
         }
     }
     
@@ -168,8 +191,19 @@ public class CareerPlanCacheService {
         if (cacheKey == null) {
             return null;
         }
-        
         CacheEntry entry = cache.get(cacheKey);
-        return entry != null ? entry.getTimestamp() : null;
+        if (entry != null) return entry.getTimestamp();
+
+        // Fall back to persisted DB timestamp
+        try {
+            com.javaninjas.careerpathway.core.auth.UserSession session = UserSession.getInstance();
+            if (session != null) {
+                int userId = session.getUserID();
+                java.time.LocalDateTime ts = com.javaninjas.careerpathway.db.dao.CareerPlanDao.getPlanTimestamp(userId, careerName);
+                return ts;
+            }
+        } catch (Exception ignored) {}
+
+        return null;
     }
 }
