@@ -22,19 +22,23 @@
 
     <!-- Main content card -->
     <center>
-        <VBox spacing="18" alignment="TOP_CENTER" style="-fx-padding: 32;">
-            <VBox style="-fx-background-color: white; -fx-background-radius: 18; -fx-padding: 32; -fx-effect: dropshadow(gaussian, #d1d1d1, 12, 0.2, 0, 2);">
-                <Label text="You're All Set!" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2a2a2a; -fx-padding: 0 0 12 0;" />
-                <Label text="See your personalized insights below." style="-fx-font-size: 14px; -fx-text-fill: #888; -fx-padding: 0 0 18 0;" />
+        <!-- Use a container that grows to fill available vertical space -->
+        <VBox spacing="12" alignment="TOP_CENTER" style="-fx-padding: 20 32 12 32;">
+            <VBox fx:id="resultCard" style="-fx-background-color: white; -fx-background-radius: 18; -fx-padding: 24; -fx-effect: dropshadow(gaussian, #d1d1d1, 12, 0.2, 0, 2);" maxWidth="900" maxHeight="Infinity">
+                <Label text="You're All Set!" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2a2a2a; -fx-padding: 0 0 8 0;" />
+                <Label text="See your personalized insights below." style="-fx-font-size: 14px; -fx-text-fill: #888; -fx-padding: 0 0 12 0;" />
                 <Separator />
-                <VBox fx:id="detailsBox" spacing="12" alignment="TOP_LEFT" style="-fx-padding: 18 0 0 0;" />
+                <VBox fx:id="detailsBox" spacing="12" alignment="TOP_LEFT" style="-fx-padding: 12 0 0 0;" />
             </VBox>
+            <VBox.vgrow>
+                <Priority fx:constant="ALWAYS" />
+            </VBox.vgrow>
         </VBox>
     </center>
 
     <!-- Bottom controls -->
     <bottom>
-        <HBox alignment="CENTER" style="-fx-padding: 32 0 32 0;">
+        <HBox alignment="CENTER" style="-fx-padding: 12 0 18 0;">
             <Region minWidth="0" HBox.hgrow="ALWAYS" />
             <Button fx:id="dashboardButton" text="Go To Dashboard"
                     minWidth="180" maxWidth="240" prefHeight="44"

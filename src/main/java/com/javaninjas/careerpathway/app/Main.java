@@ -2,6 +2,8 @@ package com.javaninjas.careerpathway.app;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import javafx.stage.Screen;
+import javafx.geometry.Rectangle2D;
 
 import java.io.IOException;
 
@@ -11,7 +13,6 @@ import com.javaninjas.careerpathway.db.connection.DatabaseInitializer;
 public class Main extends Application {
 
     private final int windowWidth = 1200;
-    private final int windowHeight = 800;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -25,9 +26,10 @@ public class Main extends Application {
         NavigationService.init(stage);
         stage.setTitle("CAB302: Career Pathway Application");
 
-        // Set window dimensions
-        stage.setWidth(windowWidth); 
-        stage.setHeight(windowHeight);
+    // Set window width (keep existing) and set height to full visual screen height
+    stage.setWidth(windowWidth);
+    Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+    stage.setHeight(primaryScreenBounds.getHeight());
 
         // Load first page
         NavigationService.go("/com/javaninjas/careerpathway/pages/login/views/LoginPage.fxml");

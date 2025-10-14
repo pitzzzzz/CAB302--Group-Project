@@ -14,10 +14,23 @@ public class QuizResultController {
     @FXML
     private VBox detailsBox;
     @FXML
+    private VBox resultCard;
+    @FXML
     private Button dashboardButton;
 
     @FXML
     private void initialize() {
+        // Make resultCard grow to use available center space (keep some padding)
+        javafx.application.Platform.runLater(() -> {
+            if (resultCard != null && resultCard.getParent() instanceof javafx.scene.layout.Region parent) {
+                double avail = parent.getBoundsInParent().getHeight() - 40; // leave some padding
+                if (avail > 200) {
+                    resultCard.setPrefHeight(avail);
+                    resultCard.setMaxHeight(avail);
+                }
+            }
+        });
+
         QuizPathwaySuggestion suggestion = QuizResultService.getSuggestion();
 
         if (suggestion == null) {
