@@ -11,6 +11,7 @@ import com.javaninjas.careerpathway.db.connection.Database;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ComboBox;
+import com.javaninjas.careerpathway.core.services.NavigationService;
 
 import java.sql.SQLException;
 
@@ -31,6 +32,8 @@ public class PathwayPopupController {
     private Label courseCodeLabel;
     @FXML
     private Label qtacCodeLabel;
+    @FXML
+    private Label selectionRankLabel;
     @FXML
     private Label courseDescriptionLabel;
 
@@ -58,7 +61,7 @@ public class PathwayPopupController {
 
         jobNameLabel.setText(job.getJobName());
         jobDescriptionLabel.setText(job.getJobDescription());
-        salaryLabel.setText(String.valueOf(job.getJobSalary()));
+    salaryLabel.setText(com.javaninjas.careerpathway.core.utils.CurrencyUtils.formatCurrency(job.getJobSalary()));
 
         // Use cached course data to avoid repeated database queries
         Course course = JobCacheService.getCourseById(job.getCourseID());
@@ -68,6 +71,17 @@ public class PathwayPopupController {
             courseCodeLabel.setText(course.getCourseCode());
             qtacCodeLabel.setText(course.getQtacCode());
             courseDescriptionLabel.setText(course.getDescription());
+            // Try to fetch selection rank from entry requirements table and display it
+            try {
+                Integer rank = com.javaninjas.careerpathway.db.dao.CourseDao.getSelectionRankForCourse(course.getCourseID());
+                if (rank != null) {
+                    selectionRankLabel.setText(String.valueOf(rank));
+                } else {
+                    selectionRankLabel.setText("N/A");
+                }
+            } catch (Exception ex) {
+                selectionRankLabel.setText("N/A");
+            }
         } else {
             courseNameLabel.setText("No course found");
         }
@@ -111,6 +125,15 @@ public class PathwayPopupController {
             // Close the popup after successful selection
             if (closeHandler != null) {
                 closeHandler.run();
+            }
+
+            // Refresh the pathway page so saved selection is reflected immediately
+            try {
+                // Navigate to the pathway view (reuse application's NavigationService)
+                NavigationService.go("/com/javaninjas/careerpathway/pages/dashboard/views/userPathway.fxml");
+            } catch (Exception ex) {
+                // Fallback: nothing critical, log for debugging
+                System.err.println("Failed to reload pathway page after selecting career: " + ex.getMessage());
             }
             
         } catch (SQLException e) {

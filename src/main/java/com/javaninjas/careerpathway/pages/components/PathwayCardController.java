@@ -79,8 +79,8 @@ public class PathwayCardController {
         }
         jobDescription.setText(description);
 
-        // Format and set salary
-        pathwaySalaryLabel.setText("Avg salary - $" + job.getJobSalary());
+    // Format and set salary
+    pathwaySalaryLabel.setText("Avg salary - " + com.javaninjas.careerpathway.core.utils.CurrencyUtils.formatCurrency(job.getJobSalary()));
     }
 
     private void updateFavouriteState() {

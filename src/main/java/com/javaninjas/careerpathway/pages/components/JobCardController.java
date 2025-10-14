@@ -43,7 +43,7 @@ public class JobCardController {
         if (job != null) {
             titleLabel.setText(job.getJobName());
             descLabel.setText(job.getJobDescription());
-            salaryLabel.setText("Avg salary - $" + job.getJobSalary());
+            salaryLabel.setText("Avg salary - " + com.javaninjas.careerpathway.core.utils.CurrencyUtils.formatCurrency(job.getJobSalary()));
         }
     }
 

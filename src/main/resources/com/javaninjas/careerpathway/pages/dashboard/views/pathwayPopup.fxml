@@ -125,6 +125,10 @@
                                     <Label text="QTAC:" style="-fx-font-weight: 600; -fx-font-size: 12; -fx-text-fill: #6b7280;" />
                                     <Label fx:id="qtacCodeLabel" style="-fx-font-size: 14; -fx-text-fill: #374151; -fx-background-color: #dbeafe; -fx-background-radius: 6; -fx-padding: 4 8;" />
                                 </HBox>
+                                <HBox spacing="8" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                    <Label text="ATAR:" style="-fx-font-weight: 600; -fx-font-size: 12; -fx-text-fill: #6b7280;" />
+                                    <Label fx:id="selectionRankLabel" style="-fx-font-size: 14; -fx-text-fill: #374151; -fx-background-color: #fff7ed; -fx-background-radius: 6; -fx-padding: 4 8;" />
+                                </HBox>
                             </HBox>
                             
                             <VBox spacing="6">

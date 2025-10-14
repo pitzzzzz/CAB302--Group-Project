@@ -64,4 +64,29 @@ public class CourseDao {
 
         return null;
     }
+
+    /**
+     * Returns the selection rank for a given course from the CourseEntryRequirements table.
+     * Returns null if no entry exists or on error.
+     */
+    public static Integer getSelectionRankForCourse(int courseId) {
+        String sql = "SELECT SelectionRank FROM CourseEntryRequirements WHERE CourseID = ? LIMIT 1";
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, courseId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    int rank = rs.getInt("SelectionRank");
+                    if (rs.wasNull()) return null;
+                    return rank;
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }

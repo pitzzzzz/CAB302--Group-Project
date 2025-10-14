@@ -118,7 +118,11 @@ public class PathwayController {
                 // Show job recommendations mode
                 showJobRecommendations();
                 String recommendedCourse = session != null ? session.getRecommendedCourse() : null;
-                java.util.List<com.javaninjas.careerpathway.core.models.Job> allJobs = com.javaninjas.careerpathway.db.dao.JobDao.getAllJobs();
+                int userIdLocal = session != null ? session.getUserID() : 0;
+
+                // Try to get cached recommendations for this user so they don't reshuffle on each load
+                java.util.List<com.javaninjas.careerpathway.core.models.Job> cached = com.javaninjas.careerpathway.core.services.JobRecommendationCacheService.getCachedRecommendations(userIdLocal);
+                java.util.List<com.javaninjas.careerpathway.core.models.Job> allJobs = com.javaninjas.careerpathway.core.services.JobCacheService.getAllJobs();
                 java.util.List<com.javaninjas.careerpathway.core.models.Job> filteredJobs = new java.util.ArrayList<>();
                 if (recommendedCourse != null && !recommendedCourse.isBlank()) {
                     java.util.List<com.javaninjas.careerpathway.core.models.Course> allCourses = com.javaninjas.careerpathway.db.dao.CourseDao.getAllCourses();
@@ -137,11 +141,22 @@ public class PathwayController {
                     }
                 }
                 java.util.List<com.javaninjas.careerpathway.core.models.Job> jobsToShow;
-                if (!filteredJobs.isEmpty()) {
+                if (cached != null && !cached.isEmpty()) {
+                    jobsToShow = cached;
+                } else if (!filteredJobs.isEmpty()) {
                     jobsToShow = filteredJobs;
+                    // Cache filtered list for this user (so refresh keeps the same items)
+                    if (userIdLocal > 0) {
+                        com.javaninjas.careerpathway.core.services.JobRecommendationCacheService.cacheRecommendations(userIdLocal, jobsToShow);
+                    }
                 } else {
-                    java.util.Collections.shuffle(allJobs);
-                    jobsToShow = allJobs.subList(0, Math.min(5, allJobs.size()));
+                    // Do a deterministic but simple selection so results are stable for the session.
+                    // We'll select the first N jobs from the cached job list (which is stable while cache is valid)
+                    int take = Math.min(5, allJobs.size());
+                    jobsToShow = allJobs.subList(0, take);
+                    if (userIdLocal > 0) {
+                        com.javaninjas.careerpathway.core.services.JobRecommendationCacheService.cacheRecommendations(userIdLocal, jobsToShow);
+                    }
                 }
                 
                 // Populate job cards
@@ -331,29 +346,98 @@ public class PathwayController {
                     com.javaninjas.careerpathway.core.services.CareerPlanCacheService.getCachedPlan(suggestedCareer);
                 
                 if (plan == null) {
-                    // No cached plan found, fetch from AI
+                    // No cached plan found, fetch from AI asynchronously
                     String apiKey = com.javaninjas.careerpathway.core.config.OpenAIConfig.getApiKey();
-                    if (apiKey != null && !apiKey.isBlank()) {
-                        // Show loading indicator while fetching
-                        Label loadingLabel = new Label("Loading your personalized career pathway...");
-                        loadingLabel.setStyle("-fx-font-size: 16px; -fx-text-fill: #666; -fx-padding: 20;");
-                        weeklyGuideContainer.getChildren().add(loadingLabel);
-                        
-                        com.javaninjas.careerpathway.core.integrations.openai.ChatGptClient client = new com.javaninjas.careerpathway.core.integrations.openai.ChatGptClient(apiKey);
-                        com.javaninjas.careerpathway.core.integrations.openai.ChatGptService chatGptService = new com.javaninjas.careerpathway.core.integrations.openai.ChatGptService(client);
-                        plan = chatGptService.requestCareerPlan(suggestedCareer);
-                        
-                        // Cache the plan for future requests
-                        if (plan != null) {
-                            com.javaninjas.careerpathway.core.services.CareerPlanCacheService.cachePlan(suggestedCareer, plan);
-                        }
-                        
-                        // Remove loading indicator
-                        weeklyGuideContainer.getChildren().remove(loadingLabel);
-                    } else {
+                    if (apiKey == null || apiKey.isBlank()) {
                         weeklyGuideContainer.getChildren().add(new Label("AI is not enabled. No API key found."));
                         return;
                     }
+
+                    // Show loading indicator while fetching
+                    Label loadingLabel = new Label("Loading your personalized career pathway...");
+                    loadingLabel.setStyle("-fx-font-size: 16px; -fx-text-fill: #666; -fx-padding: 20;");
+                    weeklyGuideContainer.getChildren().add(loadingLabel);
+
+                    // Run the external API call off the JavaFX thread using shared executor
+                    final String careerToRequest = suggestedCareer;
+                    com.javaninjas.careerpathway.core.services.ApiRequestExecutor.supplyAsync(() -> {
+                        try {
+                            com.javaninjas.careerpathway.core.integrations.openai.ChatGptClient client = new com.javaninjas.careerpathway.core.integrations.openai.ChatGptClient(apiKey);
+                            com.javaninjas.careerpathway.core.integrations.openai.ChatGptService chatGptService = new com.javaninjas.careerpathway.core.integrations.openai.ChatGptService(client);
+                            return chatGptService.requestCareerPlan(careerToRequest);
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                            return null;
+                        }
+                    }).whenComplete((fetchedPlan, throwable) -> {
+                        // Always update UI on FX thread
+                        Platform.runLater(() -> {
+                            // Remove loading indicator
+                            weeklyGuideContainer.getChildren().remove(loadingLabel);
+
+                            if (throwable != null) {
+                                weeklyGuideContainer.getChildren().add(new Label("Error fetching plan from AI: " + throwable.getMessage()));
+                                throwable.printStackTrace();
+                                return;
+                            }
+
+                            if (fetchedPlan != null) {
+                                // Cache the plan for future requests
+                                com.javaninjas.careerpathway.core.services.CareerPlanCacheService.cachePlan(careerToRequest, fetchedPlan);
+                            }
+
+                            // Display the career plan (either cached or newly fetched)
+                            com.javaninjas.careerpathway.core.integrations.openai.models.CareerPlan planToShow = fetchedPlan != null ? fetchedPlan : com.javaninjas.careerpathway.core.services.CareerPlanCacheService.getCachedPlan(careerToRequest);
+                            if (planToShow == null) {
+                                weeklyGuideContainer.getChildren().add(new Label("Could not fetch a weekly plan from AI."));
+                                return;
+                            }
+
+                            try {
+                                for (com.javaninjas.careerpathway.core.integrations.openai.models.CareerPlan.WeekPlan weekPlan : planToShow.getPlan()) {
+                                    VBox weekCard = new VBox(16);
+                                    weekCard.setStyle("-fx-background-color: linear-gradient(to bottom right, #ffffff, #f8fafc); -fx-border-radius: 20; -fx-background-radius: 20; -fx-padding: 24; -fx-border-color: #e2e8f0; -fx-border-width: 1.5; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 16, 0.2, 0, 4);");
+                                    HBox weekHeader = new HBox(16);
+                                    weekHeader.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
+                                    javafx.scene.layout.StackPane progressCircle = new javafx.scene.layout.StackPane();
+                                    javafx.scene.shape.Circle circle = new javafx.scene.shape.Circle(20);
+                                    circle.setFill(javafx.scene.paint.Color.web("#3b82f6"));
+                                    circle.setStroke(javafx.scene.paint.Color.web("#1e40af"));
+                                    circle.setStrokeWidth(2);
+                                    Label weekNumber = new Label(String.valueOf(weekPlan.getWeek()));
+                                    weekNumber.setStyle("-fx-font-size: 14px; -fx-font-weight: 700; -fx-text-fill: white;");
+                                    progressCircle.getChildren().addAll(circle, weekNumber);
+                                    Label weekTitle = new Label("Week " + weekPlan.getWeek());
+                                    weekTitle.setStyle("-fx-font-size: 20px; -fx-font-weight: 700; -fx-text-fill: #1e293b;");
+                                    weekHeader.getChildren().addAll(progressCircle, weekTitle);
+                                    VBox tasksSection = new VBox(8);
+                                    if (weekPlan.getTasks() != null) {
+                                        for (String task : weekPlan.getTasks()) {
+                                            Label taskLabel = new Label("• " + task);
+                                            taskLabel.setStyle("-fx-font-size: 15px; -fx-text-fill: #374151; -fx-wrap-text: true; -fx-padding: 8 0;");
+                                            taskLabel.setWrapText(true);
+                                            tasksSection.getChildren().add(taskLabel);
+                                        }
+                                    }
+                                    weekCard.getChildren().addAll(weekHeader, tasksSection);
+                                    weeklyGuideContainer.getChildren().add(weekCard);
+                                }
+
+                                java.time.LocalDateTime cacheTime = com.javaninjas.careerpathway.core.services.CareerPlanCacheService.getCacheTimestamp(careerToRequest);
+                                if (cacheTime != null) {
+                                    Label cacheInfo = new Label("📅 Plan generated at " + cacheTime.format(java.time.format.DateTimeFormatter.ofPattern("HH:mm:ss")));
+                                    cacheInfo.setStyle("-fx-font-size: 11px; -fx-text-fill: #64748b; -fx-padding: 12 0 0 0; -fx-font-style: italic;");
+                                    weeklyGuideContainer.getChildren().add(cacheInfo);
+                                }
+                            } catch (Exception ex) {
+                                weeklyGuideContainer.getChildren().add(new Label("Error displaying plan: " + ex.getMessage()));
+                                ex.printStackTrace();
+                            }
+                        });
+                    });
+
+                    // Return early since the display will be handled in the async completion
+                    return;
                 }
                 
                 // Display the career plan (from cache or newly fetched)
@@ -421,6 +505,8 @@ public class PathwayController {
         // Clear all caches when user logs out to prevent data leakage between sessions
         com.javaninjas.careerpathway.core.services.CareerPlanCacheService.clearUserCache();
         com.javaninjas.careerpathway.core.services.JobCacheService.clearCache();
+        // Clear job recommendation cache as well (per-user cache)
+        com.javaninjas.careerpathway.core.services.JobRecommendationCacheService.clearCache();
         
         UserSession.logout();
         NavigationService.go("/com/javaninjas/careerpathway/pages/login/views/LoginPage.fxml");
