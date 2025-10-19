@@ -24,7 +24,7 @@
 
                 <!-- Scrollable content area -->
                 <ScrollPane fx:id="contentScrollPane" fitToWidth="true" VBox.vgrow="ALWAYS" style="-fx-background-color:transparent;" vbarPolicy="AS_NEEDED" hbarPolicy="NEVER">
-                    <VBox fx:id="scrollableContent" spacing="18" style="-fx-padding:0 32 32 32; -fx-alignment:CENTER;">
+                    <VBox fx:id="scrollableContent" spacing="18" style="-fx-padding:0 32 32 32; -fx-alignment:TOP_CENTER;">
                         <!-- Job recommendations container (shown when no suggested career) -->
                         <VBox fx:id="jobRecommendationsSection" spacing="18" managed="true" visible="true">
                             <!-- Row of job cards: scrollable and responsive -->
@@ -33,7 +33,7 @@
                         </VBox>
 
                         <!-- Weekly guide container (shown when suggested career exists) -->
-                        <VBox fx:id="weeklyGuideSection" managed="false" visible="false" style="-fx-max-height: 500px; -fx-min-height: 300px; -fx-pref-height: 400px;">
+                        <VBox fx:id="weeklyGuideSection" managed="false" visible="false" VBox.vgrow="ALWAYS" style="-fx-padding:0;">
                             <!-- Weekly guide header -->
                             <VBox spacing="16" style="-fx-padding: 0 0 16 0;">
                                 <HBox alignment="CENTER_LEFT" spacing="12">
@@ -45,11 +45,9 @@
                                 </HBox>
                             </VBox>
                             
-                            <ScrollPane fx:id="weeklyGuideScrollPane" fitToWidth="true" VBox.vgrow="ALWAYS" style="-fx-background-color:transparent;" vbarPolicy="AS_NEEDED" hbarPolicy="NEVER" styleClass="weekly-guide-scroll">
-                                <VBox fx:id="weeklyGuideContainer" spacing="16" style="-fx-padding: 8 0 24 0;">
-                                    <!-- Weekly guide content will be added dynamically -->
-                                </VBox>
-                            </ScrollPane>
+                            <VBox fx:id="weeklyGuideContainer" spacing="16" VBox.vgrow="ALWAYS" style="-fx-padding: 8 0 24 0; -fx-alignment:TOP_LEFT;">
+                                <!-- Weekly guide content will be added dynamically -->
+                            </VBox>
                         </VBox>
                     </VBox>
                 </ScrollPane>

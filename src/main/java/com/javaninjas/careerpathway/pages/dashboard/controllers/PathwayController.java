@@ -62,9 +62,6 @@ public class PathwayController {
     @FXML
     private VBox weeklyGuideSection;
 
-    @FXML
-    private javafx.scene.control.ScrollPane weeklyGuideScrollPane;
-
     // keep a copy of the initial job card nodes so we can restore them if they are accidentally removed
     private java.util.List<javafx.scene.Node> jobCardNodes = new java.util.ArrayList<>();
 
