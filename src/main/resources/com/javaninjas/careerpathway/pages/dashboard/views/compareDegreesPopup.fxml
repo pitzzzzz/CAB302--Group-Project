@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.javaninjas.careerpathway.pages.dashboard.controllers.CompareDegreesPopupController"
+           style="-fx-background-color: rgba(0,0,0,0);">
+    <BorderPane prefWidth="920" styleClass="card compare-popup">
+        <padding>
+            <Insets top="20" right="24" bottom="24" left="24" />
+        </padding>
+
+        <top>
+            <HBox alignment="CENTER_RIGHT" spacing="8">
+                <!-- keep only a compact close button in the popup header to avoid duplicating the page header -->
+                <Button text="✕" onAction="#handleClose" mnemonicParsing="false" styleClass="close-btn" />
+            </HBox>
+        </top>
+
+        <center>
+            <VBox spacing="16">
+                <Label fx:id="comparisonSummaryLabel" text="See how these pathways stack up." styleClass="hero-subtitle" />
+
+                <HBox spacing="20" alignment="CENTER">
+                    <VBox spacing="10" styleClass="compare-card" prefWidth="300">
+                        <Label fx:id="leftTitleLabel" text="Degree A" styleClass="feature-title" wrapText="true" />
+                        <Label fx:id="leftSalaryLabel" text="" style="-fx-font-size:14; -fx-text-fill:#059669; -fx-font-weight:700;" />
+                        <Label fx:id="leftCourseLabel" text="Course details" styleClass="label-muted" wrapText="true" />
+                        <Label fx:id="leftSelectionRankLabel" text="Selection rank: N/A" styleClass="label-muted" />
+                        <Label text="Key focus areas" styleClass="section-header" />
+                        <VBox fx:id="leftHighlightsContainer" spacing="8" />
+                    </VBox>
+
+                    <VBox spacing="10" alignment="CENTER" prefWidth="180">
+                        <Label text="VS" style="-fx-font-size:20; -fx-font-weight:800; -fx-text-fill:#2563eb;" />
+                        <Label fx:id="salaryDifferenceLabel" text="Salary difference" styleClass="badge-diff" wrapText="true" />
+                        <Label fx:id="skillDifferenceLabel" text="Skill emphasis difference" styleClass="badge-skill" wrapText="true" />
+                    </VBox>
+
+                    <VBox spacing="10" styleClass="compare-card" prefWidth="300">
+                        <Label fx:id="rightTitleLabel" text="Degree B" styleClass="feature-title" wrapText="true" />
+                        <Label fx:id="rightSalaryLabel" text="" style="-fx-font-size:14; -fx-text-fill:#059669; -fx-font-weight:700;" />
+                        <Label fx:id="rightCourseLabel" text="Course details" styleClass="label-muted" wrapText="true" />
+                        <Label fx:id="rightSelectionRankLabel" text="Selection rank: N/A" styleClass="label-muted" />
+                        <Label text="Key focus areas" styleClass="section-header" />
+                        <VBox fx:id="rightHighlightsContainer" spacing="8" />
+                    </VBox>
+                </HBox>
+
+                <Label fx:id="additionalInsightsLabel" text="" styleClass="label-muted" wrapText="true" />
+            </VBox>
+        </center>
+
+        <!-- bottom Close removed to avoid duplication; use the top close icon -->
+    </BorderPane>
+</StackPane>

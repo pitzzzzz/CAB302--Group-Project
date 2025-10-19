@@ -30,6 +30,8 @@
     <Region VBox.vgrow="ALWAYS" />
 
        <HBox alignment="CENTER_LEFT" spacing="12">
+              <CheckBox fx:id="compareToggle" text="Compare" style="-fx-font-size:12; -fx-font-weight:600;" />
+
               <!-- Learn More Button expands to take available space -->
               <Button fx:id="learnMoreBtn" text="Learn More" HBox.hgrow="ALWAYS"
                             prefHeight="36"

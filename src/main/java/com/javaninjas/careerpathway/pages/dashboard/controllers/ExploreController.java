@@ -11,7 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
@@ -20,19 +20,29 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ExploreController {
 
     @FXML private FlowPane pathwayCardsContainer;
     @FXML private Button logoutBtn;
-    @FXML private TextField searchField;
+    @FXML private Button compareButton;
+    @FXML private Button clearCompareButton;
+    @FXML private Label compareSlotOneLabel;
+    @FXML private Label compareSlotTwoLabel;
+    @FXML private Label compareHintLabel;
     
     // Popup overlay fields
     @FXML private StackPane rootPane;
     @FXML private BorderPane mainContent;
     @FXML private Pane blurPane;
     private Node popupContent;
+
+    private final List<Job> compareSelections = new ArrayList<>(2);
+    private final Map<Integer, PathwayCardController> cardControllerMap = new HashMap<>();
     @FXML public void initialize() {
         loadPathwayCards();
         
@@ -44,33 +54,6 @@ public class ExploreController {
             }
         } catch (Exception ignored) {}
     }
-
-
-    @FXML
-    public void handleSearch(ActionEvent actionEvent) {
-        String query = searchField.getText().trim();
-        if (query.isEmpty()) {
-            loadPathwayCards();
-            return;
-        }
-        // Filter cards based on search query using cache
-        pathwayCardsContainer.getChildren().clear();
-        try {
-            List<Job> filteredJobs = JobCacheService.getJobsBySearch(query);
-            for (Job job : filteredJobs) {
-                VBox pathwayCard = createPathwayCard(job);
-                if (pathwayCard != null) {
-                    pathwayCardsContainer.getChildren().add(pathwayCard);
-                }
-            }
-            System.out.println("Search found " + filteredJobs.size() + " matching jobs for query: " + query);
-        } catch (Exception e) {
-            System.err.println("Error during search: " + e.getMessage());
-            e.printStackTrace();
-        }
-
-    }
-
     /**
      * Loads all job pathways and creates cards for them
      */
@@ -79,6 +62,7 @@ public class ExploreController {
 
         // Clear existing cards
         pathwayCardsContainer.getChildren().clear();
+        cardControllerMap.clear();
 
         try {
             // Get all jobs from cache or database
@@ -98,6 +82,8 @@ public class ExploreController {
             System.err.println("Error loading pathway cards: " + e.getMessage());
             e.printStackTrace();
         }
+
+        updateCompareUi();
     }
 
     /**
@@ -121,6 +107,10 @@ public class ExploreController {
                 cardController.setOnLearnMore(selectedJob -> {
                     openPathwayPopup(selectedJob);
                 });
+
+                cardController.setCompareSelectionHandler(this::handleCompareSelection);
+                cardController.setCompareSelected(isJobSelectedForCompare(job));
+                cardControllerMap.put(job.getJobID(), cardController);
             }
 
             return cardNode;
@@ -141,6 +131,88 @@ public class ExploreController {
             return;
         }
         showPopup(selectedJob);
+    }
+
+    private void handleCompareSelection(Job job, boolean selected) {
+        if (job == null) return;
+
+        if (selected) {
+            if (isJobSelectedForCompare(job)) {
+                return;
+            }
+            if (compareSelections.size() >= 2) {
+                PathwayCardController controller = cardControllerMap.get(job.getJobID());
+                if (controller != null) {
+                    controller.setCompareSelected(false);
+                }
+                if (compareHintLabel != null) {
+                    compareHintLabel.setText("Only two degrees can be compared at once.");
+                    compareHintLabel.setStyle("-fx-font-size:12; -fx-text-fill:#dc2626;");
+                }
+                return;
+            }
+            compareSelections.add(job);
+        } else {
+            compareSelections.removeIf(j -> j.getJobID() == job.getJobID());
+        }
+
+        if (compareHintLabel != null) {
+            if (compareSelections.size() == 2) {
+                compareHintLabel.setText("Ready to compare! Click Compare to see the breakdown.");
+                compareHintLabel.setStyle("-fx-font-size:12; -fx-text-fill:#0f766e;");
+            } else {
+                compareHintLabel.setText("Select any two cards below to activate comparison.");
+                compareHintLabel.setStyle("-fx-font-size:12; -fx-text-fill:#64748b;");
+            }
+        }
+
+        updateCompareUi();
+    }
+
+    private boolean isJobSelectedForCompare(Job job) {
+        return compareSelections.stream().anyMatch(j -> j.getJobID() == job.getJobID());
+    }
+
+    private void updateCompareUi() {
+        if (compareSlotOneLabel != null) {
+            String text = compareSelections.size() >= 1 ? compareSelections.get(0).getJobName() : "First degree";
+            compareSlotOneLabel.setText(text);
+        }
+        if (compareSlotTwoLabel != null) {
+            String text = compareSelections.size() >= 2 ? compareSelections.get(1).getJobName() : "Second degree";
+            compareSlotTwoLabel.setText(text);
+        }
+
+        if (compareButton != null) {
+            compareButton.setDisable(compareSelections.size() != 2);
+        }
+        if (clearCompareButton != null) {
+            clearCompareButton.setDisable(compareSelections.isEmpty());
+        }
+    }
+
+    @FXML
+    private void handleCompare(ActionEvent event) {
+        if (compareSelections.size() < 2) return;
+        Job first = compareSelections.get(0);
+        Job second = compareSelections.get(1);
+        openComparePopup(first, second);
+    }
+
+    @FXML
+    private void handleClearCompare(ActionEvent event) {
+        for (Job job : new ArrayList<>(compareSelections)) {
+            PathwayCardController controller = cardControllerMap.get(job.getJobID());
+            if (controller != null) {
+                controller.setCompareSelected(false);
+            }
+        }
+        compareSelections.clear();
+        if (compareHintLabel != null) {
+            compareHintLabel.setText("Select any two cards below to activate comparison.");
+            compareHintLabel.setStyle("-fx-font-size:12; -fx-text-fill:#64748b;");
+        }
+        updateCompareUi();
     }
     
     /**
@@ -204,6 +276,32 @@ public class ExploreController {
 
         } catch (Exception e) {
             System.err.println("Error showing pathway popup: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private void openComparePopup(Job first, Job second) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/javaninjas/careerpathway/pages/dashboard/views/compareDegreesPopup.fxml"));
+            popupContent = loader.load();
+            com.javaninjas.careerpathway.pages.dashboard.controllers.CompareDegreesPopupController controller = loader.getController();
+            controller.setJobs(first, second);
+            controller.setCloseHandler(this::hidePopup);
+
+            rootPane.getChildren().removeIf(n -> n != blurPane && n != mainContent);
+
+            rootPane.getChildren().add(popupContent);
+            StackPane.setAlignment(popupContent, Pos.CENTER);
+
+            if (blurPane != null) {
+                blurPane.setVisible(true);
+                blurPane.toFront();
+                blurPane.setMouseTransparent(false);
+            }
+            if (mainContent != null) mainContent.setEffect(new BoxBlur(5, 5, 3));
+            if (popupContent != null) popupContent.toFront();
+        } catch (Exception e) {
+            System.err.println("Error showing comparison popup: " + e.getMessage());
             e.printStackTrace();
         }
     }

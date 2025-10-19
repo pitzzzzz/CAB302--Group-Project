@@ -10,12 +10,14 @@ import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 // ...existing imports...
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 public class PathwayCardController {
@@ -27,15 +29,23 @@ public class PathwayCardController {
     @FXML private Button learnMoreBtn;
     @FXML private javafx.scene.control.ToggleButton favouriteBtn;
     @FXML private Label heartLabel;
+    @FXML private CheckBox compareToggle;
 
     private Job job;
     private Consumer<Job> onLearnMore;
     private boolean isFavourite = false;
+    private BiConsumer<Job, Boolean> compareSelectionHandler;
+    private String baseCardStyle;
+    private boolean suppressCompareEvent = false;
 
     @FXML
     private void initialize() {
+        if (cardRoot != null) {
+            baseCardStyle = cardRoot.getStyle();
+        }
         setupHoverAnimation();
         setupLearnMoreAction();
+        setupCompareToggle();
     }
 
     /**
@@ -54,6 +64,25 @@ public class PathwayCardController {
      */
     public void setOnLearnMore(Consumer<Job> handler) {
         this.onLearnMore = handler;
+    }
+
+    /**
+     * Sets a handler that will be notified when the compare toggle changes state.
+     */
+    public void setCompareSelectionHandler(BiConsumer<Job, Boolean> handler) {
+        this.compareSelectionHandler = handler;
+    }
+
+    /**
+     * Allows parent controllers to programmatically update the compare toggle state.
+     */
+    public void setCompareSelected(boolean selected) {
+        if (compareToggle != null) {
+            suppressCompareEvent = true;
+            compareToggle.setSelected(selected);
+            suppressCompareEvent = false;
+        }
+        updateCompareVisual(selected);
     }
 
     /**
@@ -81,6 +110,27 @@ public class PathwayCardController {
 
     // Format and set salary
     pathwaySalaryLabel.setText("Avg salary - " + com.javaninjas.careerpathway.core.utils.CurrencyUtils.formatCurrency(job.getJobSalary()));
+    }
+
+    private void setupCompareToggle() {
+        if (compareToggle == null) return;
+        compareToggle.selectedProperty().addListener((obs, oldVal, newVal) -> {
+            updateCompareVisual(Boolean.TRUE.equals(newVal));
+            if (!suppressCompareEvent && compareSelectionHandler != null && job != null) {
+                compareSelectionHandler.accept(job, Boolean.TRUE.equals(newVal));
+            }
+        });
+    }
+
+    private void updateCompareVisual(boolean selected) {
+        if (cardRoot == null) return;
+        if (selected) {
+            cardRoot.setStyle((baseCardStyle != null ? baseCardStyle : "") + " -fx-border-color:#3b82f6; -fx-border-width:2;");
+        } else {
+            if (baseCardStyle != null) {
+                cardRoot.setStyle(baseCardStyle);
+            }
+        }
     }
 
     private void updateFavouriteState() {

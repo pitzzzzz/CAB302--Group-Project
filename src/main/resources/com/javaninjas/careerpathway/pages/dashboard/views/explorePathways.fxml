@@ -20,17 +20,24 @@
 
             <Button fx:id="logoutBtn" onAction="#handleLogout" style="-fx-background-radius:16; -fx-border-radius:16; -fx-padding:6 12;" text="Logout" AnchorPane.rightAnchor="16" AnchorPane.topAnchor="8" />
 
-            <VBox alignment="CENTER" spacing="8" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="50">
+            <VBox alignment="CENTER" spacing="12" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="50">
                 <Label style="-fx-font-size: 14; -fx-text-fill: #666666;" text="Explore different career pathways and find the one that's right for you" />
-            <FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="20.0">
-               <children>
-                      <TextField fx:id="searchField" maxWidth="600" prefWidth="400" promptText="Search pathways..." style="-fx-background-radius: 16; -fx-border-radius: 16; -fx-padding: 8 12; -fx-border-color: #ccc; -fx-border-width: 1;" />
-                      <Button onAction="#handleSearch" style="-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-background-radius: 16; -fx-padding: 8 20; -fx-font-weight: 600; -fx-font-size: 14;" text="Search" />
-               </children>
-            </FlowPane>
-            <!-- Filter component included here -->
-            <fx:include source="/com/javaninjas/careerpathway/pages/dashboard/components/pathwayFilter.fxml" />
-            
+
+                <HBox alignment="CENTER" spacing="16">
+                    <Label text="Select two degrees to compare" style="-fx-font-size: 14; -fx-font-weight: 600; -fx-text-fill: #1f2933;" />
+                    <HBox alignment="CENTER" spacing="6">
+                        <Label fx:id="compareSlotOneLabel" text="First degree" style="-fx-background-color:#e2e8f0; -fx-padding:6 12; -fx-background-radius:14; -fx-font-size:12; -fx-text-fill:#1f2933;" />
+                        <Label text="vs" style="-fx-font-size:12; -fx-text-fill:#475569;" />
+                        <Label fx:id="compareSlotTwoLabel" text="Second degree" style="-fx-background-color:#e2e8f0; -fx-padding:6 12; -fx-background-radius:14; -fx-font-size:12; -fx-text-fill:#1f2933;" />
+                    </HBox>
+                    <Button fx:id="compareButton" text="Compare" disable="true" onAction="#handleCompare" style="-fx-background-color:#3b82f6; -fx-text-fill:white; -fx-background-radius:16; -fx-padding:8 20; -fx-font-weight:600; -fx-font-size:13;" />
+                    <Button fx:id="clearCompareButton" text="Clear" disable="true" onAction="#handleClearCompare" style="-fx-background-color:transparent; -fx-border-color:#cbd5e1; -fx-border-radius:16; -fx-padding:8 20; -fx-font-size:13; -fx-text-fill:#475569;" />
+                </HBox>
+
+                <Label fx:id="compareHintLabel" text="Select any two cards below to activate comparison." style="-fx-font-size:12; -fx-text-fill:#64748b;" />
+
+                <!-- Filter component included here -->
+                <fx:include source="/com/javaninjas/careerpathway/pages/dashboard/components/pathwayFilter.fxml" />
             </VBox>
 
 

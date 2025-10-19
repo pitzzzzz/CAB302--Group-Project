@@ -282,6 +282,58 @@
     -fx-border-color: #cbd5e1;
 }
 
+/* Compare popup specific styles */
+.compare-popup {
+    -fx-background-color: white;
+    -fx-background-radius: 20px;
+    -fx-border-color: #e6eef8;
+    -fx-border-width: 1px;
+    -fx-padding: 18 20 18 20;
+    -fx-effect: dropshadow(gaussian, rgba(15,23,42,0.12), 22, 0.2, 0, 8);
+}
+
+.compare-card {
+    -fx-background-color: linear-gradient(to bottom right, #ffffff, #f8fbff);
+    -fx-background-radius: 14px;
+    -fx-padding: 18;
+    -fx-border-color: #e6eef8;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(12,18,38,0.04), 10, 0, 0, 6);
+}
+
+.badge-diff {
+    -fx-font-size:12px;
+    -fx-text-fill: #065f46;
+    -fx-background-color: #d1fae5;
+    -fx-background-radius: 10px;
+    -fx-padding: 8 10;
+}
+
+.badge-skill {
+    -fx-font-size:12px;
+    -fx-text-fill: #3b2a8f;
+    -fx-background-color: #efe9ff;
+    -fx-background-radius: 10px;
+    -fx-padding: 8 10;
+}
+
+.compare-popup .header {
+    -fx-font-size:20px;
+}
+
+.close-btn {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: #374151;
+    -fx-font-size: 14px;
+    -fx-padding: 6 8;
+}
+.close-btn:hover {
+    -fx-background-color: rgba(0,0,0,0.04);
+    -fx-text-fill: #111827;
+}
+
+
 .task-checkbox {
     -fx-background-color: #ffffff;
     -fx-border-color: #d1d5db;
