@@ -37,7 +37,7 @@
                 <Label fx:id="compareHintLabel" text="Select any two cards below to activate comparison." style="-fx-font-size:12; -fx-text-fill:#64748b;" />
 
                 <!-- Filter component included here -->
-                <fx:include source="/com/javaninjas/careerpathway/pages/dashboard/components/pathwayFilter.fxml" />
+                <fx:include fx:id="filterComponent" source="/com/javaninjas/careerpathway/pages/dashboard/components/pathwayFilter.fxml" />
             </VBox>
 
 

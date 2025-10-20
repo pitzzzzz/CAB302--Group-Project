@@ -301,6 +301,16 @@
     -fx-effect: dropshadow(gaussian, rgba(12,18,38,0.04), 10, 0, 0, 6);
 }
 
+.compare-center-card {
+    -fx-background-color: white;
+    -fx-background-radius: 12px;
+    -fx-padding: 14 12;
+    -fx-border-color: #e6eef8;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(12,18,38,0.06), 10, 0, 0, 6);
+    -fx-alignment: center;
+}
+
 .badge-diff {
     -fx-font-size:12px;
     -fx-text-fill: #065f46;
@@ -317,6 +327,23 @@
     -fx-padding: 8 10;
 }
 
+/* Center column styles to make the VS label and badges visible and centered */
+.compare-center {
+    -fx-alignment: center;
+    -fx-padding: 6 4;
+}
+.compare-center .badge-diff,
+.compare-center .badge-skill {
+    -fx-text-alignment: center;
+    -fx-alignment: center;
+    -fx-background-color: rgba(255,255,255,0.9);
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-padding: 10 12;
+    -fx-effect: dropshadow(gaussian, rgba(12,18,38,0.06), 6, 0, 0, 4);
+}
+.hero-subtitle { -fx-text-alignment: center; -fx-alignment: center; -fx-text-fill: #334155; }
+
 .compare-popup .header {
     -fx-font-size:20px;
 }
@@ -331,6 +358,33 @@
 .close-btn:hover {
     -fx-background-color: rgba(0,0,0,0.04);
     -fx-text-fill: #111827;
+}
+
+/* Popup header and close visibility tweaks */
+.popup-header {
+    -fx-alignment: center-left;
+    -fx-padding: 0 0 8 0;
+}
+.popup-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #0f1724;
+}
+.close-btn {
+    -fx-background-color: white;
+    -fx-background-radius: 999px;
+    -fx-padding: 6 10;
+    -fx-effect: dropshadow(gaussian, rgba(12,18,38,0.12), 8, 0, 0, 4);
+}
+.close-btn:hover {
+    -fx-background-color: #f3f4f6;
+}
+
+.popup-title {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 6, 0, 0, 2);
+}
+.close-btn {
+    -fx-text-fill: #0b1220;
 }
 
 

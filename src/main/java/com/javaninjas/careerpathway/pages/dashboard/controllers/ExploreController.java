@@ -53,6 +53,27 @@ public class ExploreController {
                 blurPane.setMouseTransparent(true);
             }
         } catch (Exception ignored) {}
+
+        // Load the filter component via FXMLLoader so we can obtain its controller and wire callbacks
+        try {
+            FXMLLoader f = new FXMLLoader(getClass().getResource("/com/javaninjas/careerpathway/pages/dashboard/components/pathwayFilter.fxml"));
+            javafx.scene.Parent filterNode = f.load();
+            com.javaninjas.careerpathway.pages.dashboard.components.PathwayFilterComponent filterController = f.getController();
+            // Replace the placeholder include node (if present) with the loaded node
+            javafx.scene.Node placeholder = rootPane.lookup("#filterComponent");
+            if (placeholder != null && placeholder.getParent() instanceof javafx.scene.layout.Pane parent) {
+                int idx = parent.getChildren().indexOf(placeholder);
+                if (idx >= 0) parent.getChildren().set(idx, filterNode);
+            }
+
+            // Wire callbacks
+            if (filterController != null) {
+                filterController.setOnApply(this::applyFilters);
+                filterController.setOnClear(this::clearFiltersFromComponent);
+            }
+        } catch (Exception ignored) {
+            // If this fails, the include may already be present; fallback is to leave it alone
+        }
     }
     /**
      * Loads all job pathways and creates cards for them
@@ -84,6 +105,79 @@ public class ExploreController {
         }
 
         updateCompareUi();
+    }
+
+    /**
+     * Called by filter component to apply the provided filter state.
+     */
+    private void applyFilters(com.javaninjas.careerpathway.pages.dashboard.components.PathwayFilterState state) {
+        try {
+            if (state == null) {
+                loadPathwayCards();
+                return;
+            }
+
+            List<Job> jobs = JobCacheService.getAllJobs();
+
+            // Filter by tags (match against course major or job name)
+            List<String> tags = state.getTags();
+            if (tags != null && !tags.isEmpty()) {
+                jobs = jobs.stream().filter(j -> {
+                    // Try to match job name or course major
+                    String name = j.getJobName() == null ? "" : j.getJobName().toLowerCase();
+                    com.javaninjas.careerpathway.core.models.Course c = com.javaninjas.careerpathway.db.dao.CourseDao.getCourseById(j.getCourseID());
+                    String major = c != null && c.getCourseMajor() != null ? c.getCourseMajor().toLowerCase() : "";
+                    return tags.stream().anyMatch(t -> name.contains(t.toLowerCase()) || major.contains(t.toLowerCase()));
+                }).toList();
+            }
+
+            // Filter by salary range
+            String salary = state.getSalary();
+            if (salary != null && !salary.equals("Any")) {
+                switch (salary) {
+                    case "<$50k" -> jobs = jobs.stream().filter(j -> j.getJobSalary() < 50000).toList();
+                    case "$50k-$80k" -> jobs = jobs.stream().filter(j -> j.getJobSalary() >= 50000 && j.getJobSalary() <= 80000).toList();
+                    case "$80k-$120k" -> jobs = jobs.stream().filter(j -> j.getJobSalary() > 80000 && j.getJobSalary() <= 120000).toList();
+                    case ">$120k" -> jobs = jobs.stream().filter(j -> j.getJobSalary() > 120000).toList();
+                }
+            }
+
+            // Satisfaction mapping (simple heuristic): Low -> salary < 60000, Medium -> 60000-90000, High -> >90000
+            String sat = state.getSatisfaction();
+            if (sat != null && !sat.equals("Any")) {
+                switch (sat) {
+                    case "Low" -> jobs = jobs.stream().filter(j -> j.getJobSalary() < 60000).toList();
+                    case "Medium" -> jobs = jobs.stream().filter(j -> j.getJobSalary() >= 60000 && j.getJobSalary() <= 90000).toList();
+                    case "High" -> jobs = jobs.stream().filter(j -> j.getJobSalary() > 90000).toList();
+                }
+            }
+
+            // Rebuild cards using filtered list
+            pathwayCardsContainer.getChildren().clear();
+            cardControllerMap.clear();
+            for (Job job : jobs) {
+                VBox pathwayCard = createPathwayCard(job);
+                if (pathwayCard != null) pathwayCardsContainer.getChildren().add(pathwayCard);
+            }
+
+        } catch (Exception e) {
+            System.err.println("Error applying filters: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private void clearFiltersFromComponent() {
+        // reset filter component UI and reload all cards
+        try {
+            javafx.scene.Node included = rootPane.lookup("#filterComponent");
+            if (included != null && included.getProperties().containsKey("_controller_instance")) {
+                Object controller = included.getProperties().get("_controller_instance");
+                if (controller instanceof com.javaninjas.careerpathway.pages.dashboard.components.PathwayFilterComponent pfc) {
+                    pfc.resetFilters();
+                }
+            }
+        } catch (Exception ignored) {}
+        loadPathwayCards();
     }
 
     /**

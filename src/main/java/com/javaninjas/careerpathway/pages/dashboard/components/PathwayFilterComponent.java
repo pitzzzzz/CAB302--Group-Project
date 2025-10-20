@@ -7,6 +7,7 @@ import javafx.scene.layout.FlowPane;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * Modular filter component controller for explorePathways view.
@@ -74,10 +75,9 @@ public class PathwayFilterComponent {
      */
     @FXML
     private void applyFilters() {
-        System.out.println("Applying filters: " + getSelectedFilters());
-        // Ideally fire a custom event or call a callback. For now, set a user data
-        // property
-        // Consumers should obtain values via getters.
+        if (onApply != null) {
+            onApply.accept(getSelectedFilters());
+        }
     }
 
     @FXML
@@ -89,6 +89,7 @@ public class PathwayFilterComponent {
             tb.setSelected(false);
             tb.setStyle("");
         });
+        if (onClear != null) onClear.run();
     }
 
     public List<String> getSelectedTags() {
@@ -111,6 +112,22 @@ public class PathwayFilterComponent {
 
     public PathwayFilterState getSelectedFilters() {
         return new PathwayFilterState(getSelectedTags(), getSalaryFilter(), getSatisfactionFilter());
+    }
+
+    // Callbacks so container controller can react to apply/clear
+    private Consumer<PathwayFilterState> onApply;
+    private Runnable onClear;
+
+    public void setOnApply(Consumer<PathwayFilterState> onApply) {
+        this.onApply = onApply;
+    }
+
+    public void setOnClear(Runnable onClear) {
+        this.onClear = onClear;
+    }
+
+    public void resetFilters() {
+        clearFilters();
     }
 
 }
